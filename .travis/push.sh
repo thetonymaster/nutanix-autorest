@@ -16,7 +16,7 @@ setup_git() {
   git config --global user.name "Antonio Cabrera"
 }
 
-commit_website_files() {
+commit_powershell_files() {
   git add .
   git commit -m "Travis build: $TRAVIS_BUILD_NUMBER"
 }
@@ -29,5 +29,5 @@ upload_files() {
 clone_repo
 move_files
 setup_git
-commit_website_files
+commit_powershell_files
 upload_files
