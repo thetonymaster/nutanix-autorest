@@ -5,18 +5,18 @@ clone_repo() {
 }
 
 move_files() {
-  mv generated ${REPO}/generated
+  cd ${REPO}
+  pwd
+  git checkout ${BRANCH}
+  mv ../generated ${REPO}/generated
 }
 
 setup_git() {
-  cd ${REPO}
   git config --global user.email "antonio.cabreraglz@gmail.com"
   git config --global user.name "Antonio Cabrera"
 }
 
 commit_website_files() {
-  pwd
-  git checkout ${BRANCH}
   git add .
   git commit -m "Travis build: $TRAVIS_BUILD_NUMBER"
 }
