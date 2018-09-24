@@ -2,7 +2,7 @@
 
 setup_git() {
   git config --global user.email "antonio.cabreraglz@gmail.com"
-  git config --global user.name "Travis CI"
+  git config --global user.name "Antonio Cabrera"
 }
 
 commit_website_files() {
