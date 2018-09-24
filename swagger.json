@@ -4,6 +4,7 @@
         "description": "Move programming from the user to the machine.",
         "title": "Nutanix Intentful API"
     },
+    "host" : "35.196.200.179:9440",
     "paths" : {
     	"/access_control_policies/list": {
             "post": {
@@ -91,7 +92,42 @@
             "type": "basic"
         }
     },
-    "definitions" : {
+    "definitions" : {"user_status": {
+            "title": "Response Kind",
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "default": "user",
+                    "readOnly": true,
+                    "type": "string",
+                    "description": "The kind name",
+                    "x-ntnx-enum": [
+                        "user"
+                    ]
+                },
+                "code": {
+                    "readOnly": true,
+                    "type": "integer",
+                    "description": "The HTTP error code."
+                },
+                "message_list": {
+                    "items": {
+                        "$ref": "#/definitions/message_resource"
+                    },
+                    "readOnly": true,
+                    "type": "array"
+                },
+                "state": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "api_version": {
+                    "readOnly": true,
+                    "type": "string"
+                }
+            },
+            "description": "The status of a REST API call. Only used when there is a failure to\nreport.\n"
+        },
     	"access_control_policy_list_metadata": {
             "title": "Metadata for access_control_policy list",
             "type": "object",
@@ -178,7 +214,7 @@
             "type": "object",
             "properties": {
                 "entities": {
-                    "type": "array"
+                    "type": "string"
                 },
                 "api_version": {
                     "type": "string"
@@ -375,6 +411,284 @@
                 }
             },
             "description": "message."
+        },
+        "user_metadata": {
+            "title": "user metadata",
+            "required": [
+                "kind"
+            ],
+            "type": "object",
+            "properties": {
+                "last_update_time": {
+                    "readOnly": true,
+                    "type": "string",
+                    "description": "UTC date and time in RFC-3339 format when user was last updated\n",
+                    "format": "date-time"
+                },
+                "kind": {
+                    "default": "user",
+                    "readOnly": true,
+                    "type": "string",
+                    "description": "The kind name",
+                    "x-ntnx-enum": [
+                        "user"
+                    ]
+                },
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                    "type": "string",
+                    "description": "user uuid",
+                    "format": "UUID"
+                },
+                "project_reference": {
+                    "description": "The project the user is in.",
+                    "$ref": "#/definitions/project_reference"
+                },
+                "spec_version": {
+                    "type": "integer",
+                    "description": "Version number of the latest spec."
+                },
+                "creation_time": {
+                    "readOnly": true,
+                    "type": "string",
+                    "description": "UTC date and time in RFC-3339 format when user was created\n",
+                    "format": "date-time"
+                },
+                "spec_hash": {
+                    "type": "string",
+                    "description": "Hash of the spec. This will be returned from server.\n"
+                },
+                "owner_reference": {
+                    "$ref": "#/definitions/user_reference"
+                },
+                "categories": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "type": "object",
+                    "description": "Categories for the user"
+                },
+                "name": {
+                    "readOnly": true,
+                    "type": "string",
+                    "description": "user name",
+                    "maxLength": 64
+                }
+            },
+            "description": "The user kind metadata"
+        },
+        "access_control_policy_reference": {
+            "title": "Reference to a access_control_policy",
+            "required": [
+                "kind",
+                "uuid"
+            ],
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "default": "access_control_policy",
+                    "readOnly": true,
+                    "type": "string",
+                    "description": "The kind name",
+                    "x-ntnx-enum": [
+                        "access_control_policy"
+                    ]
+                },
+                "name": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                    "type": "string",
+                    "format": "UUID"
+                }
+            },
+            "description": "The reference to a access_control_policy"
+        },
+        "resource_domain_resources_status": {
+            "title": "Resource Domain Status",
+            "required": [
+                "resources"
+            ],
+            "properties": {
+                "resources": {
+                    "items": {
+                        "$ref": "#/definitions/resource_utilization_status"
+                    },
+                    "type": "array",
+                    "description": "The utilization/limit for resource types"
+                }
+            },
+            "description": "The status for a resource domain (limits and values)"
+        },
+        "project_reference": {
+            "title": "Reference to a project",
+            "required": [
+                "kind",
+                "uuid"
+            ],
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "default": "project",
+                    "readOnly": true,
+                    "type": "string",
+                    "description": "The kind name",
+                    "x-ntnx-enum": [
+                        "project"
+                    ]
+                },
+                "name": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                    "type": "string",
+                    "format": "UUID"
+                }
+            },
+            "description": "The reference to a project"
+        },
+        "directory_service_user_status": {
+            "title": "Directory Service user Response.",
+            "type": "object",
+            "properties": {
+                "user_principal_name": {
+                    "type": "string",
+                    "description": "The UserPrincipalName of the user from the directory service. It will be same as default user principal name if no upn suffix is enabled for user logon name in directory service.\n",
+                    "maxLength": 104
+                },
+                "directory_service_reference": {
+                    "description": "Directory service reference if the user type is directory service.\n",
+                    "$ref": "#/definitions/directory_service_reference"
+                },
+                "default_user_principal_name": {
+                    "type": "string",
+                    "description": "The Default UserPrincipalName of the user from the directory service. This is of format samAccountName@domain_name.\n",
+                    "maxLength": 104
+                }
+            },
+            "description": "A Directory Service user."
+        },
+        "user_reference": {
+            "title": "Reference to a user",
+            "required": [
+                "kind",
+                "uuid"
+            ],
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "default": "user",
+                    "readOnly": true,
+                    "type": "string",
+                    "description": "The kind name",
+                    "x-ntnx-enum": [
+                        "user"
+                    ]
+                },
+                "name": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                    "type": "string",
+                    "format": "UUID"
+                }
+            },
+            "description": "The reference to a user"
+        },
+        "resource_utilization_status": {
+            "title": "Resource Utilization Status",
+            "required": [
+                "resource_type",
+                "units",
+                "value"
+            ],
+            "properties": {
+                "units": {
+                    "type": "string",
+                    "description": "The units of the resource type"
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "The resource consumption limit (unspecified is unlimited)"
+                },
+                "resource_type": {
+                    "type": "string",
+                    "description": "The type of resource (for example storage, CPUs)"
+                },
+                "value": {
+                    "type": "integer",
+                    "description": "The amount of resource consumed"
+                }
+            },
+            "description": "stores resource utilization and limits for a domain"
+        },
+        "directory_service_reference": {
+            "title": "Reference to a directory_service",
+            "required": [
+                "kind",
+                "uuid"
+            ],
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "default": "directory_service",
+                    "readOnly": true,
+                    "type": "string",
+                    "description": "The kind name",
+                    "x-ntnx-enum": [
+                        "directory_service"
+                    ]
+                },
+                "name": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                    "type": "string",
+                    "format": "UUID"
+                }
+            },
+            "description": "The reference to a directory_service"
+        },
+        "directory_service_user": {
+            "title": "Directory Service user Definition.",
+            "type": "object",
+            "properties": {
+                "user_principal_name": {
+                    "type": "string",
+                    "description": "The UserPrincipalName of the user from the directory service.\n",
+                    "maxLength": 104
+                },
+                "directory_service_reference": {
+                    "description": "Directory service reference if the user type is directory service.\n",
+                    "$ref": "#/definitions/directory_service_reference"
+                }
+            },
+            "description": "A Directory Service user."
+        },
+        "user_input_resource": {
+            "description": "User Resource Definition.",
+            "title": "User Resource Definition.",
+            "type": "object",
+            "properties": {
+                "directory_service_user": {
+                    "$ref": "#/definitions/directory_service_user"
+                }
+            },
+            "x-ntnx-one-of": [
+                {
+                    "required": [
+                        "directory_service_user"
+                    ]
+                }
+            ]
         }
     },
     "security": [
