@@ -8,7 +8,5 @@ install:
   - sudo apt-get update
   - sudo apt-get install dotnet-sdk-2.0.0 -y
   - npm install autorest@latest -g
-  - git clone https://github.com/Azure/autorest.incubator.git
-  - cd autorest.incubator && npm install
 script:
-  - autorest --use="autorest.incubator" --powershell --input-file=nutanix.json
+  - autorest --use="@microsoft.azure/autorest.incubator@preview" --namespace=Nutanix.Powershell --powershell --input-file=swagger.json --clear-output-folder=true  --output-folder=generated
