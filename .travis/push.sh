@@ -11,8 +11,8 @@ commit_website_files() {
 }
 
 upload_files() {
-  git remote set-url origin https://${GH_TOKEN}@github.com/thetonymaster/nutanix-autorest.git > /dev/null 2>&1
-  git push --quiet --set-upstream origin master
+  git remote add origin-generated https://${GH_TOKEN}@github.com/thetonymaster/nutanix-autorest.git > /dev/null 2>&1
+  git push --set-upstream origin-generated master
 }
 
 setup_git
