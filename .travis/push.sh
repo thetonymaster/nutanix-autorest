@@ -5,7 +5,7 @@ clone_repo() {
 }
 
 move_files() {
-  mv -R generated ${REPO}/generated
+  mv generated ${REPO}/generated
 }
 
 setup_git() {
@@ -15,6 +15,7 @@ setup_git() {
 }
 
 commit_website_files() {
+  pwd
   git checkout ${BRANCH}
   git add .
   git commit -m "Travis build: $TRAVIS_BUILD_NUMBER"
