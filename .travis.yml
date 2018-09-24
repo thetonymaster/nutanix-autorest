@@ -9,7 +9,6 @@ install:
 - sudo apt-get install dotnet-sdk-2.0.0 -y
 - npm install autorest@latest -g
 script:
-- autorest --use="@microsoft.azure/autorest.incubator@1.0.0" --namespace=Nutanix.Powershell
-  --powershell --input-file=swagger.json --clear-output-folder=true  --output-folder=generated
+- autorest
 after_success:
   - .travis/push.sh
