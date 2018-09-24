@@ -8,7 +8,7 @@ move_files() {
   cd ${REPO}
   pwd
   git checkout ${BRANCH}
-  mv ../generated ${REPO}/generated
+  mv ../generated generated
 }
 
 setup_git() {
