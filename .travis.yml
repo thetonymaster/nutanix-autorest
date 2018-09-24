@@ -1,19 +1,24 @@
 language: node_js
 node_js:
-  - '10'
+- '10'
 install:
-  - wget -q https://packages.microsoft.com/config/ubuntu/14.04/packages-microsoft-prod.deb
-  - sudo dpkg -i packages-microsoft-prod.deb
-  - sudo apt-get install apt-transport-https -y
-  - sudo apt-get update
-  - sudo apt-get install dotnet-sdk-2.0.0 -y
-  - npm install autorest@latest -g
+- wget -q https://packages.microsoft.com/config/ubuntu/14.04/packages-microsoft-prod.deb
+- sudo dpkg -i packages-microsoft-prod.deb
+- sudo apt-get install apt-transport-https -y
+- sudo apt-get update
+- sudo apt-get install dotnet-sdk-2.0.0 -y
+- npm install autorest@latest -g
 script:
-  - autorest --use="@microsoft.azure/autorest.incubator@preview" --namespace=Nutanix.Powershell --powershell --input-file=swagger.yaml --clear-output-folder=true  --output-folder=generated
+- autorest --use="@microsoft.azure/autorest.incubator@preview" --namespace=Nutanix.Powershell
+  --powershell --input-file=swagger.yaml --clear-output-folder=true  --output-folder=generated
 after_success:
-  - git config --global user.email "travis@travis-ci.org"
-  - git config --global user.name "Travis CI"
-  - git add .
-  - git commit --message "Travis build $TRAVIS_BUILD_NUMBER"
-  - git remote add origin https://${GH_TOKEN}@github.com/thetonymaster/nutanix-autorest.git > /dev/null 2>&1
-  - git push --quiet --set-upstream origin master
+- git config --global user.email "travis@travis-ci.org"
+- git config --global user.name "Travis CI"
+- git add .
+- git commit --message "Travis build $TRAVIS_BUILD_NUMBER"
+- git remote add origin https://${GH_TOKEN}@github.com/thetonymaster/nutanix-autorest.git
+  > /dev/null 2>&1
+- git push --quiet --set-upstream origin master
+env:
+  matrix:
+    secure: V9ZWPxe3cDVP0r558jC0t4Pyx6BSKMi/Q6ri9nMt1cSv4VKqJrcRIh3CpelepzeXlNmcX/AVuuZQcQprRBHYIWuKbBEbb+tzZ6sID00vLO9r8koPi9WTDJ0PYq573hPPnsZAL5QOnzTq2hY6EK2c/FdNwqU8XI3nqgvcNDrqrhyoyL+COI4UezG8x7vYgeySQy1pruw2t78CcME+5k+E3DtxzpWnFsi634/e84Hlplf8tYGCVuUAtjLP7knixH1PbvWZ17Qbn2plVbVGAiwWRLbgHbduRLr18J1ONiif4L3+YKS95MVSCZzwirD+m9awKCHqK9coHWGtZIHBASNzyoWMb6m21JO1z2aycW2x68V3Isea8O99DWOZahgvvN0rL+EIwiWOu8twEurW4PiY4nJBUj4VcrsTqHWRzYz6XXblL/d7ZpXcaSv34McoSIqoWgRd4Q0hqJyhApYA1OzvQVIqtADzebvqZwPF5Nwgm6TPnOkc/ksdkDOcRPgH7kzCHJqpTlLgjZr/1PUiybe1nZCLJNbmS+Ws0cp5/9l7J5xPNgBYFOAsVWLkxUwucrD23vYs5Gjya0VpsJd4HdJaifuJgoLbBBDI7mElhVw13SGzRVGqLNXq+J4FTE2dX3sX86I7fPeFtC2AWZLAiyWDzjAI6aL3YyYhExHOprmgH5Q=
