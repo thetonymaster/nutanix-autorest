@@ -11,4 +11,4 @@ install:
   - git clone https://github.com/Azure/autorest.incubator.git
   - cd autorest.incubator && npm install
 script:
-  - autorest --use=./autorest.incubator --powershell --input-file=nutanix.json
+  - autorest --use="autorest.incubator" --powershell --input-file=nutanix.json
