@@ -10,3 +10,10 @@ install:
   - npm install autorest@latest -g
 script:
   - autorest --use="@microsoft.azure/autorest.incubator@preview" --namespace=Nutanix.Powershell --powershell --input-file=swagger.json --clear-output-folder=true  --output-folder=generated
+after_success:
+  - git config --global user.email "travis@travis-ci.org"
+  - git config --global user.name "Travis CI"
+  - git add .
+  - git commit --message "Travis build $TRAVIS_BUILD_NUMBER"
+  - git remote add origin https://${GH_TOKEN}@github.com/thetonymaster/nutanix-autorest.git > /dev/null 2>&1
+  - git push --quiet --set-upstream origin master
