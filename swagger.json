@@ -42,6 +42,30 @@
                 "x-ntnx-kind": "access_control_policy",
                 "summary": "Get a list of Access Control Policies"
             }
+        },
+        "/users/me": {
+            "get": {
+                "x-ntnx-kind": "user",
+                "summary": "Retrieves currently logged in user.",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/user_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/user_status"
+                        }
+                    }
+                },
+                "tags": [
+                    "users"
+                ],
+                "description": "Displays the user currently logged in."
+            }
         }
     },
     "schemes": [
@@ -103,6 +127,19 @@
             },
             "description": "All api calls that return a list will have this metadata block as input\n"
         },
+        "user": {
+            "title": "User.",
+            "required": [
+                "resources"
+            ],
+            "type": "object",
+            "properties": {
+                "resources": {
+                    "$ref": "#/definitions/user_input_resource"
+                }
+            },
+            "description": "User Input Definition."
+        },
         "access_control_policy_status": {
             "title": "Response Kind",
             "type": "object",
@@ -148,6 +185,196 @@
                 }
             },
             "description": "Response object for intentful operation of access_control_policys"
+        },
+        "user_intent_response": {
+            "title": "user Intent Response",
+            "required": [
+                "api_version",
+                "metadata"
+            ],
+            "type": "object",
+            "properties": {
+                "status": {
+                    "$ref": "#/definitions/user_def_status"
+                },
+                "spec": {
+                    "$ref": "#/definitions/user"
+                },
+                "api_version": {
+                    "type": "string"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/user_metadata"
+                }
+            },
+            "description": "Response object for intentful operations on a user"
+        },
+        "user_def_status": {
+            "title": "User status definition.",
+            "required": [
+                "name",
+                "resources"
+            ],
+            "type": "object",
+            "properties": {
+                "state": {
+                    "type": "string",
+                    "description": "The state of the entity."
+                },
+                "message_list": {
+                    "items": {
+                        "$ref": "#/definitions/message_resource"
+                    },
+                    "type": "array"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the User."
+                },
+                "resources": {
+                    "$ref": "#/definitions/user_status_resource"
+                }
+            },
+            "description": "User status definition."
+        },
+        "user_status_resource": {
+            "title": "User Resource Definition.",
+            "type": "object",
+            "properties": {
+                "access_control_policy_reference_list": {
+                    "items": {
+                        "$ref": "#/definitions/access_control_policy_reference"
+                    },
+                    "type": "array",
+                    "description": "List of ACP references."
+                },
+                "resource_usage_summary": {
+                    "type": "object",
+                    "properties": {
+                        "resource_domain": {
+                            "$ref": "#/definitions/resource_domain_resources_status"
+                        }
+                    }
+                },
+                "display_name": {
+                    "type": "string",
+                    "description": "The display name of the user (common name) provided by the directory service.\n"
+                },
+                "projects_reference_list": {
+                    "items": {
+                        "$ref": "#/definitions/project_reference"
+                    },
+                    "type": "array",
+                    "description": "A list of projects the user is part of."
+                },
+                "user_type": {
+                    "x-ntnx-enum": [
+                        "LOCAL",
+                        "DIRECTORY_SERVICE"
+                    ],
+                    "type": "string"
+                },
+                "directory_service_user": {
+                    "$ref": "#/definitions/directory_service_user_status"
+                }
+            },
+            "description": "User Resource Definition."
+        },
+        "message_resource": {
+            "title": "Message.",
+            "required": [
+                "message",
+                "reason"
+            ],
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "description": "If state is ERROR, a message describing the error."
+                },
+                "reason": {
+                    "x-ntnx-enum": [
+                        "ACCESS_DENIED",
+                        "ACCESS_FORBIDDEN",
+                        "ACTION_NOT_SUPPORTED",
+                        "AUTHENTICATION_REQUIRED",
+                        "BEARER_TOKEN_EXPIRED",
+                        "BEARER_TOKEN_BAD_SIGNATURE",
+                        "CANNOT_MODIFY_PRE_CONFIGURED_REPORT",
+                        "CATEGORY_NAME_VALUE_MISMATCH",
+                        "CONFIGURATION_INCOMPLETE",
+                        "CONCURRENT_REQUESTS_NOT_ALLOWED",
+                        "DEFAULT_PROJECT_UNAVAILABLE",
+                        "DESERIALIZATION_FAILED",
+                        "DIRECTORY_SERVICE_CONNECTION_FAILED",
+                        "ENTITY_ALREADY_EXISTS",
+                        "ENTITY_DELETION_FAILED",
+                        "ENTITY_IS_READONLY",
+                        "ENTITY_NAME_UUID_MISMATCH",
+                        "ENTITY_NOT_CONFIGURED",
+                        "ENTITY_NOT_FOUND",
+                        "ENTITY_SAVE_ERROR",
+                        "ENTITY_UPDATE_FAILED",
+                        "IDEMPOTENCE_UUID_CREATION_FAILED",
+                        "IDP_NOT_REACHABLE",
+                        "INTERNAL_ERROR",
+                        "INVALID_ARGUMENT",
+                        "INVALID_AZ_NAME",
+                        "INVALID_CONTENT_TYPE",
+                        "INVALID_DATA_FORMAT",
+                        "INVALID_PORTAL_CONFIGURATION",
+                        "INVALID_REQUEST",
+                        "INVALID_UUID",
+                        "INVALID_OWNER_REFERENCE",
+                        "INTERNAL_AZ_PROXY_SETUP_ERROR",
+                        "INTERNAL_ERROR_REMOTE_REQUEST",
+                        "INTERNAL_ROLE_ACCESS_DENIED",
+                        "INCORRECT_EVENTS_FILTER",
+                        "MISSING_ATTRIBUTE",
+                        "MISSING_CURRENT_USER_METADATA",
+                        "NAME_NOT_IN_DOMAIN",
+                        "NO_RESPONSE_RECEIVED_FROM_PORTAL",
+                        "PE_NOT_PAIRED_WITH_PC",
+                        "PC_NOT_PAIRED_WITH_XI_PORTAL",
+                        "REFERENCE_ERROR",
+                        "RESERVED_ROLE_ACCESS_DENIED",
+                        "REQUEST_NOT_SUPPORTED",
+                        "REMOTE_CLUSTER_IP_FETCH_FAILED",
+                        "REMOTE_CLUSTER_NOT_CONNECTED",
+                        "REMOTE_CONNECTION_EXISTS",
+                        "REMOTE_CONNECTION_NOT_FOUND",
+                        "REPORT_CONFIG_NOT_FOUND",
+                        "REPORTING_RESOURCE_NOT_FOUND",
+                        "REPORTING_INTERNAL_ERROR",
+                        "SERVICE_UNAVAILABLE",
+                        "SEARCH_RESULT_PROCESSING_ERROR",
+                        "TOO_MANY_REQUESTS",
+                        "UNCONFIGURED_API_KEY",
+                        "UNCONFIGURED_PORTAL_CONNECTION",
+                        "UNSPECIFIED_EVENTS_FILTER",
+                        "UNSUPPORTED_AZ_PROXY_API",
+                        "UNSUPPORTED_MEDIA_TYPE_ERROR",
+                        "UNSUPPORTED_API_VERSION",
+                        "UPLOAD_TO_S3_FAILED",
+                        "VALIDATION_ERROR",
+                        "INVALID_SSL_CERTIFICATE",
+                        "ERROR_ATTACHING_FILE_TO_CASE",
+                        "SPEC_UPDATE_ERROR",
+                        "SPEC_INCOMPATIBLE_ERROR"
+                    ],
+                    "type": "string",
+                    "description": "If state is ERROR, a machine-readable snake-cased string."
+                },
+                "details": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "readOnly": true,
+                    "type": "object",
+                    "description": "Custom key-value details relevant to the status."
+                }
+            },
+            "description": "message."
         }
     },
     "security": [

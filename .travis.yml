@@ -10,7 +10,7 @@ install:
 - npm install autorest@latest -g
 script:
 - autorest --use="@microsoft.azure/autorest.incubator@preview" --namespace=Nutanix.Powershell
-  --powershell --input-file=swagger.yaml --clear-output-folder=true  --output-folder=generated
+  --powershell --input-file=swagger.json --clear-output-folder=true  --output-folder=generated
 after_success:
   - .travis/push.sh
 env:
