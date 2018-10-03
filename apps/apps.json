@@ -1,0 +1,537 @@
+{
+    "paths" : {
+        "/apps": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/app_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/app_intent_input_aP"
+                        }
+                    }
+                ],
+                "tags": [
+                    "apps"
+                ],
+                "x-doc-hide": true,
+                "summary": "Create Application",
+                "x-ntnx-operations": [
+                    "create"
+                ],
+                "x-ntnx-kind": "app",
+                "description": "Given a spec creates a Application with associated metadata\n"
+            }
+        },
+        "/apps/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/app_list_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/app_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "apps"
+                ],
+                "x-doc-hide": true,
+                "summary": "List the Application",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "app",
+                "description": "List the Application with associated metadata"
+            }
+        },
+        "/apps/{uuid}": {
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/app_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/app_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/app_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "apps"
+                ],
+                "x-doc-hide": true,
+                "summary": "Update Application",
+                "x-ntnx-operations": [
+                    "update"
+                ],
+                "x-ntnx-kind": "app",
+                "description": "Given a spec and Application UUID, update Application\n"
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/app_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/app_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "apps"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get Application",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "app",
+                "description": "Given a UUID, returns a Application definition"
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded"
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID Provided",
+                        "schema": {
+                            "$ref": "#/definitions/app_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "apps"
+                ],
+                "x-doc-hide": true,
+                "summary": "Delete Application",
+                "x-ntnx-operations": [
+                    "delete"
+                ],
+                "x-ntnx-kind": "app",
+                "description": "Delete a Application given its UUID"
+            }
+        },
+        "/apps/{uuid}/actions/{action_uuid}/run": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/app_actionrun_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/app_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "in": "path",
+                        "name": "action_uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "uuid of Action in Application to execute"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/app_actionrun_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "apps"
+                ],
+                "x-doc-hide": true,
+                "summary": "The API to run an action of appplication on provided target.",
+                "x-ntnx-operations": [
+                    "action_run"
+                ],
+                "x-ntnx-kind": "app",
+                "description": "The API to run an action of appplication on provided target."
+            }
+        },
+        "/apps/{uuid}/app_runlogs/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_list"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "apps"
+                ],
+                "x-doc-hide": true,
+                "summary": "List the Runlogs",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "app",
+                "description": "List the runlog with associated metadata"
+            }
+        },
+        "/apps/{uuid}/app_runlogs/{runlog_uuid}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "in": "path",
+                        "name": "runlog_uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "Uuid of runlog to get"
+                    }
+                ],
+                "tags": [
+                    "apps"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get Runlog",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "app",
+                "description": "Given a UUID, returns the runlog"
+            }
+        },
+        "/apps/{uuid}/app_runlogs/{runlog_uuid}/abort": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "in": "path",
+                        "name": "runlog_uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "Uuid of runlog to abort"
+                    }
+                ],
+                "tags": [
+                    "apps"
+                ],
+                "x-doc-hide": true,
+                "summary": "Abort Runlog",
+                "x-ntnx-operations": [
+                    "runlog_abort"
+                ],
+                "x-ntnx-kind": "app",
+                "description": "Abort the given Runlog"
+            }
+        },
+        "/apps/{uuid}/app_runlogs/{runlog_uuid}/output": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_output_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "in": "path",
+                        "name": "runlog_uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "Uuid of runlog to get"
+                    }
+                ],
+                "tags": [
+                    "apps"
+                ],
+                "x-doc-hide": true,
+                "summary": "Returns last 10 lines of output of runlog",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "app",
+                "description": "Returns last ten lines of output"
+            }
+        },
+        "/apps/{uuid}/app_runlogs/{runlog_uuid}/output/download": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "string",
+                            "format": "binary"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "in": "path",
+                        "name": "runlog_uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "Uuid of runlog to get"
+                    }
+                ],
+                "tags": [
+                    "apps"
+                ],
+                "x-doc-hide": true,
+                "summary": "Returns output file for download",
+                "x-ntnx-operations": [
+                    "runlog_download"
+                ],
+                "x-ntnx-kind": "app",
+                "description": "Returns output file for downlaod"
+            }
+        },
+        "/apps/{uuid}/substrates/{substrate_uuid}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/app_substrate_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/app_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "in": "path",
+                        "name": "substrate_uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "Uuid of substrate element to get"
+                    }
+                ],
+                "tags": [
+                    "apps"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get Substrate Element",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "app",
+                "description": "Given a UUID, returns the substrate element"
+            }
+        }
+    }
+}

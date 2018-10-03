@@ -1,0 +1,130 @@
+{
+    "paths" : {
+        "/app_runlogs/archival_policy/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_archive_list_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "app_runlogs"
+                ],
+                "x-doc-hide": true,
+                "summary": "Returns archive information of the runlogs",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "app_runlog",
+                "description": "Returns archive information of the runlogs"
+            }
+        },
+        "/app_runlogs/archival_policy/{uuid}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_archive_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "app_runlogs"
+                ],
+                "x-doc-hide": true,
+                "summary": "Returns archive information of the runlogs",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "app_runlog",
+                "description": "Returns archive information of the runlogs"
+            }
+        },
+        "/app_runlogs/archive_file/{uuid}/download": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "string",
+                            "format": "binary"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/app_runlog_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "app_runlogs"
+                ],
+                "x-doc-hide": true,
+                "summary": "Returns archive containing script and output file for download",
+                "x-ntnx-operations": [
+                    "archive_download"
+                ],
+                "x-ntnx-kind": "app_runlog",
+                "description": "Returns archive containing script and output file for download"
+            }
+        }   
+    }
+}

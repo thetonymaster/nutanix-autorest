@@ -1,0 +1,603 @@
+{
+    "paths" : {
+        "/vm_recovery_points": {
+            "post": {
+                "x-ntnx-permissions": [
+                    "vm_recovery_point.create"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vm_recovery_point"
+                ],
+                "x-doc-hide": true,
+                "summary": "Create kind recovery point",
+                "x-ntnx-operations": [
+                    "create"
+                ],
+                "x-ntnx-kind": "vm_recovery_point",
+                "description": "Given an intentful spec, creates a recovery point with associated\nmetadata\n"
+            }
+        },
+        "/vm_recovery_points/list": {
+            "post": {
+                "x-ntnx-permissions": [
+                    "vm_recovery_point.view"
+                ],
+                "description": "Get kind recovery points.",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vm_recovery_point"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get kind recovery points",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vm_recovery_point",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_list_intent_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/vm_recovery_points/{uuid}": {
+            "put": {
+                "x-ntnx-permissions": [
+                    "vm_recovery_point.update"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vm_recovery_point"
+                ],
+                "x-doc-hide": true,
+                "summary": "Update kind recovery point",
+                "x-ntnx-operations": [
+                    "update"
+                ],
+                "x-ntnx-kind": "vm_recovery_point",
+                "description": "Given an intenful spec and recovery point uuid, update kind recovery\npoint.\n"
+            },
+            "get": {
+                "x-ntnx-permissions": [
+                    "vm_recovery_point.view"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "vm_recovery_point"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get kind recovery points",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vm_recovery_point",
+                "description": "Given a UUID, returns a kind recovery point definition."
+            },
+            "delete": {
+                "x-ntnx-permissions": [
+                    "vm_recovery_point.delete"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/vm_recovery_point_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "vm_recovery_point"
+                ],
+                "x-doc-hide": true,
+                "summary": "Delete kind recovery point",
+                "x-ntnx-operations": [
+                    "delete"
+                ],
+                "x-ntnx-kind": "vm_recovery_point",
+                "description": "Delete a kind recovery point given its uuid."
+            }
+        },
+        "/vm_snapshots": {
+            "post": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_intent_response"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vm_snapshot"
+                ],
+                "x-doc-hide": true,
+                "summary": "Create VM snapshot",
+                "x-ntnx-operations": [
+                    "create"
+                ],
+                "x-ntnx-kind": "vm_snapshot",
+                "description": "Given an intentful spec, creates a snapshot with associated metadata\n"
+            }
+        },
+        "/vm_snapshots/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_list_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vm_snapshot"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get VM snapshots",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vm_snapshot",
+                "description": "Get VM snapshots. Here is a list of supported filters\n- entity_uuid==UUID of the virtual machine\n"
+            }
+        },
+        "/vm_snapshots/{uuid}": {
+            "put": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_intent_response"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vm_snapshot"
+                ],
+                "x-doc-hide": true,
+                "summary": "Update VM snapshot",
+                "x-ntnx-operations": [
+                    "update"
+                ],
+                "x-ntnx-kind": "vm_snapshot",
+                "description": "Given an intenful spec and snapshot UUID, update VM snapshot\n"
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "vm_snapshot"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get VM snapshot",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vm_snapshot",
+                "description": "Given a UUID, returns a VM snapshot definition"
+            },
+            "delete": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_intent_response"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/vm_snapshot_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "vm_snapshot"
+                ],
+                "x-doc-hide": true,
+                "summary": "Delete VM snapshot",
+                "x-ntnx-operations": [
+                    "delete"
+                ],
+                "x-ntnx-kind": "vm_snapshot",
+                "description": "Delete a VM snapshot given its UUID"
+            }
+        },
+        "/vms": {
+            "post": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/vm_intent_response"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/vm_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vms"
+                ],
+                "x-ntnx-operations": [
+                    "create"
+                ],
+                "description": "This operation submits a request to create a VM based on the input parameters.\n",
+                "x-ntnx-kind": "vm",
+                "summary": "Create a VM"
+            }
+        },
+        "/vms/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/vm_list_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/vm_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vms"
+                ],
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "description": "This operation gets a list of VMs, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n",
+                "x-ntnx-kind": "vm",
+                "summary": "Get a list of VMs"
+            }
+        },
+        "/vms/{uuid}": {
+            "put": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/vm_intent_response"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/vm_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vms"
+                ],
+                "x-ntnx-operations": [
+                    "update",
+                    "update_power_state"
+                ],
+                "description": "This operation submits a request to update a VM based on the input parameters.\n",
+                "x-ntnx-kind": "vm",
+                "summary": "Update a VM"
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/vm_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "vms"
+                ],
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "description": "This operation gets a VM.",
+                "x-ntnx-kind": "vm",
+                "summary": "Get a VM"
+            },
+            "delete": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/vm_intent_response"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "vms"
+                ],
+                "x-ntnx-operations": [
+                    "delete"
+                ],
+                "description": "This operation submits a request to delete a VM.",
+                "x-ntnx-kind": "vm",
+                "summary": "Delete a VM"
+            }
+        }
+    }
+}

@@ -1,0 +1,607 @@
+{
+    "paths": {
+        "/vmware/v6/accounts/{account_uuid}/templates/{uuid}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "uuid of template"
+                    },
+                    {
+                        "in": "path",
+                        "name": "account_uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "uuid of account"
+                    }
+                ],
+                "tags": [
+                    "vmware/template"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get vmware template",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vmware_template",
+                "description": "Given a UUID, returns a vmware template"
+            }
+        },
+        "/vmware/v6/accounts/{account_uuid}/vms/{uuid}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "uuid of vm"
+                    },
+                    {
+                        "in": "path",
+                        "name": "account_uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "uuid of account"
+                    }
+                ],
+                "tags": [
+                    "vmware/vm"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get vmware vm",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vmware_vm",
+                "description": "Given a UUID, returns a vmware vm"
+            }
+        },
+        "/vmware/v6/cluster/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/vmware_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vmware/cluster"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all clusters",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vmware_cluster",
+                "description": "List all clusters in a datacenter. Supported filters are:\n- account_uuid\n"
+            }
+        },
+        "/vmware/v6/datacenter/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/vmware_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vmware/datacenter"
+                ],
+                "x-doc-hide": true,
+                "summary": "List datacenters",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vmware_datacenter",
+                "description": "List all datatcenters in a vcenter account. Supported filters are:\n- account_uuid\n"
+            }
+        },
+        "/vmware/v6/datastore/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/vmware_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vmware/datastore"
+                ],
+                "x-doc-hide": true,
+                "summary": "List datastores",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vmware_datastore",
+                "description": "List all datastores in a host. Supported filters are:\n- account_uuid\n- hostname\n"
+            }
+        },
+        "/vmware/v6/host/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/vmware_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vmware/host"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all hosts",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vmware_host",
+                "description": "List all hosts in a datacenter. Supported filters are:\n- account_uuid\n"
+            }
+        },
+        "/vmware/v6/network/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/vmware_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vmware/network"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all networks",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vmware_network",
+                "description": "List all networks types supported by the host. Supported filters are:\n- account_uuid\n- hostname\n"
+            }
+        },
+        "/vmware/v6/network_adapter/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/vmware_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vmware/network_adapter"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all network adapters supported",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vmware_netadapter",
+                "description": "List all network adapter supported by vmware."
+            }
+        },
+        "/vmware/v6/resourcepool/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/vmware_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vmware/resourcepool"
+                ],
+                "x-doc-hide": true,
+                "summary": "List resource pool",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vmware_resourcepool",
+                "description": "List all resource pools in a host. Supported filters are:\n- account_uuid\n- hostname\n"
+            }
+        },
+        "/vmware/v6/storage_pod/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/vmware_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vmware/storage_pod"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all storage_pods",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vmware_storage_pod",
+                "description": "List all storage_pods in a datacenter. Supported filters are:\n- account_uuid\n"
+            }
+        },
+        "/vmware/v6/template/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/vmware_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vmware/template"
+                ],
+                "x-doc-hide": true,
+                "summary": "List vm templates",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vmware_template",
+                "description": "List all vm templates in a datacenter. Supported filters are:\n- account_uuid\n"
+            }
+        },
+        "/vmware/v6/timezone/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/vmware_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vmware/timezone"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all timezones",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vmware_timezone",
+                "description": "List all timezones supported by the guest os. Supported filters are:\n- account_uuid\n- guest_os\n"
+            }
+        },
+        "/vmware/v6/vm/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/vmware_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "vmware/vm"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all virtual machines",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "vmware_vm",
+                "description": "List all virtual machines. Supported filters are:\n- account_uuid\n"
+            }
+        }
+    }
+}

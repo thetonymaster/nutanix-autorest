@@ -1,0 +1,874 @@
+{
+    "paths" : {
+        "/aws/availability_zones/list": {
+            "post": {
+                "description": "List all the AWS roles. Supported filters are:\n- account_uuid\n- region\nUse account_uuid filter to list all the availability zones on\na particular AWS account.\nUse the account_uuid and region filters together to list all the\navailability zones on a particular region of an AWS account .\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_availability_zone_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "aws/availability_zones"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all the AWS availability zones",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_availability_zone",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_availability_zone_list_intent_response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
+                    }
+                }
+            }
+        },
+        "/aws/elastic_ips/list": {
+            "post": {
+                "description": "List all AWS elastic IPs. Supported filters are:\n- account_uuid\n- region\n- free_public_ip_address_only\n- eip_type\nUse account_uuid filter to list all the elastic IPs on the default\nregion of a particular account.\nUse account_uuid and region filters together to list the elastic IPs\non an AWS account in the particular region.\nSet the free_public_ip_address_only filter to True to return only\nfree public IPs in the above two cases.\nSet eip_type filter to either 'standard' or 'vpc' when\nonly_free_public_ips is set to True.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_elastic_ip_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "aws/elastic_ips"
+                ],
+                "x-doc-hide": true,
+                "summary": "List AWS elastic IPs.",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_elastic_ip",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/aws_elastic_ip_status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_elastic_ip_list_intent_response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_elastic_ip_status"
+                        }
+                    }
+                }
+            }
+        },
+        "/aws/images/list": {
+            "post": {
+                "description": "List AWS AMIs . Supported filters are:\n- account_uuid\n- region\n- executable_only\nUse account_uuid to list images on a particular account.\nUse account_uuid and region filters together to list images\nbelonging to a particular region.\nSet executable_only to True in either of the above two cases\nto list only executable images.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_image_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "aws/images"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all AWS AMIs.",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_image",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/aws_image_status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_image_list_intent_response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_image_status"
+                        }
+                    }
+                }
+            }
+        },
+        "/aws/key_pairs/list": {
+            "post": {
+                "description": "List all the AWS key pairs. Supported filters are:\n- account_uuid\n- region\nUse account_uuid filter to list all the key pairs on the default region of\na particular AWS account.\nUse account_uuid and region filters together to list the key pairs on\na particular region of an AWS account.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_key_pair_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "aws/key_pairs"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all the AWS key pairs",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_key_pair",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_key_pair_list_intent_response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
+                    }
+                }
+            }
+        },
+        "/aws/machine_types/list": {
+            "post": {
+                "description": "List all the AWS machine types. No filters to be mentioned.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_machine_type_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "aws/machine_types"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all the AWS machine types",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_machine_type",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_machine_type_list_intent_response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
+                    }
+                }
+            }
+        },
+        "/aws/regions/list": {
+            "post": {
+                "description": "List all the AWS regions. No filters to be mentioned.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_region_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "aws/regions"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all the AWS regions",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_region",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_region_list_intent_response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
+                    }
+                }
+            }
+        },
+        "/aws/roles/list": {
+            "post": {
+                "description": "List all the AWS roles. Supported filters are:\n- account_uuid\n- region\nUse account_uuid filter to list all the roles on the default region of a\nparticular AWS account.\nUse account_uuid and region filter together to list all the roles on a\nparticular region of an aws_account.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_role_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "aws/roles"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all the AWS roles",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_role",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_role_list_intent_response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
+                    }
+                }
+            }
+        },
+        "/aws/security_groups/list": {
+            "post": {
+                "description": "List all AWS Security Groups. Supported filters are:\n- account_uuid\n- region\n- vpc_id\n- include_classic_sg\nUse account_uuid to list all security groups on the default\nregion of a particular AWS account.\nUse account_uuid and region filters together to list all\nsecurity groups in a particular region.\nUse account_uuid, region and vpc_id filters together to list all\nsecurity groups in a particular vpc.\nSet include_classic_sg filter to 'True' to also show\nEC2 classic security groups in the above three cases.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_security_group_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "aws/security_groups"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all AWS Security Groups",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_security_group",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/aws_security_group_status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_security_group_list_intent_response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_security_group_status"
+                        }
+                    }
+                }
+            }
+        },
+        "/aws/security_groups/{account_uuid}/{region}/{id}": {
+            "get": {
+                "description": "Get an AWS security group",
+                "parameters": [
+                    {
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "name": "account_uuid",
+                        "in": "path"
+                    },
+                    {
+                        "pattern": "^[a-z]{2}-[a-z]*-[1-9]{1}$",
+                        "required": true,
+                        "type": "string",
+                        "name": "region",
+                        "in": "path"
+                    },
+                    {
+                        "pattern": "^sg-[a-f0-9]{1,17}$",
+                        "required": true,
+                        "type": "string",
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "tags": [
+                    "aws/security_groups"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get an AWS security group",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_security_group",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/aws_security_group_status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_security_group_intent_resource"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/aws_security_group_status"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_security_group_status"
+                        }
+                    }
+                }
+            }
+        },
+        "/aws/subnets/list": {
+            "post": {
+                "description": "List all AWS subnets. Supported filters are:\n- account_uuid\n- region\n- vpc_id\n- availability_zone\nUse account_uuid filter to list all the subnets on the default\nregion of a particular account.\nUse account_uuid and region filters together to list the subnets on\nall VPCs and AZs of a particular region.\nUse account_uuid, region and vpc_id filter together to list the\nsubnets on a particular VPC.\nUse account_uuid, region and availability_zone filter together to list\nthe subnets on a particualr AZ.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_subnet_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "aws/subnets"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all AWS subnets.",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_subnet",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/aws_subnet_status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_subnet_list_intent_response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_subnet_status"
+                        }
+                    }
+                }
+            }
+        },
+        "/aws/subnets/{account_uuid}/{region}/{id}": {
+            "get": {
+                "description": "Get details for a subnet.",
+                "parameters": [
+                    {
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "name": "account_uuid",
+                        "in": "path"
+                    },
+                    {
+                        "pattern": "^[a-z]{2}-[a-z]*-[1-9]{1}$",
+                        "required": true,
+                        "type": "string",
+                        "name": "region",
+                        "in": "path"
+                    },
+                    {
+                        "pattern": "^subnet-[a-f0-9]{1,17}$",
+                        "required": true,
+                        "type": "string",
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "tags": [
+                    "aws/subnets"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get details for an AWS subnet",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_subnet",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/aws_subnet_status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_subnet_intent_resource"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/aws_subnet_status"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_subnet_status"
+                        }
+                    }
+                }
+            }
+        },
+        "/aws/vms": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "aws/vms"
+                ],
+                "x-doc-hide": true,
+                "summary": "Create an AWS instance(VM)",
+                "x-ntnx-operations": [
+                    "create"
+                ],
+                "x-ntnx-kind": "aws_vm",
+                "description": "A VM is a logical representation of a computer (CPU, memory, storage, and operating system)\n"
+            }
+        },
+        "/aws/vms/list": {
+            "post": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_list_intent_response"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "aws/vms"
+                ],
+                "x-doc-hide": true,
+                "summary": "List AWS VMs.",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_vm",
+                "description": "List VMs with associated metadata. Supported filters are:\n- account_uuid\n- region\n- power_state\nUse the account_uuid filter to get all the VMs on the default region of a\nparticular account.\nUse account_uuid and region filters together to list all the VMs in a\nparticular region.\nSet the power_state to running, stopped, terminated, etc. in the above two cases\nto list only VMs in the particular power state.\n"
+            }
+        },
+        "/aws/vms/{uuid}": {
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "aws/vms"
+                ],
+                "x-doc-hide": true,
+                "summary": "Update an AWS VM.",
+                "x-ntnx-operations": [
+                    "update"
+                ],
+                "x-ntnx-kind": "aws_vm",
+                "description": "Given an intenful spec and VM uuid, update an AWS VM."
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "aws/vms"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get an AWS VM.",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_vm",
+                "description": "Given a UUID, returns an AWS VM definition."
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vm_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "aws/vms"
+                ],
+                "x-doc-hide": true,
+                "summary": "Delete an AWS VM.",
+                "x-ntnx-operations": [
+                    "delete"
+                ],
+                "x-ntnx-kind": "aws_vm",
+                "description": "Delete an AWS VM given its uuid."
+            }
+        },
+        "/aws/volume_types/list": {
+            "post": {
+                "description": "List all the AWS volume types. No filters to be mentioned.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_volume_type_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "aws/volume_types"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all the AWS volume types",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_volume_type",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_volume_type_list_intent_response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/status"
+                        }
+                    }
+                }
+            }
+        },
+        "/aws/vpcs/list": {
+            "post": {
+                "description": "List all AWS VPCs. Supported filters are:\n- account_uuid\n- region\nUse account_uuid to list all VPCs on the default region of a\nparticular AWS account.\nUse account_uuid and region filters together to list the\nVPCs in a particular region.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vpc_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "aws/vpcs"
+                ],
+                "x-doc-hide": true,
+                "summary": "List all AWS VPCs",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_vpc",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vpc_status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vpc_list_intent_response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vpc_status"
+                        }
+                    }
+                }
+            }
+        },
+        "/aws/vpcs/{account_uuid}/{region}/{id}": {
+            "get": {
+                "description": "Get an AWS VPC.",
+                "parameters": [
+                    {
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "name": "account_uuid",
+                        "in": "path"
+                    },
+                    {
+                        "pattern": "^[a-z]{2}-[a-z]*-[1-9]{1}$",
+                        "required": true,
+                        "type": "string",
+                        "name": "region",
+                        "in": "path"
+                    },
+                    {
+                        "pattern": "^vpc-[a-f0-9]{1,17}$",
+                        "required": true,
+                        "type": "string",
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "tags": [
+                    "aws/vpcs"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get an AWS VPC",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "aws_vpc",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vpc_status"
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vpc_intent_resource"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vpc_status"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/aws_vpc_status"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

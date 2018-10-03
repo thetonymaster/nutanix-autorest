@@ -1,0 +1,284 @@
+{
+    "paths" : {
+        "/users": {
+            "post": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/user_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/user_intent_response"
+                        }
+                    }
+                },
+                "description": "This operation submits a request to create a User based on the input parameters.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/user_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "users"
+                ],
+                "x-ntnx-operations": [
+                    "add"
+                ],
+                "x-ntnx-kind": "user",
+                "summary": "Create a User"
+            }
+        },
+        "/users/info": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/user_info"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/user_status"
+                        }
+                    }
+                },
+                "tags": [
+                    "users"
+                ],
+                "description": "Gets the Access Control Policies attached to a user,\nalongwith other user-specific information.\n",
+                "x-ntnx-kind": "user",
+                "x-doc-hide": true,
+                "summary": "Retrieves the Access control policies and other user data\nfor logged in user.\n"
+            }
+        },
+        "/users/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/user_list_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/user_status"
+                        }
+                    }
+                },
+                "description": "This operation gets a list of Users, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/user_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "users"
+                ],
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "user",
+                "summary": "Get a list of Users"
+            }
+        },
+        "/users/me": {
+            "get": {
+                "x-ntnx-kind": "user",
+                "summary": "Retrieves currently logged in user.",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/user_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/user_status"
+                        }
+                    }
+                },
+                "tags": [
+                    "users"
+                ],
+                "description": "Displays the user currently logged in."
+            }
+        },
+        "/users/{uuid}": {
+            "put": {
+                "description": "This operation submits a request to update a User based on the input parameters.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/user_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "users"
+                ],
+                "x-doc-hide": true,
+                "summary": "Update a User",
+                "x-ntnx-operations": [
+                    "update"
+                ],
+                "x-ntnx-kind": "user",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/user_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/user_intent_response"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/user_status"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/user_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/user_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/user_status"
+                        }
+                    }
+                },
+                "description": "This operation gets a User.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "users"
+                ],
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "user",
+                "summary": "Get a User"
+            },
+            "delete": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/user_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/user_intent_response"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/user_status"
+                        }
+                    }
+                },
+                "description": "This operation submits a request to delete a User.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "users"
+                ],
+                "x-ntnx-operations": [
+                    "remove"
+                ],
+                "x-ntnx-kind": "user",
+                "summary": "Delete a User"
+            }
+        },
+        "/users/{uuid}/project_usage_summary": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/user_usage_in_projects"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/resource_domain_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/resource_domain_status"
+                        }
+                    }
+                },
+                "description": "Retrieves specified user resource domain information.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "users"
+                ],
+                "x-ntnx-operations": [
+                    "view_project_usage_summary"
+                ],
+                "x-ntnx-kind": "user",
+                "summary": "Retrieves specified user resource domain information."
+            }
+        }
+    }
+}

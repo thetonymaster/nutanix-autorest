@@ -1,0 +1,262 @@
+{
+    "paths" : {
+        "/accounts": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/account_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/account_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/account_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "accounts"
+                ],
+                "x-doc-hide": true,
+                "summary": "Create Account",
+                "x-ntnx-operations": [
+                    "create"
+                ],
+                "x-ntnx-kind": "account",
+                "description": "Given a spec creates a Account with associated metadata\n"
+            }
+        },
+        "/accounts/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/account_list_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/account_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/account_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "accounts"
+                ],
+                "x-doc-hide": true,
+                "summary": "List the Account",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "account",
+                "description": "List the Account with associated metadata"
+            }
+        },
+        "/accounts/{uuid}": {
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/account_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/account_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/account_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "UUID of account to be updated"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/account_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "accounts"
+                ],
+                "x-doc-hide": true,
+                "summary": "Update Account",
+                "x-ntnx-operations": [
+                    "update"
+                ],
+                "x-ntnx-kind": "account",
+                "description": "Given a spec and Account UUID, update Account\n"
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/account_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/account_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/account_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "UUID of Account to get"
+                    }
+                ],
+                "tags": [
+                    "accounts"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get Account",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "account",
+                "description": "Given a UUID, returns a Account definition"
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/account_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/account_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID Provided",
+                        "schema": {
+                            "$ref": "#/definitions/account_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "UUID of the account to be deleted"
+                    }
+                ],
+                "tags": [
+                    "accounts"
+                ],
+                "x-doc-hide": true,
+                "summary": "Delete Account",
+                "x-ntnx-operations": [
+                    "delete"
+                ],
+                "x-ntnx-kind": "account",
+                "description": "Delete an Account given its UUID"
+            }
+        },
+        "/accounts/{uuid}/verify": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded"
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/account_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID Provided",
+                        "schema": {
+                            "$ref": "#/definitions/account_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "UUID of Account to verify"
+                    }
+                ],
+                "tags": [
+                    "accounts"
+                ],
+                "x-doc-hide": true,
+                "summary": "Verify account",
+                "x-ntnx-operations": [
+                    "verify"
+                ],
+                "x-ntnx-kind": "account",
+                "description": "Verify account settings"
+            }
+        }
+    }
+}

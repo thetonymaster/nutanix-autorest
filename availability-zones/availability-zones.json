@@ -1,0 +1,186 @@
+{
+    "paths" : {
+        "/availability_zones": {
+            "post": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_intent_response"
+                        }
+                    }
+                },
+                "description": "Create an availability zone",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "availability_zone",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "availability_zones"
+                ],
+                "x-ntnx-kind": "availability_zone",
+                "x-doc-hide": true,
+                "summary": "Create an availability zone"
+            }
+        },
+        "/availability_zones/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_list_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_status"
+                        }
+                    }
+                },
+                "description": "Get availability zones",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "availability_zones"
+                ],
+                "x-ntnx-kind": "availability_zone",
+                "x-doc-hide": true,
+                "summary": "Get availability zones"
+            }
+        },
+        "/availability_zones/{uuid}": {
+            "put": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_intent_response"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_status"
+                        }
+                    }
+                },
+                "description": "Modify availability zone",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "request",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "availability_zones"
+                ],
+                "x-ntnx-kind": "availability_zone",
+                "x-doc-hide": true,
+                "summary": "Modify availability zone"
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_status"
+                        }
+                    }
+                },
+                "description": "Get details for an availability zones",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "availability_zones"
+                ],
+                "x-ntnx-kind": "availability_zone",
+                "x-doc-hide": true,
+                "summary": "Get details for an availability zones"
+            },
+            "delete": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_intent_response"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/availability_zone_status"
+                        }
+                    }
+                },
+                "description": "Delete an availability zone",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "availability_zones"
+                ],
+                "x-ntnx-kind": "availability_zone",
+                "x-doc-hide": true,
+                "summary": "Delete an availability zone"
+            }
+        }
+    }
+}

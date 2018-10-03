@@ -1,0 +1,1064 @@
+{
+    "paths" : {
+        "/clusters/entity_replication_target_details": {
+            "post": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/placement_detail"
+                        }
+                    }
+                },
+                "description": "Get entity placement details",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "description": "Entity spec",
+                        "name": "spec",
+                        "schema": {
+                            "$ref": "#/definitions/placement_spec"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-ntnx-kind": "cluster",
+                "x-doc-hide": true,
+                "summary": "Get the placement information for an entity. This will be used to\nidentify the replication target for an entity snapshot or placement of\nthe entity.\n"
+            }
+        },
+        "/clusters/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/cluster_list_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/cluster_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/cluster_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "description": "This operation gets a list of clusters, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n",
+                "x-ntnx-kind": "cluster",
+                "summary": "Get a list of clusters"
+            }
+        },
+        "/clusters/multicluster_config": {
+            "post": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/multicluster_config_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/multicluster_config_intent_response"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/multicluster_config_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "description": "Apply multicluster configuration from Prism Central.",
+                "x-ntnx-kind": "multicluster_config",
+                "x-doc-hide": true,
+                "summary": "Apply multicluster configuration from Prism Central."
+            }
+        },
+        "/clusters/multicluster_config/{cluster_uuid}/migrate_ssp_config": {
+            "post": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error"
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/ssp_migration_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The UUID of the entity.",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "name": "cluster_uuid"
+                    },
+                    {
+                        "required": false,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/ssp_config_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "description": "Migrate SSP config from a Prism Element.",
+                "x-ntnx-kind": "multicluster_config",
+                "x-doc-hide": true,
+                "summary": "Migrate SSP config from a Prism Element."
+            }
+        },
+        "/clusters/multicluster_config/{uuid}": {
+            "put": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/multicluster_config_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/multicluster_config_intent_response"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/multicluster_config_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "description": "Update a scheduled and unprocessed multicluster configuration request.\n",
+                "x-ntnx-kind": "multicluster_config",
+                "x-doc-hide": true,
+                "summary": "Update a scheduled and unprocessed multicluster configuration request.\n"
+            },
+            "delete": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/multicluster_config_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/multicluster_config_intent_response"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "description": "Delete a scheduled and unprocessed multicluster configuration request.\n",
+                "x-ntnx-kind": "multicluster_config",
+                "x-doc-hide": true,
+                "summary": "Delete a scheduled and unprocessed multicluster configuration request.\n"
+            }
+        },
+        "/clusters/multicluster_config/{uuid}/cancel": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "description": "Cancel a multicluster configuration request by cancelling all queued\ncluster configuration tasks.\n",
+                "x-ntnx-kind": "multicluster_config",
+                "x-doc-hide": true,
+                "summary": "Cancel a multicluster configuration request from Prism Central."
+            }
+        },
+        "/clusters/multicluster_config/{uuid}/pause": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "description": "Pause a multicluster configuration request by pausing all\nqueued cluster configuration tasks.\n",
+                "x-ntnx-kind": "multicluster_config",
+                "x-doc-hide": true,
+                "summary": "Pause a multicluster configuration request from Prism Central."
+            }
+        },
+        "/clusters/multicluster_config/{uuid}/resume": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "description": "Resume a paused multicluster configuration request.",
+                "x-ntnx-kind": "multicluster_config",
+                "x-doc-hide": true,
+                "summary": "Resume a paused multicluster configuration request."
+            }
+        },
+        "/clusters/{uuid}": {
+            "put": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/cluster_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/cluster_intent_response"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/cluster_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-ntnx-operations": [
+                    "update"
+                ],
+                "description": "This operation submits a request to update a cluster based on the input parameters.\n",
+                "x-ntnx-kind": "cluster",
+                "summary": "Update a cluster"
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/cluster_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/cluster_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "description": "This operation gets a cluster.",
+                "x-ntnx-kind": "cluster",
+                "summary": "Get a cluster"
+            }
+        },
+        "/clusters/{uuid}/certificates/ca_certs": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "spec",
+                        "schema": {
+                            "$ref": "#/definitions/ca_cert"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Add a new CA certificate",
+                "x-ntnx-ref-keys": [
+                    "certificate_reference"
+                ],
+                "x-ntnx-kind": "certificate",
+                "description": "Add a new CA certificate"
+            }
+        },
+        "/clusters/{uuid}/certificates/ca_certs/{ca_name}": {
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "type": "string",
+                        "name": "ca_name",
+                        "in": "path",
+                        "maxLength": 64
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Delete the CA certificate",
+                "x-ntnx-ref-keys": [
+                    "certificate_reference"
+                ],
+                "x-ntnx-kind": "certificate",
+                "description": "Delete the CA certificate specified by certificate authority name\n"
+            }
+        },
+        "/clusters/{uuid}/certificates/client_auth": {
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "spec",
+                        "schema": {
+                            "$ref": "#/definitions/ca_chain_spec"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Replace the CA chain for client authentication",
+                "x-ntnx-ref-keys": [
+                    "client_auth_reference"
+                ],
+                "x-ntnx-kind": "client_auth",
+                "description": "Replace the CA chain for client authentication"
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "spec",
+                        "schema": {
+                            "$ref": "#/definitions/ca_chain_spec"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Import CA chain for client authentication",
+                "x-ntnx-ref-keys": [
+                    "client_auth_reference"
+                ],
+                "x-ntnx-kind": "client_auth",
+                "description": "Import CA chain for client authentication"
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Remove the CA chain for client authentication",
+                "x-ntnx-ref-keys": [
+                    "client_auth_reference"
+                ],
+                "x-ntnx-kind": "client_auth",
+                "description": "Remove the CA chain for client authentication"
+            }
+        },
+        "/clusters/{uuid}/certificates/csrs": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/csrs_spec"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Download CSRs from cluster",
+                "x-ntnx-ref-keys": [
+                    "certificate_reference"
+                ],
+                "x-ntnx-kind": "certificate",
+                "description": "Download Certificate Signing Requests from cluster"
+            }
+        },
+        "/clusters/{uuid}/certificates/csrs/{node_ip}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "type": "string",
+                        "name": "node_ip",
+                        "in": "path"
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Download CSR from a discovered node",
+                "x-ntnx-ref-keys": [
+                    "certificate_reference"
+                ],
+                "x-ntnx-kind": "certificate",
+                "description": "Download Certificate Signing Request from a discovered node"
+            }
+        },
+        "/clusters/{uuid}/certificates/pemkey": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Generate a 2048 bits cipher length RSA key",
+                "x-ntnx-ref-keys": [
+                    "certificate_reference"
+                ],
+                "x-ntnx-kind": "certificate",
+                "description": "Generate a 2048 bits cipher length RSA key"
+            }
+        },
+        "/clusters/{uuid}/certificates/pemkey/import": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "spec",
+                        "schema": {
+                            "$ref": "#/definitions/pemkey_spec"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Import a new key",
+                "x-ntnx-ref-keys": [
+                    "certificate_reference"
+                ],
+                "x-ntnx-kind": "certificate",
+                "description": "Import a new key"
+            }
+        },
+        "/clusters/{uuid}/certificates/svm_certs/{kms_uuid}": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "in": "path",
+                        "name": "kms_uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/certificate_spec_upload_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Add one or more certificates to a service VM",
+                "x-ntnx-ref-keys": [
+                    "certificate_reference"
+                ],
+                "x-ntnx-kind": "certificate",
+                "description": "Add one or more certificates to a service VM"
+            }
+        },
+        "/clusters/{uuid}/certificates/svm_certs/{node_uuid}/{kms_uuid}": {
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "in": "path",
+                        "name": "node_uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "kms_uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "cert",
+                        "schema": {
+                            "$ref": "#/definitions/certificate"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Replace the certificate on a service VM",
+                "x-ntnx-ref-keys": [
+                    "certificate_reference"
+                ],
+                "x-ntnx-kind": "certificate",
+                "description": "Replace the certificate on a service VM"
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Internal Error"
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "in": "path",
+                        "name": "node_uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "kms_uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Delete the certificate on a service VM",
+                "x-ntnx-ref-keys": [
+                    "certificate_reference"
+                ],
+                "x-ntnx-kind": "certificate",
+                "description": "Delete the certificate on a service VM"
+            }
+        },
+        "/clusters/{uuid}/cloud_credentials/{cloud_type}": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "pattern": "(\\bAWS\\b|\\bAZURE\\b)",
+                        "required": true,
+                        "type": "string",
+                        "name": "cloud_type",
+                        "in": "path"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Add a cloud credential for accessing cloud sites",
+                "x-ntnx-ref-keys": [
+                    "cloud_credentials_reference"
+                ],
+                "x-ntnx-kind": "cloud_credentials",
+                "description": "Add a cloud credential for accessing cloud sites"
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "pattern": "(\\bAWS\\b|\\bAZURE\\b)",
+                        "required": true,
+                        "type": "string",
+                        "name": "cloud_type",
+                        "in": "path"
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Delete all cloud credentials",
+                "x-ntnx-ref-keys": [
+                    "cloud_credentials_reference"
+                ],
+                "x-ntnx-kind": "cloud_credentials",
+                "description": "Delete all cloud credentials"
+            }
+        },
+        "/clusters/{uuid}/cloud_credentials/{cloud_type}/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_list_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "pattern": "(\\bAWS\\b|\\bAZURE\\b)",
+                        "required": true,
+                        "type": "string",
+                        "name": "cloud_type",
+                        "in": "path"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get a list of cloud credentials",
+                "x-ntnx-ref-keys": [
+                    "cloud_credentials_reference"
+                ],
+                "x-ntnx-kind": "cloud_credentials",
+                "description": "This operation gets a list of cloud credentials, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n"
+            }
+        },
+        "/clusters/{uuid}/cloud_credentials/{cloud_type}/{cloud_credentials_id}": {
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "pattern": "(\\bAWS\\b|\\bAZURE\\b)",
+                        "required": true,
+                        "type": "string",
+                        "name": "cloud_type",
+                        "in": "path"
+                    },
+                    {
+                        "required": true,
+                        "type": "integer",
+                        "name": "cloud_credentials_id",
+                        "in": "path",
+                        "format": "int64"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Update a cloud credentials",
+                "x-ntnx-ref-keys": [
+                    "cloud_credentials_reference"
+                ],
+                "x-ntnx-kind": "cloud_credentials",
+                "description": "This operation submits a request to update a cloud credentials based on the input parameters.\n"
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "pattern": "(\\bAWS\\b|\\bAZURE\\b)",
+                        "required": true,
+                        "type": "string",
+                        "name": "cloud_type",
+                        "in": "path"
+                    },
+                    {
+                        "required": true,
+                        "type": "integer",
+                        "name": "cloud_credentials_id",
+                        "in": "path",
+                        "format": "int64"
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get a cloud credentials",
+                "x-ntnx-ref-keys": [
+                    "cloud_credentials_reference"
+                ],
+                "x-ntnx-kind": "cloud_credentials",
+                "description": "This operation gets a cloud credentials."
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/cloud_credentials_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "pattern": "(\\bAWS\\b|\\bAZURE\\b)",
+                        "required": true,
+                        "type": "string",
+                        "name": "cloud_type",
+                        "in": "path"
+                    },
+                    {
+                        "required": true,
+                        "type": "integer",
+                        "name": "cloud_credentials_id",
+                        "in": "path",
+                        "format": "int64"
+                    }
+                ],
+                "tags": [
+                    "clusters"
+                ],
+                "x-doc-hide": true,
+                "summary": "Delete a cloud credentials",
+                "x-ntnx-ref-keys": [
+                    "cloud_credentials_reference"
+                ],
+                "x-ntnx-kind": "cloud_credentials",
+                "description": "This operation submits a request to delete a cloud credentials."
+            }
+        }
+    }
+}

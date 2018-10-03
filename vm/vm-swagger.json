@@ -1,0 +1,2200 @@
+{
+    "info": {
+        "version": "3.1.0", 
+        "description": "Move programming from the user to the machine.", 
+        "title": "Nutanix Intentful API"
+    },
+    "host" : "35.196.200.179:9440",
+    "paths" : {"/vms/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_list_intent_response"
+                        }
+                    }, 
+                    "default": {
+                        "description": "Internal Error", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    }
+                }, 
+                "parameters": [
+                    {
+                        "required": true, 
+                        "in": "body", 
+                        "name": "get_entities_request", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_list_metadata"
+                        }
+                    }
+                ], 
+                "tags": [
+                    "vms"
+                ], 
+                "x-ntnx-operations": [
+                    "view"
+                ], 
+                "description": "This operation gets a list of VMs, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n", 
+                "x-ntnx-kind": "vm", 
+                "summary": "Get a list of VMs"
+            }
+        },
+        "/vms/{uuid}": {
+            "put": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    }, 
+                    "202": {
+                        "description": "Request Accepted", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_intent_response"
+                        }
+                    }, 
+                    "404": {
+                        "description": "Invalid UUID provided", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    }
+                }, 
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }, 
+                    {
+                        "required": true, 
+                        "in": "body", 
+                        "name": "body", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_intent_input"
+                        }
+                    }
+                ], 
+                "tags": [
+                    "vms"
+                ], 
+                "x-ntnx-operations": [
+                    "update", 
+                    "update_power_state"
+                ], 
+                "description": "This operation submits a request to update a VM based on the input parameters.\n", 
+                "x-ntnx-kind": "vm", 
+                "summary": "Update a VM"
+            }, 
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_intent_response"
+                        }
+                    }, 
+                    "default": {
+                        "description": "Internal Error", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    }, 
+                    "404": {
+                        "description": "Invalid UUID provided", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    }
+                }, 
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ], 
+                "tags": [
+                    "vms"
+                ], 
+                "x-ntnx-operations": [
+                    "view"
+                ], 
+                "description": "This operation gets a VM.", 
+                "x-ntnx-kind": "vm", 
+                "summary": "Get a VM"
+            }, 
+            "delete": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    }, 
+                    "202": {
+                        "description": "Request Accepted", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_intent_response"
+                        }
+                    }, 
+                    "404": {
+                        "description": "Invalid UUID provided", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    }
+                }, 
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ], 
+                "tags": [
+                    "vms"
+                ], 
+                "x-ntnx-operations": [
+                    "delete"
+                ], 
+                "description": "This operation submits a request to delete a VM.", 
+                "x-ntnx-kind": "vm", 
+                "summary": "Delete a VM"
+            }
+        },
+        "/vms": {
+            "post": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_status"
+                        }
+                    }, 
+                    "202": {
+                        "description": "Request Accepted", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_intent_response"
+                        }
+                    }
+                }, 
+                "parameters": [
+                    {
+                        "required": true, 
+                        "in": "body", 
+                        "name": "body", 
+                        "schema": {
+                            "$ref": "#/definitions/vm_intent_input"
+                        }
+                    }
+                ], 
+                "tags": [
+                    "vms"
+                ], 
+                "x-ntnx-operations": [
+                    "create"
+                ], 
+                "description": "This operation submits a request to create a VM based on the input parameters.\n", 
+                "x-ntnx-kind": "vm", 
+                "summary": "Create a VM"
+            }
+        },
+    	"/access_control_policies/list": {
+            "post": {
+            	"operationId" : "listOperation",
+                "responses": {
+                    "200": {
+                        "description": "Success", 
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_list_intent_response"
+                        }
+                    }, 
+                    "default": {
+                        "description": "Internal Error", 
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_status"
+                        }
+                    }
+                }, 
+                "description": "This operation gets a list of Access Control Policies, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n", 
+                "parameters": [
+                    {
+                        "required": true, 
+                        "in": "body", 
+                        "name": "get_entities_request", 
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_list_metadata"
+                        }
+                    }
+                ], 
+                "tags": [
+                    "access_control_policies"
+                ], 
+                "x-ntnx-operations": [
+                    "view"
+                ], 
+                "x-ntnx-kind": "access_control_policy", 
+                "summary": "Get a list of Access Control Policies"
+            }
+        }, 
+        "/users/me": {
+            "get": {
+                "x-ntnx-kind": "user", 
+                "summary": "Retrieves currently logged in user.", 
+                "responses": {
+                    "200": {
+                        "description": "Success", 
+                        "schema": {
+                            "$ref": "#/definitions/user_intent_response"
+                        }
+                    }, 
+                    "default": {
+                        "description": "Internal Error", 
+                        "schema": {
+                            "$ref": "#/definitions/user_status"
+                        }
+                    }
+                }, 
+                "tags": [
+                    "users"
+                ], 
+                "description": "Displays the user currently logged in."
+            }
+        }
+    },
+    "schemes": [
+        "https"
+    ], 
+    "parameters": {
+        "uuid": {
+            "in": "path", 
+            "description": "The UUID of the entity.", 
+            "format": "UUID", 
+            "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+            "required": true, 
+            "type": "string", 
+            "name": "uuid"
+        }
+    }, 
+    "produces": [
+        "application/json"
+    ], 
+    "basePath": "/api/nutanix/v3", 
+    "securityDefinitions": {
+        "basicAuth": {
+            "type": "basic"
+        }
+    },
+    "definitions" : {
+"vm_list_intent_response": {
+            "title": "Entity Intent List Response", 
+            "required": [
+                "api_version", 
+                "metadata"
+            ], 
+            "type": "object", 
+            "properties": {
+                "entities": {
+                    "type": "string"
+                }, 
+                "api_version": {
+                    "type": "string"
+                }, 
+                "metadata": {
+                    "$ref": "#/definitions/vm_list_metadata_output"
+                }
+            }, 
+            "description": "Response object for intentful operation of vms"
+        },
+        "vm_status": {
+            "title": "Response Kind", 
+            "type": "object", 
+            "properties": {
+                "kind": {
+                    "default": "vm", 
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "The kind name", 
+                    "x-ntnx-enum": [
+                        "vm"
+                    ]
+                }, 
+                "code": {
+                    "readOnly": true, 
+                    "type": "integer", 
+                    "description": "The HTTP error code."
+                }, 
+                "message_list": {
+                    "readOnly": true, 
+                    "type": "string"
+                }, 
+                "state": {
+                    "readOnly": true, 
+                    "type": "string"
+                }, 
+                "api_version": {
+                    "readOnly": true, 
+                    "type": "string"
+                }
+            }, 
+            "description": "The status of a REST API call. Only used when there is a failure to\nreport.\n"
+        },"vm_list_metadata": {
+            "title": "Metadata for vm list", 
+            "type": "object", 
+            "properties": {
+                "filter": {
+                    "type": "string", 
+                    "description": "The filter in FIQL syntax used for the results."
+                }, 
+                "kind": {
+                    "default": "vm", 
+                    "x-ntnx-enum": [
+                        "vm"
+                    ], 
+                    "type": "string", 
+                    "description": "The kind name"
+                }, 
+                "sort_order": {
+                    "$ref": "#/definitions/sort_order"
+                }, 
+                "offset": {
+                    "minimum": 0, 
+                    "type": "integer", 
+                    "description": "Offset from the start of the entity list", 
+                    "format": "int32"
+                }, 
+                "length": {
+                    "minimum": 1, 
+                    "type": "integer", 
+                    "description": "The number of records to retrieve relative to the offset", 
+                    "format": "int32"
+                }, 
+                "sort_attribute": {
+                    "type": "string", 
+                    "description": "The attribute to perform sort on"
+                }
+            }, 
+            "description": "All api calls that return a list will have this metadata block as input\n"
+        },
+        "vm_list_metadata_output": {
+            "title": "Metadata for vm list output", 
+            "type": "object", 
+            "properties": {
+                "filter": {
+                    "type": "string", 
+                    "description": "The filter used for the results"
+                }, 
+                "kind": {
+                    "default": "vm", 
+                    "x-ntnx-enum": [
+                        "vm"
+                    ], 
+                    "type": "string", 
+                    "description": "The kind name"
+                }, 
+                "sort_order": {
+                    "$ref": "#/definitions/sort_order"
+                }, 
+                "offset": {
+                    "type": "integer", 
+                    "description": "Offset from the start of the entity list"
+                }, 
+                "total_matches": {
+                    "type": "integer", 
+                    "description": "Total matches found"
+                }, 
+                "length": {
+                    "type": "integer", 
+                    "description": "The number of records retrieved relative to the offset"
+                }, 
+                "sort_attribute": {
+                    "type": "string", 
+                    "description": "The attribute to perform sort on"
+                }
+            }, 
+            "description": "All api calls that return a list will have this metadata block\n"
+        }, 
+        "vm_def_status": {
+            "title": "vm Intent Status with placement specified", 
+            "required": [
+                "name", 
+                "resources"
+            ], 
+            "type": "object", 
+            "properties": {
+                "state": {
+                    "type": "string", 
+                    "description": "The state of the vm."
+                }, 
+                "name": {
+                    "type": "string", 
+                    "description": "vm Name."
+                }, 
+                "availability_zone_reference": {
+                    "$ref": "#/definitions/availability_zone_reference"
+                }, 
+                "message_list": {
+                    "type": "string", 
+                    "description": "Any error messages for the vm, if in an error state."
+                }, 
+                "cluster_reference": {
+                    "$ref": "#/definitions/cluster_reference"
+                }, 
+                "resources": {
+                    "$ref": "#/definitions/vm_resources_def_status"
+                }, 
+                "description": {
+                    "type": "string", 
+                    "description": "A description for vm."
+                }
+            }, 
+            "description": "An intentful representation of a vm status"
+        },
+        "availability_zone_reference": {
+            "title": "Reference to a availability_zone", 
+            "required": [
+                "uuid"
+            ], 
+            "type": "object", 
+            "properties": {
+                "kind": {
+                    "default": "availability_zone", 
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "The kind name", 
+                    "x-ntnx-enum": [
+                        "availability_zone"
+                    ]
+                }, 
+                "name": {
+                    "readOnly": true, 
+                    "type": "string"
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "format": "UUID"
+                }
+            }, 
+            "description": "The reference to a availability_zone"
+        },
+        "vm_resources_def_status": {
+            "title": "VM Resources Status Definition", 
+            "type": "object", 
+            "properties": {
+                "power_state": {
+                    "x-ntnx-enum": [
+                        "ON", 
+                        "OFF", 
+                        "PAUSED", 
+                        "UNKNOWN"
+                    ], 
+                    "type": "string", 
+                    "description": "Current power state of the VM."
+                }, 
+                "num_vcpus_per_socket": {
+                    "type": "integer", 
+                    "description": "Number of vCPUs per socket.", 
+                    "format": "int32"
+                }, 
+                "num_sockets": {
+                    "type": "integer", 
+                    "description": "Number of vCPU sockets.", 
+                    "format": "int32"
+                }, 
+                "gpu_list": {
+                    "type": "string", 
+                    "description": "GPUs attached to the VM."
+                }, 
+                "memory_size_mib": {
+                    "type": "integer", 
+                    "description": "Memory size in MiB.", 
+                    "format": "int32"
+                }, 
+                "boot_config": {
+                    "description": "Indicates which device the VM should boot from.", 
+                    "$ref": "#/definitions/vm_boot_config"
+                }, 
+                "hardware_clock_timezone": {
+                    "type": "string", 
+                    "description": "VM's hardware clock timezone in IANA TZDB format (America/Los_Angeles).\n"
+                }, 
+                "guest_customization": {
+                    "$ref": "#/definitions/guest_customization_status"
+                }, 
+                "power_state_mechanism": {
+                    "$ref": "#/definitions/vm_power_state_mechanism"
+                }, 
+                "vga_console_enabled": {
+                    "type": "boolean", 
+                    "description": "Indicates whether VGA console has been enabled or not."
+                }, 
+                "disk_list": {
+                    "type": "string", 
+                    "description": "Disks attached to the VM."
+                }, 
+                "vnuma_config": {
+                    "description": "Information regarding vNUMA configuration.", 
+                    "$ref": "#/definitions/vm_vnuma_config"
+                }, 
+                "nic_list": {
+                    "type": "string", 
+                    "description": "NICs attached to the VM."
+                }, 
+                "host_reference": {
+                    "$ref": "#/definitions/reference"
+                }, 
+                "guest_os_id": {
+                    "type": "string", 
+                    "description": "Guest OS Identifier. For ESX, refer to VMware documentation link (https://www.vmware.com/support/developer/converter-sdk/conv43_apireference/vim.vm.GuestOsDescriptor.GuestOsIdentifier.html) for the list of guest OS identifiers.\n"
+                }, 
+                "guest_tools": {
+                    "description": "Information regarding guest tools.", 
+                    "$ref": "#/definitions/guest_tools_status"
+                }, 
+                "hypervisor_type": {
+                    "x-ntnx-enum": [
+                        "ESX", 
+                        "HyperV", 
+                        "AHV"
+                    ], 
+                    "type": "string", 
+                    "description": "The hypervisor type for the hypervisor the VM is hosted on.\n"
+                }, 
+                "parent_reference": {
+                    "description": "Reference to an entity that the VM cloned from.\n", 
+                    "$ref": "#/definitions/reference"
+                }
+            }, 
+            "description": "VM Resources Status Definition."
+        },
+        "vm_gpu_output_status": {
+            "title": "Virtual Machine GPU status", 
+            "type": "object", 
+            "properties": {
+                "frame_buffer_size_mib": {
+                    "type": "integer", 
+                    "description": "GPU frame buffer size in MiB.", 
+                    "format": "int64"
+                }, 
+                "vendor": {
+                    "x-ntnx-enum": [
+                        "NVIDIA", 
+                        "INTEL", 
+                        "AMD"
+                    ], 
+                    "type": "string", 
+                    "description": "The vendor of the GPU."
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "description": "UUID of the GPU.", 
+                    "format": "UUID"
+                }, 
+                "num_virtual_display_heads": {
+                    "type": "integer", 
+                    "description": "Number of supported virtual display heads.", 
+                    "format": "int32"
+                }, 
+                "pci_address": {
+                    "type": "string", 
+                    "description": "GPU {segment:bus:device:function} (sbdf) address if assigned.\n"
+                }, 
+                "mode": {
+                    "x-ntnx-enum": [
+                        "PASSTHROUGH_GRAPHICS", 
+                        "PASSTHROUGH_COMPUTE", 
+                        "VIRTUAL"
+                    ], 
+                    "type": "string", 
+                    "description": "The mode of this GPU"
+                }, 
+                "fraction": {
+                    "type": "integer", 
+                    "description": "Fraction of the physical GPU assigned.", 
+                    "format": "int32"
+                }, 
+                "guest_driver_version": {
+                    "type": "string", 
+                    "description": "Last determined guest driver version."
+                }, 
+                "device_id": {
+                    "type": "integer", 
+                    "description": "The device ID of the GPU.", 
+                    "format": "int32"
+                }, 
+                "name": {
+                    "type": "string", 
+                    "description": "Name of the GPU resource."
+                }
+            }, 
+            "description": "Graphics resource status information for the Virtual Machine."
+        },
+        "vm_boot_config": {
+            "title": "VM Boot configuration", 
+            "type": "object", 
+            "properties": {
+                "boot_device_order_list": {
+                    "type": "string", 
+                    "description": "Indicates the order of device types in which VM should try to boot from. If boot device order is not provided the system will decide appropriate boot device order.\n"
+                }, 
+                "boot_device": {
+                    "description": "Indicates which device a VM should boot from. Boot device takes precdence over boot device order. If both are given then specified boot device will be primary boot device and remaining devices will be assigned boot order according to boot device order field.\n", 
+                    "$ref": "#/definitions/vm_boot_device"
+                }
+            }, 
+            "description": "Indicates which device a VM should boot from.\n"
+        },
+        "guest_customization_status": {
+            "x-ntnx-one-of": [
+                {
+                    "required": [
+                        "sysprep"
+                    ]
+                }, 
+                {
+                    "required": [
+                        "cloud_init"
+                    ]
+                }
+            ], 
+            "title": "Guest Customization Configuration for creation/modification request", 
+            "additionalProperties": {
+                "type": "string"
+            }, 
+            "type": "object", 
+            "properties": {
+                "cloud_init": {
+                    "x-ntnx-one-of": [
+                        {
+                            "required": [
+                                "user_data"
+                            ]
+                        }, 
+                        {
+                            "required": [
+                                "custom_key_values"
+                            ]
+                        }
+                    ], 
+                    "type": "object", 
+                    "properties": {
+                        "meta_data": {
+                            "type": "string", 
+                            "description": "The contents of the meta_data configuration for cloud-init. This can be formatted as YAML or JSON. The value must be base64 encoded.\n"
+                        }, 
+                        "user_data": {
+                            "type": "string", 
+                            "description": "The contents of the user_data configuration for cloud-init. This can be formatted as YAML, JSON, or could be a shell script. The value must be base64 encoded.\n"
+                        }, 
+                        "custom_key_values": {
+                            "$ref": "#/definitions/custom_generic_key_value_pair"
+                        }
+                    }, 
+                    "description": "If this field is set, the guest will be customized using cloud-init. Either user_data or custom_key_values should be provided. If custom_key_ves are provided then the user data will be generated using these key-value pairs.\n"
+                }, 
+                "is_overridable": {
+                    "type": "boolean", 
+                    "description": "Flag to allow override of customization by deployer."
+                }, 
+                "sysprep": {
+                    "x-ntnx-one-of": [
+                        {
+                            "required": [
+                                "unattend_xml"
+                            ]
+                        }, 
+                        {
+                            "required": [
+                                "custom_key_values"
+                            ]
+                        }
+                    ], 
+                    "type": "object", 
+                    "properties": {
+                        "install_type": {
+                            "default": "PREPARED", 
+                            "x-ntnx-enum": [
+                                "FRESH", 
+                                "PREPARED"
+                            ], 
+                            "type": "string", 
+                            "description": "Whether the guest will be freshly installed using this unattend configuration, or whether this unattend configuration will be applied to a pre-prepared image. Default is \"PREPARED\".\n"
+                        }, 
+                        "unattend_xml": {
+                            "type": "string", 
+                            "description": "This field contains a Sysprep unattend xml definition, as a string. The value must be base64 encoded.\n"
+                        }, 
+                        "custom_key_values": {
+                            "$ref": "#/definitions/custom_generic_key_value_pair"
+                        }
+                    }, 
+                    "description": "If this field is set, the guest will be customized using Sysprep. Either unattend_xml or custom_key_values should be provided. If custom_key_values are provided then the unattended answer file will be generated using these key-value pairs.\n"
+                }
+            }, 
+            "description": "VM guests may be customized at boot time using one of several different methods. Currently, cloud-init w/ ConfigDriveV2 (for Linux VMs) and Sysprep (for Windows VMs) are supported. Only ONE OF sysprep or cloud_init should be provided. Note that guest customization can currently only be set during VM creation. Attempting to change it after creation will result in an error. Additional properties can be specified. For example - in the context of VM template creation if \"override_script\" is set to \"True\" then the deployer can upload their own custom script.\n"
+        },
+        "vm_power_state_mechanism": {
+            "title": "VM Power State Mechanism", 
+            "type": "object", 
+            "properties": {
+                "guest_transition_config": {
+                    "$ref": "#/definitions/vm_guest_power_state_transition_config"
+                }, 
+                "mechanism": {
+                    "x-ntnx-enum": [
+                        "ACPI", 
+                        "GUEST", 
+                        "HARD"
+                    ], 
+                    "type": "string", 
+                    "description": "Power state mechanism (ACPI/GUEST/HARD)."
+                }
+            }, 
+            "description": "Indicates the mechanism guiding the VM power state transition. Currently used for the transition to \"OFF\" state.\n"
+        },
+        "vm_disk": {
+            "title": "VirtualMachine Disk (VM Disk)", 
+            "type": "object", 
+            "properties": {
+                "volume_group_reference": {
+                    "$ref": "#/definitions/reference"
+                }, 
+                "device_properties": {
+                    "type": "object", 
+                    "properties": {
+                        "disk_address": {
+                            "$ref": "#/definitions/disk_address"
+                        }, 
+                        "device_type": {
+                            "default": "DISK", 
+                            "x-ntnx-enum": [
+                                "DISK", 
+                                "CDROM", 
+                                "VOLUME_GROUP"
+                            ], 
+                            "type": "string"
+                        }
+                    }
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "description": "The device ID which is used to uniquely identify this particular disk.\n", 
+                    "format": "UUID"
+                }, 
+                "data_source_reference": {
+                    "$ref": "#/definitions/reference"
+                }, 
+                "disk_size_mib": {
+                    "minimum": 1, 
+                    "type": "integer", 
+                    "description": "Size of the disk in MiB. Must match the size specified in 'disk_size_bytes' - rounded up to the nearest MiB -  when that field is present.\n", 
+                    "format": "int32"
+                }, 
+                "disk_size_bytes": {
+                    "minimum": 1, 
+                    "type": "integer", 
+                    "description": "Size of the disk in Bytes.", 
+                    "format": "int64"
+                }
+            }, 
+            "description": "VirtualMachine Disk (VM Disk)."
+        },
+        "vm_vnuma_config": {
+            "title": "VM vNUMA configuration", 
+            "type": "object", 
+            "properties": {
+                "num_vnuma_nodes": {
+                    "type": "integer", 
+                    "description": "Number of vNUMA nodes. 0 means vNUMA is disabled.", 
+                    "format": "int64"
+                }
+            }, 
+            "description": "Indicates how VM vNUMA should be configured\n"
+        },
+        "vm_nic_output_status": {
+            "title": "Virtual Machine NIC Status", 
+            "type": "object", 
+            "properties": {
+                "nic_type": {
+                    "x-ntnx-enum": [
+                        "NORMAL_NIC", 
+                        "DIRECT_NIC", 
+                        "NETWORK_FUNCTION_NIC"
+                    ], 
+                    "type": "string", 
+                    "description": "The type of this NIC. Defaults to NORMAL_NIC."
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "description": "The NIC's UUID, which is used to uniquely identify this particular NIC. This UUID may be used to refer to the NIC outside the context of the particular VM it is attached to.\n", 
+                    "format": "UUID"
+                }, 
+                "ip_endpoint_list": {
+                    "type": "string", 
+                    "description": "IP endpoints for the adapter. Currently, IPv4 addresses are supported.\n"
+                }, 
+                "network_function_chain_reference": {
+                    "$ref": "#/definitions/network_function_chain_reference"
+                }, 
+                "floating_ip": {
+                    "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$", 
+                    "type": "string", 
+                    "description": "The Floating IP associated with the vnic."
+                }, 
+                "network_function_nic_type": {
+                    "x-ntnx-enum": [
+                        "INGRESS", 
+                        "EGRESS", 
+                        "TAP"
+                    ], 
+                    "type": "string", 
+                    "description": "The type of this Network function NIC. Defaults to INGRESS.\n"
+                }, 
+                "mac_address": {
+                    "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$", 
+                    "type": "string", 
+                    "description": "The MAC address for the adapter."
+                }, 
+                "subnet_reference": {
+                    "$ref": "#/definitions/subnet_reference"
+                }, 
+                "model": {
+                    "x-ntnx-enum": [
+                        "VIRTIO", 
+                        "E1000"
+                    ], 
+                    "type": "string", 
+                    "description": "The model of this NIC."
+                }
+            }, 
+            "description": "Virtual Machine NIC Status."
+        },
+        "reference": {
+            "title": "Reference", 
+            "required": [
+                "kind", 
+                "uuid"
+            ], 
+            "type": "object", 
+            "properties": {
+                "kind": {
+                    "type": "string"
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "format": "UUID"
+                }, 
+                "name": {
+                    "readOnly": true, 
+                    "type": "string"
+                }
+            }, 
+            "description": "Reference to a kind"
+        },
+        "guest_tools_status": {
+            "title": "Guest Tools information", 
+            "type": "object", 
+            "properties": {
+                "nutanix_guest_tools": {
+                    "description": "Nutanix Guest Tools information", 
+                    "$ref": "#/definitions/nutanix_guest_tools_status"
+                }
+            }, 
+            "description": "Information regarding guest tools."
+        },
+        "vm_boot_device": {
+            "description": "Indicates which device a VM should boot from. One of disk_address or mac_address should be provided.\n", 
+            "title": "VM Boot device", 
+            "type": "object", 
+            "properties": {
+                "disk_address": {
+                    "description": "Address of disk to boot from.", 
+                    "$ref": "#/definitions/disk_address"
+                }, 
+                "mac_address": {
+                    "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$", 
+                    "type": "string", 
+                    "description": "MAC address of nic to boot from."
+                }
+            }, 
+            "x-ntnx-one-of": [
+                {
+                    "required": [
+                        "disk_address"
+                    ]
+                }, 
+                {
+                    "required": [
+                        "mac_address"
+                    ]
+                }
+            ]
+        },
+        "custom_generic_key_value_pair": {
+            "additionalProperties": {
+                "type": "string"
+            }, 
+            "type": "object", 
+            "description": "Generic key value pair used for custom attributes", 
+            "title": "Generic key value pair"
+        },
+        "vm_guest_power_state_transition_config": {
+            "title": "Power State Transition Config", 
+            "type": "object", 
+            "properties": {
+                "should_fail_on_script_failure": {
+                    "type": "boolean", 
+                    "description": "Indicates whether to abort ngt shutdown/reboot if script fails."
+                }, 
+                "enable_script_exec": {
+                    "type": "boolean", 
+                    "description": "Indicates whether to execute set script before ngt shutdown/reboot."
+                }
+            }, 
+            "description": "Extra configs related to power state transition."
+        },
+        "ip_address": {
+            "title": "IP Address", 
+            "type": "object", 
+            "properties": {
+                "ip": {
+                    "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$", 
+                    "type": "string", 
+                    "description": "Address string."
+                }, 
+                "type": {
+                    "x-ntnx-enum": [
+                        "ASSIGNED", 
+                        "LEARNED"
+                    ], 
+                    "type": "string", 
+                    "description": "Address type. It can only be \"ASSIGNED\" in the spec. If no type is\nspecified in the spec, the default type is set to \"ASSIGNED\".\n"
+                }
+            }, 
+            "description": "An IP address."
+        },
+        "network_function_chain_reference": {
+            "title": "Reference to a network_function_chain", 
+            "required": [
+                "uuid"
+            ], 
+            "type": "object", 
+            "properties": {
+                "kind": {
+                    "default": "network_function_chain", 
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "The kind name", 
+                    "x-ntnx-enum": [
+                        "network_function_chain"
+                    ]
+                }, 
+                "name": {
+                    "readOnly": true, 
+                    "type": "string"
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "format": "UUID"
+                }
+            }, 
+            "description": "The reference to a network_function_chain"
+        },
+        "subnet_reference": {
+            "title": "Reference to a subnet", 
+            "required": [
+                "uuid"
+            ], 
+            "type": "object", 
+            "properties": {
+                "kind": {
+                    "default": "subnet", 
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "The kind name", 
+                    "x-ntnx-enum": [
+                        "subnet"
+                    ]
+                }, 
+                "name": {
+                    "readOnly": true, 
+                    "type": "string"
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "format": "UUID"
+                }
+            }, 
+            "description": "The reference to a subnet"
+        },
+        "nutanix_guest_tools_status": {
+            "title": "Nutanix Guest Tools status", 
+            "type": "object", 
+            "properties": {
+                "available_version": {
+                    "type": "string", 
+                    "description": "Version of Nutanix Guest Tools available on the cluster."
+                }, 
+                "iso_mount_state": {
+                    "x-ntnx-enum": [
+                        "MOUNTED", 
+                        "UNMOUNTED"
+                    ], 
+                    "type": "string", 
+                    "description": "Desired mount state of Nutanix Guest Tools ISO.\n"
+                }, 
+                "state": {
+                    "x-ntnx-enum": [
+                        "ENABLED", 
+                        "DISABLED"
+                    ], 
+                    "type": "string", 
+                    "description": "Nutanix Guest Tools is enabled or not."
+                }, 
+                "version": {
+                    "type": "string", 
+                    "description": "Version of Nutanix Guest Tools installed on the VM."
+                }, 
+                "guest_os_version": {
+                    "type": "string", 
+                    "description": "Version of the operating system on the VM."
+                }, 
+                "enabled_capability_list": {
+                    "type": "string", 
+                    "description": "Application names that are enabled."
+                }, 
+                "vss_snapshot_capable": {
+                    "type": "boolean", 
+                    "description": "Whether the VM is configured to take VSS snapshots through NGT.\n"
+                }, 
+                "is_reachable": {
+                    "type": "boolean", 
+                    "description": "Communication from VM to CVM is active or not."
+                }, 
+                "vm_mobility_drivers_installed": {
+                    "type": "boolean", 
+                    "description": "Whether VM mobility drivers are installed in the VM."
+                }
+            }, 
+            "description": "Information regarding Nutanix Guest Tools."
+        }, 
+        "vm_resources": {
+            "title": "VM Resources", 
+            "type": "object", 
+            "properties": {
+                "power_state": {
+                    "x-ntnx-enum": [
+                        "ON", 
+                        "OFF"
+                    ], 
+                    "type": "string", 
+                    "description": "The current or desired power state of the VM."
+                }, 
+                "num_vcpus_per_socket": {
+                    "minimum": 1, 
+                    "type": "integer", 
+                    "description": "Number of vCPUs per socket.", 
+                    "format": "int32"
+                }, 
+                "num_sockets": {
+                    "minimum": 1, 
+                    "type": "integer", 
+                    "description": "Number of vCPU sockets.", 
+                    "format": "int32"
+                }, 
+                "gpu_list": {
+                    "type": "string", 
+                    "description": "GPUs attached to the VM."
+                }, 
+                "memory_size_mib": {
+                    "minimum": 1, 
+                    "type": "integer", 
+                    "description": "Memory size in MiB.", 
+                    "format": "int32"
+                }, 
+                "boot_config": {
+                    "description": "Indicates which device the VM should boot from.", 
+                    "$ref": "#/definitions/vm_boot_config"
+                }, 
+                "hardware_clock_timezone": {
+                    "type": "string", 
+                    "description": "VM's hardware clock timezone in IANA TZDB format (America/Los_Angeles).\n", 
+                    "maxLength": 64
+                }, 
+                "guest_customization": {
+                    "$ref": "#/definitions/guest_customization"
+                }, 
+                "power_state_mechanism": {
+                    "$ref": "#/definitions/vm_power_state_mechanism"
+                }, 
+                "vga_console_enabled": {
+                    "type": "boolean", 
+                    "description": "Indicates whether VGA console should be enabled or not."
+                }, 
+                "disk_list": {
+                    "type": "string", 
+                    "description": "Disks attached to the VM."
+                }, 
+                "vnuma_config": {
+                    "description": "Information regarding vNUMA configuration.", 
+                    "$ref": "#/definitions/vm_vnuma_config"
+                }, 
+                "nic_list": {
+                    "type": "string", 
+                    "description": "NICs attached to the VM."
+                }, 
+                "guest_os_id": {
+                    "type": "string", 
+                    "description": "Guest OS Identifier. For ESX, refer to VMware documentation link (https://www.vmware.com/support/developer/converter-sdk/conv43_apireference/vim.vm.GuestOsDescriptor.GuestOsIdentifier.html) for the list of guest OS identifiers.\n", 
+                    "maxLength": 64
+                }, 
+                "guest_tools": {
+                    "description": "Information regarding guest tools.", 
+                    "$ref": "#/definitions/guest_tools_spec"
+                }, 
+                "parent_reference": {
+                    "description": "Reference to an entity that the VM should be cloned from.\n", 
+                    "$ref": "#/definitions/reference"
+                }
+            }, 
+            "description": "VM Resources Definition."
+        },
+        "vm_gpu": {
+            "title": "VirtualMachine GPU", 
+            "type": "object", 
+            "properties": {
+                "vendor": {
+                    "x-ntnx-enum": [
+                        "NVIDIA", 
+                        "INTEL", 
+                        "AMD"
+                    ], 
+                    "type": "string", 
+                    "description": "The vendor of the GPU."
+                }, 
+                "mode": {
+                    "x-ntnx-enum": [
+                        "PASSTHROUGH_GRAPHICS", 
+                        "PASSTHROUGH_COMPUTE", 
+                        "VIRTUAL"
+                    ], 
+                    "type": "string", 
+                    "description": "The mode of this GPU."
+                }, 
+                "device_id": {
+                    "type": "integer", 
+                    "description": "The device ID of the GPU.", 
+                    "format": "int32"
+                }
+            }, 
+            "description": "Graphics resource information for the Virtual Machine."
+        },
+        "guest_customization": {
+            "x-ntnx-one-of": [
+                {
+                    "required": [
+                        "sysprep"
+                    ]
+                }, 
+                {
+                    "required": [
+                        "cloud_init"
+                    ]
+                }
+            ], 
+            "title": "Guest Customization Configuration for creation/modification request", 
+            "additionalProperties": {
+                "type": "string"
+            }, 
+            "type": "object", 
+            "properties": {
+                "cloud_init": {
+                    "x-ntnx-one-of": [
+                        {
+                            "required": [
+                                "user_data"
+                            ]
+                        }, 
+                        {
+                            "required": [
+                                "custom_key_values"
+                            ]
+                        }
+                    ], 
+                    "type": "object", 
+                    "properties": {
+                        "meta_data": {
+                            "type": "string", 
+                            "description": "The contents of the meta_data configuration for cloud-init. This can be formatted as YAML or JSON. The value must be base64 encoded.\n", 
+                            "maxLength": 32000
+                        }, 
+                        "user_data": {
+                            "type": "string", 
+                            "description": "The contents of the user_data configuration for cloud-init. This can be formatted as YAML, JSON, or could be a shell script. The value must be base64 encoded.\n", 
+                            "maxLength": 32000
+                        }, 
+                        "custom_key_values": {
+                            "$ref": "#/definitions/custom_generic_key_value_pair"
+                        }
+                    }, 
+                    "description": "If this field is set, the guest will be customized using cloud-init. Either user_data or custom_key_values should be provided. If custom_key_ves are provided then the user data will be generated using these key-value pairs.\n"
+                }, 
+                "is_overridable": {
+                    "default": false, 
+                    "type": "boolean", 
+                    "description": "Flag to allow override of customization by deployer."
+                }, 
+                "sysprep": {
+                    "x-ntnx-one-of": [
+                        {
+                            "required": [
+                                "unattend_xml"
+                            ]
+                        }, 
+                        {
+                            "required": [
+                                "custom_key_values"
+                            ]
+                        }
+                    ], 
+                    "type": "object", 
+                    "properties": {
+                        "install_type": {
+                            "default": "PREPARED", 
+                            "x-ntnx-enum": [
+                                "FRESH", 
+                                "PREPARED"
+                            ], 
+                            "type": "string", 
+                            "description": "Whether the guest will be freshly installed using this unattend configuration, or whether this unattend configuration will be applied to a pre-prepared image. Default is \"PREPARED\".\n"
+                        }, 
+                        "unattend_xml": {
+                            "type": "string", 
+                            "description": "This field contains a Sysprep unattend xml definition, as a string. The value must be base64 encoded.\n", 
+                            "maxLength": 32000
+                        }, 
+                        "custom_key_values": {
+                            "$ref": "#/definitions/custom_generic_key_value_pair"
+                        }
+                    }, 
+                    "description": "If this field is set, the guest will be customized using Sysprep. Either unattend_xml or custom_key_values should be provided. If custom_key_values are provided then the unattended answer file will be generated using these key-value pairs.\n"
+                }
+            }, 
+            "description": "VM guests may be customized at boot time using one of several different methods. Currently, cloud-init w/ ConfigDriveV2 (for Linux VMs) and Sysprep (for Windows VMs) are supported. Only ONE OF sysprep or cloud_init should be provided. Note that guest customization can currently only be set during VM creation. Attempting to change it after creation will result in an error. Additional properties can be specified. For example - in the context of VM template creation if \"override_script\" is set to \"True\" then the deployer can upload their own custom script.\n"
+        },
+        "vm_nic": {
+            "title": "Virtual Machine NIC", 
+            "type": "object", 
+            "properties": {
+                "nic_type": {
+                    "x-ntnx-enum": [
+                        "NORMAL_NIC", 
+                        "DIRECT_NIC", 
+                        "NETWORK_FUNCTION_NIC"
+                    ], 
+                    "type": "string", 
+                    "description": "The type of this NIC. Defaults to NORMAL_NIC."
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "description": "The NIC's UUID, which is used to uniquely identify this particular NIC. This UUID may be used to refer to the NIC outside the context of the particular VM it is attached to.\n", 
+                    "format": "UUID"
+                }, 
+                "ip_endpoint_list": {
+                    "type": "string", 
+                    "description": "IP endpoints for the adapter. Currently, IPv4 addresses are\nsupported.\n"
+                }, 
+                "network_function_chain_reference": {
+                    "$ref": "#/definitions/network_function_chain_reference"
+                }, 
+                "network_function_nic_type": {
+                    "x-ntnx-enum": [
+                        "INGRESS", 
+                        "EGRESS", 
+                        "TAP"
+                    ], 
+                    "type": "string", 
+                    "description": "The type of this Network function NIC. Defaults to INGRESS.\n"
+                }, 
+                "mac_address": {
+                    "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$", 
+                    "type": "string", 
+                    "description": "The MAC address for the adapter."
+                }, 
+                "subnet_reference": {
+                    "$ref": "#/definitions/subnet_reference"
+                }, 
+                "model": {
+                    "x-ntnx-enum": [
+                        "VIRTIO", 
+                        "E1000"
+                    ], 
+                    "type": "string", 
+                    "description": "The model of this NIC."
+                }
+            }, 
+            "description": "Virtual Machine NIC."
+        },
+        "nutanix_guest_tools_spec": {
+            "title": "Nutanix Guest Tools information", 
+            "type": "object", 
+            "properties": {
+                "iso_mount_state": {
+                    "x-ntnx-enum": [
+                        "MOUNTED", 
+                        "UNMOUNTED"
+                    ], 
+                    "type": "string", 
+                    "description": "Desired mount state of Nutanix Guest Tools ISO.\n"
+                }, 
+                "state": {
+                    "x-ntnx-enum": [
+                        "ENABLED", 
+                        "DISABLED"
+                    ], 
+                    "type": "string", 
+                    "description": "Nutanix Guest Tools is enabled or not."
+                }, 
+                "enabled_capability_list": {
+                    "type": "string", 
+                    "description": "Application names that are enabled."
+                }
+            }, 
+            "description": "Information regarding Nutanix Guest Tools."
+        },
+        "vm_metadata": {
+            "title": "vm metadata", 
+            "type": "object", 
+            "properties": {
+                "last_update_time": {
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "UTC date and time in RFC-3339 format when vm was last updated\n", 
+                    "format": "date-time"
+                }, 
+                "kind": {
+                    "default": "vm", 
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "The kind name", 
+                    "x-ntnx-enum": [
+                        "vm"
+                    ]
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "description": "vm uuid", 
+                    "format": "UUID"
+                }, 
+                "project_reference": {
+                    "description": "The project the vm is in.", 
+                    "$ref": "#/definitions/project_reference"
+                }, 
+                "spec_version": {
+                    "type": "integer", 
+                    "description": "Version number of the latest spec."
+                }, 
+                "creation_time": {
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "UTC date and time in RFC-3339 format when vm was created\n", 
+                    "format": "date-time"
+                }, 
+                "spec_hash": {
+                    "type": "string", 
+                    "description": "Hash of the spec. This will be returned from server.\n"
+                }, 
+                "owner_reference": {
+                    "$ref": "#/definitions/user_reference"
+                }, 
+                "categories": {
+                    "additionalProperties": {
+                        "type": "string"
+                    }, 
+                    "type": "object", 
+                    "description": "Categories for the vm"
+                }, 
+                "name": {
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "vm name", 
+                    "maxLength": 64
+                }
+            }, 
+            "description": "The vm kind metadata"
+        },
+        "guest_tools_spec": {
+            "title": "Guest Tools information", 
+            "type": "object", 
+            "properties": {
+                "nutanix_guest_tools": {
+                    "description": "Nutanix Guest Tools information", 
+                    "$ref": "#/definitions/nutanix_guest_tools_spec"
+                }
+            }, 
+            "description": "Information regarding guest tools."
+        },
+        "vm": {
+            "title": "vm Intent Spec with placement specified", 
+            "required": [
+                "name", 
+                "resources"
+            ], 
+            "type": "object", 
+            "properties": {
+                "description": {
+                    "type": "string", 
+                    "description": "A description for vm.", 
+                    "maxLength": 1000
+                }, 
+                "resources": {
+                    "$ref": "#/definitions/vm_resources"
+                }, 
+                "cluster_reference": {
+                    "$ref": "#/definitions/cluster_reference"
+                }, 
+                "name": {
+                    "type": "string", 
+                    "description": "vm Name.", 
+                    "maxLength": 64
+                }, 
+                "availability_zone_reference": {
+                    "$ref": "#/definitions/availability_zone_reference"
+                }
+            }, 
+            "description": "An intentful representation of a vm spec"
+        },
+        "disk_address": {
+            "title": "Disk Address", 
+            "required": [
+                "adapter_type", 
+                "device_index"
+            ], 
+            "type": "object", 
+            "properties": {
+                "device_index": {
+                    "type": "integer"
+                }, 
+                "adapter_type": {
+                    "x-ntnx-enum": [
+                        "SCSI", 
+                        "IDE", 
+                        "PCI", 
+                        "SATA", 
+                        "SPAPR"
+                    ], 
+                    "type": "string"
+                }
+            }, 
+            "description": "Disk Address."
+        }, 
+        "cluster_reference": {
+            "title": "Reference to a cluster", 
+            "required": [
+                "uuid"
+            ], 
+            "type": "object", 
+            "properties": {
+                "kind": {
+                    "default": "cluster", 
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "The kind name", 
+                    "x-ntnx-enum": [
+                        "cluster"
+                    ]
+                }, 
+                "name": {
+                    "readOnly": true, 
+                    "type": "string"
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "format": "UUID"
+                }
+            }, 
+            "description": "The reference to a cluster"
+        }, 
+        "sort_order": {
+            "x-ntnx-enum": [
+                "ASCENDING", 
+                "DESCENDING"
+            ], 
+            "type": "string", 
+            "description": "The sort order in which results are returned", 
+            "title": "Sort order"
+        },
+                "vm_intent_resource": {
+            "title": "vm Intent Response", 
+            "required": [
+                "metadata"
+            ], 
+            "type": "object", 
+            "properties": {
+                "status": {
+                    "$ref": "#/definitions/vm_def_status"
+                }, 
+                "spec": {
+                    "$ref": "#/definitions/vm"
+                }, 
+                "api_version": {
+                    "type": "string"
+                }, 
+                "metadata": {
+                    "$ref": "#/definitions/vm_metadata"
+                }
+            }, 
+            "description": "Response object for intentful operations on a vm"
+        }, 
+        "vm_intent_input": {
+            "title": "vm Intent Entity", 
+            "required": [
+                "metadata", 
+                "spec"
+            ], 
+            "type": "object", 
+            "properties": {
+                "spec": {
+                    "$ref": "#/definitions/vm"
+                }, 
+                "api_version": {
+                    "default": "3.1.0", 
+                    "type": "string"
+                }, 
+                "metadata": {
+                    "$ref": "#/definitions/vm_metadata"
+                }
+            }, 
+            "description": "An intentful representation of a vm"
+        },
+        "vm_intent_response": {
+            "title": "vm Intent Response", 
+            "required": [
+                "api_version", 
+                "metadata"
+            ], 
+            "type": "object", 
+            "properties": {
+                "status": {
+                    "$ref": "#/definitions/vm_def_status"
+                }, 
+                "spec": {
+                    "$ref": "#/definitions/vm"
+                }, 
+                "api_version": {
+                    "type": "string"
+                }, 
+                "metadata": {
+                    "$ref": "#/definitions/vm_metadata"
+                }
+            }, 
+            "description": "Response object for intentful operations on a vm"
+        }, 
+        "user_status": {
+            "title": "Response Kind", 
+            "type": "object", 
+            "properties": {
+                "kind": {
+                    "default": "user", 
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "The kind name", 
+                    "x-ntnx-enum": [
+                        "user"
+                    ]
+                }, 
+                "code": {
+                    "readOnly": true, 
+                    "type": "integer", 
+                    "description": "The HTTP error code."
+                }, 
+                "message_list": {
+                    "items": {
+                        "$ref": "#/definitions/message_resource"
+                    }, 
+                    "readOnly": true, 
+                    "type": "array"
+                }, 
+                "state": {
+                    "readOnly": true, 
+                    "type": "string"
+                }, 
+                "api_version": {
+                    "readOnly": true, 
+                    "type": "string"
+                }
+            }, 
+            "description": "The status of a REST API call. Only used when there is a failure to\nreport.\n"
+        },
+    	"access_control_policy_list_metadata": {
+            "title": "Metadata for access_control_policy list", 
+            "type": "object", 
+            "properties": {
+                "filter": {
+                    "type": "string", 
+                    "description": "The filter in FIQL syntax used for the results."
+                }, 
+                "kind": {
+                    "default": "access_control_policy", 
+                    "x-ntnx-enum": [
+                        "access_control_policy"
+                    ], 
+                    "type": "string", 
+                    "description": "The kind name"
+                },
+                "offset": {
+                    "minimum": 0, 
+                    "type": "integer", 
+                    "description": "Offset from the start of the entity list", 
+                    "format": "int32"
+                }, 
+                "length": {
+                    "minimum": 1, 
+                    "type": "integer", 
+                    "description": "The number of records to retrieve relative to the offset", 
+                    "format": "int32"
+                }, 
+                "sort_attribute": {
+                    "type": "string", 
+                    "description": "The attribute to perform sort on"
+                }
+            }, 
+            "description": "All api calls that return a list will have this metadata block as input\n"
+        },
+        "user": {
+            "title": "User.", 
+            "required": [
+                "resources"
+            ], 
+            "type": "object", 
+            "properties": {
+                "resources": {
+                    "$ref": "#/definitions/user_input_resource"
+                }
+            }, 
+            "description": "User Input Definition."
+        },
+        "access_control_policy_status": {
+            "title": "Response Kind", 
+            "type": "object", 
+            "properties": {
+                "kind": {
+                    "default": "access_control_policy", 
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "The kind name", 
+                    "x-ntnx-enum": [
+                        "access_control_policy"
+                    ]
+                }, 
+                "code": {
+                    "readOnly": true, 
+                    "type": "integer", 
+                    "description": "The HTTP error code."
+                }, 
+                "state": {
+                    "readOnly": true, 
+                    "type": "string"
+                }, 
+                "api_version": {
+                    "readOnly": true, 
+                    "type": "string"
+                }
+            }, 
+            "description": "The status of a REST API call. Only used when there is a failure to\nreport.\n"
+        },
+        "access_control_policy_list_intent_response": {
+            "title": "Entity Intent List Response", 
+            "required": [
+                "api_version", 
+                "metadata"
+            ], 
+            "type": "object", 
+            "properties": {
+                "entities": { 
+                    "type": "string"
+                }, 
+                "api_version": {
+                    "type": "string"
+                }
+            }, 
+            "description": "Response object for intentful operation of access_control_policys"
+        },
+        "user_intent_response": {
+            "title": "user Intent Response", 
+            "required": [
+                "api_version", 
+                "metadata"
+            ], 
+            "type": "object", 
+            "properties": {
+                "status": {
+                    "$ref": "#/definitions/user_def_status"
+                }, 
+                "spec": {
+                    "$ref": "#/definitions/user"
+                }, 
+                "api_version": {
+                    "type": "string"
+                }, 
+                "metadata": {
+                    "$ref": "#/definitions/user_metadata"
+                }
+            }, 
+            "description": "Response object for intentful operations on a user"
+        }, 
+        "user_def_status": {
+            "title": "User status definition.", 
+            "required": [
+                "name", 
+                "resources"
+            ], 
+            "type": "object", 
+            "properties": {
+                "state": {
+                    "type": "string", 
+                    "description": "The state of the entity."
+                }, 
+                "message_list": {
+                    "items": {
+                        "$ref": "#/definitions/message_resource"
+                    }, 
+                    "type": "array"
+                }, 
+                "name": {
+                    "type": "string", 
+                    "description": "Name of the User."
+                }, 
+                "resources": {
+                    "$ref": "#/definitions/user_status_resource"
+                }
+            }, 
+            "description": "User status definition."
+        },
+        "user_status_resource": {
+            "title": "User Resource Definition.", 
+            "type": "object", 
+            "properties": {
+                "access_control_policy_reference_list": {
+                    "items": {
+                        "$ref": "#/definitions/access_control_policy_reference"
+                    }, 
+                    "type": "array", 
+                    "description": "List of ACP references."
+                }, 
+                "resource_usage_summary": {
+                    "type": "object", 
+                    "properties": {
+                        "resource_domain": {
+                            "$ref": "#/definitions/resource_domain_resources_status"
+                        }
+                    }
+                }, 
+                "display_name": {
+                    "type": "string", 
+                    "description": "The display name of the user (common name) provided by the directory service.\n"
+                }, 
+                "projects_reference_list": {
+                    "items": {
+                        "$ref": "#/definitions/project_reference"
+                    }, 
+                    "type": "array", 
+                    "description": "A list of projects the user is part of."
+                }, 
+                "user_type": {
+                    "x-ntnx-enum": [
+                        "LOCAL", 
+                        "DIRECTORY_SERVICE"
+                    ], 
+                    "type": "string"
+                }, 
+                "directory_service_user": {
+                    "$ref": "#/definitions/directory_service_user_status"
+                }
+            }, 
+            "description": "User Resource Definition."
+        },
+        "message_resource": {
+            "title": "Message.", 
+            "required": [
+                "message", 
+                "reason"
+            ], 
+            "type": "object", 
+            "properties": {
+                "message": {
+                    "type": "string", 
+                    "description": "If state is ERROR, a message describing the error."
+                }, 
+                "reason": {
+                    "x-ntnx-enum": [
+                        "ACCESS_DENIED", 
+                        "ACCESS_FORBIDDEN", 
+                        "ACTION_NOT_SUPPORTED", 
+                        "AUTHENTICATION_REQUIRED", 
+                        "BEARER_TOKEN_EXPIRED", 
+                        "BEARER_TOKEN_BAD_SIGNATURE", 
+                        "CANNOT_MODIFY_PRE_CONFIGURED_REPORT", 
+                        "CATEGORY_NAME_VALUE_MISMATCH", 
+                        "CONFIGURATION_INCOMPLETE", 
+                        "CONCURRENT_REQUESTS_NOT_ALLOWED", 
+                        "DEFAULT_PROJECT_UNAVAILABLE", 
+                        "DESERIALIZATION_FAILED", 
+                        "DIRECTORY_SERVICE_CONNECTION_FAILED", 
+                        "ENTITY_ALREADY_EXISTS", 
+                        "ENTITY_DELETION_FAILED", 
+                        "ENTITY_IS_READONLY", 
+                        "ENTITY_NAME_UUID_MISMATCH", 
+                        "ENTITY_NOT_CONFIGURED", 
+                        "ENTITY_NOT_FOUND", 
+                        "ENTITY_SAVE_ERROR", 
+                        "ENTITY_UPDATE_FAILED", 
+                        "IDEMPOTENCE_UUID_CREATION_FAILED", 
+                        "IDP_NOT_REACHABLE", 
+                        "INTERNAL_ERROR", 
+                        "INVALID_ARGUMENT", 
+                        "INVALID_AZ_NAME", 
+                        "INVALID_CONTENT_TYPE", 
+                        "INVALID_DATA_FORMAT", 
+                        "INVALID_PORTAL_CONFIGURATION", 
+                        "INVALID_REQUEST", 
+                        "INVALID_UUID", 
+                        "INVALID_OWNER_REFERENCE", 
+                        "INTERNAL_AZ_PROXY_SETUP_ERROR", 
+                        "INTERNAL_ERROR_REMOTE_REQUEST", 
+                        "INTERNAL_ROLE_ACCESS_DENIED", 
+                        "INCORRECT_EVENTS_FILTER", 
+                        "MISSING_ATTRIBUTE", 
+                        "MISSING_CURRENT_USER_METADATA", 
+                        "NAME_NOT_IN_DOMAIN", 
+                        "NO_RESPONSE_RECEIVED_FROM_PORTAL", 
+                        "PE_NOT_PAIRED_WITH_PC", 
+                        "PC_NOT_PAIRED_WITH_XI_PORTAL", 
+                        "REFERENCE_ERROR", 
+                        "RESERVED_ROLE_ACCESS_DENIED", 
+                        "REQUEST_NOT_SUPPORTED", 
+                        "REMOTE_CLUSTER_IP_FETCH_FAILED", 
+                        "REMOTE_CLUSTER_NOT_CONNECTED", 
+                        "REMOTE_CONNECTION_EXISTS", 
+                        "REMOTE_CONNECTION_NOT_FOUND", 
+                        "REPORT_CONFIG_NOT_FOUND", 
+                        "REPORTING_RESOURCE_NOT_FOUND", 
+                        "REPORTING_INTERNAL_ERROR", 
+                        "SERVICE_UNAVAILABLE", 
+                        "SEARCH_RESULT_PROCESSING_ERROR", 
+                        "TOO_MANY_REQUESTS", 
+                        "UNCONFIGURED_API_KEY", 
+                        "UNCONFIGURED_PORTAL_CONNECTION", 
+                        "UNSPECIFIED_EVENTS_FILTER", 
+                        "UNSUPPORTED_AZ_PROXY_API", 
+                        "UNSUPPORTED_MEDIA_TYPE_ERROR", 
+                        "UNSUPPORTED_API_VERSION", 
+                        "UPLOAD_TO_S3_FAILED", 
+                        "VALIDATION_ERROR", 
+                        "INVALID_SSL_CERTIFICATE", 
+                        "ERROR_ATTACHING_FILE_TO_CASE", 
+                        "SPEC_UPDATE_ERROR", 
+                        "SPEC_INCOMPATIBLE_ERROR"
+                    ], 
+                    "type": "string", 
+                    "description": "If state is ERROR, a machine-readable snake-cased string."
+                }, 
+                "details": {
+                    "additionalProperties": {
+                        "type": "string"
+                    }, 
+                    "readOnly": true, 
+                    "type": "object", 
+                    "description": "Custom key-value details relevant to the status."
+                }
+            }, 
+            "description": "message."
+        },
+        "user_metadata": {
+            "title": "user metadata", 
+            "type": "object", 
+            "properties": {
+                "last_update_time": {
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "UTC date and time in RFC-3339 format when user was last updated\n", 
+                    "format": "date-time"
+                }, 
+                "kind": {
+                    "default": "user", 
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "The kind name", 
+                    "x-ntnx-enum": [
+                        "user"
+                    ]
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "description": "user uuid", 
+                    "format": "UUID"
+                }, 
+                "project_reference": {
+                    "description": "The project the user is in.", 
+                    "$ref": "#/definitions/project_reference"
+                }, 
+                "spec_version": {
+                    "type": "integer", 
+                    "description": "Version number of the latest spec."
+                }, 
+                "creation_time": {
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "UTC date and time in RFC-3339 format when user was created\n", 
+                    "format": "date-time"
+                }, 
+                "spec_hash": {
+                    "type": "string", 
+                    "description": "Hash of the spec. This will be returned from server.\n"
+                }, 
+                "owner_reference": {
+                    "$ref": "#/definitions/user_reference"
+                }, 
+                "categories": {
+                    "additionalProperties": {
+                        "type": "string"
+                    }, 
+                    "type": "object", 
+                    "description": "Categories for the user"
+                }, 
+                "name": {
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "user name", 
+                    "maxLength": 64
+                }
+            }, 
+            "description": "The user kind metadata"
+        },
+        "access_control_policy_reference": {
+            "title": "Reference to a access_control_policy", 
+            "required": [
+                "uuid"
+            ], 
+            "type": "object", 
+            "properties": {
+                "kind": {
+                    "default": "access_control_policy", 
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "The kind name", 
+                    "x-ntnx-enum": [
+                        "access_control_policy"
+                    ]
+                }, 
+                "name": {
+                    "readOnly": true, 
+                    "type": "string"
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "format": "UUID"
+                }
+            }, 
+            "description": "The reference to a access_control_policy"
+        },
+        "resource_domain_resources_status": {
+            "title": "Resource Domain Status", 
+            "required": [
+                "resources"
+            ], 
+            "properties": {
+                "resources": {
+                    "items": {
+                        "$ref": "#/definitions/resource_utilization_status"
+                    }, 
+                    "type": "array", 
+                    "description": "The utilization/limit for resource types"
+                }
+            }, 
+            "description": "The status for a resource domain (limits and values)"
+        },
+        "project_reference": {
+            "title": "Reference to a project", 
+            "required": [
+                "uuid"
+            ], 
+            "type": "object", 
+            "properties": {
+                "kind": {
+                    "default": "project", 
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "The kind name", 
+                    "x-ntnx-enum": [
+                        "project"
+                    ]
+                }, 
+                "name": {
+                    "readOnly": true, 
+                    "type": "string"
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "format": "UUID"
+                }
+            }, 
+            "description": "The reference to a project"
+        },
+        "directory_service_user_status": {
+            "title": "Directory Service user Response.", 
+            "type": "object", 
+            "properties": {
+                "user_principal_name": {
+                    "type": "string", 
+                    "description": "The UserPrincipalName of the user from the directory service. It will be same as default user principal name if no upn suffix is enabled for user logon name in directory service.\n", 
+                    "maxLength": 104
+                }, 
+                "directory_service_reference": {
+                    "description": "Directory service reference if the user type is directory service.\n", 
+                    "$ref": "#/definitions/directory_service_reference"
+                }, 
+                "default_user_principal_name": {
+                    "type": "string", 
+                    "description": "The Default UserPrincipalName of the user from the directory service. This is of format samAccountName@domain_name.\n", 
+                    "maxLength": 104
+                }
+            }, 
+            "description": "A Directory Service user."
+        },
+        "user_reference": {
+            "title": "Reference to a user", 
+            "required": [
+                "uuid"
+            ], 
+            "type": "object", 
+            "properties": {
+                "kind": {
+                    "default": "user", 
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "The kind name", 
+                    "x-ntnx-enum": [
+                        "user"
+                    ]
+                }, 
+                "name": {
+                    "readOnly": true, 
+                    "type": "string"
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "format": "UUID"
+                }
+            }, 
+            "description": "The reference to a user"
+        },
+        "resource_utilization_status": {
+            "title": "Resource Utilization Status", 
+            "required": [
+                "resource_type", 
+                "units", 
+                "value"
+            ], 
+            "properties": {
+                "units": {
+                    "type": "string", 
+                    "description": "The units of the resource type"
+                }, 
+                "limit": {
+                    "type": "integer", 
+                    "description": "The resource consumption limit (unspecified is unlimited)"
+                }, 
+                "resource_type": {
+                    "type": "string", 
+                    "description": "The type of resource (for example storage, CPUs)"
+                }, 
+                "value": {
+                    "type": "integer", 
+                    "description": "The amount of resource consumed"
+                }
+            }, 
+            "description": "stores resource utilization and limits for a domain"
+        },
+        "directory_service_reference": {
+            "title": "Reference to a directory_service", 
+            "required": [
+                "uuid"
+            ], 
+            "type": "object", 
+            "properties": {
+                "kind": {
+                    "default": "directory_service", 
+                    "readOnly": true, 
+                    "type": "string", 
+                    "description": "The kind name", 
+                    "x-ntnx-enum": [
+                        "directory_service"
+                    ]
+                }, 
+                "name": {
+                    "readOnly": true, 
+                    "type": "string"
+                }, 
+                "uuid": {
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", 
+                    "type": "string", 
+                    "format": "UUID"
+                }
+            }, 
+            "description": "The reference to a directory_service"
+        },
+        "directory_service_user": {
+            "title": "Directory Service user Definition.", 
+            "type": "object", 
+            "properties": {
+                "user_principal_name": {
+                    "type": "string", 
+                    "description": "The UserPrincipalName of the user from the directory service.\n", 
+                    "maxLength": 104
+                }, 
+                "directory_service_reference": {
+                    "description": "Directory service reference if the user type is directory service.\n", 
+                    "$ref": "#/definitions/directory_service_reference"
+                }
+            }, 
+            "description": "A Directory Service user."
+        },
+        "user_input_resource": {
+            "description": "User Resource Definition.", 
+            "title": "User Resource Definition.", 
+            "type": "object", 
+            "properties": {
+                "directory_service_user": {
+                    "$ref": "#/definitions/directory_service_user"
+                }
+            }, 
+            "x-ntnx-one-of": [
+                {
+                    "required": [
+                        "directory_service_user"
+                    ]
+                }
+            ]
+        }
+    }, 
+    "security": [
+        {
+            "basicAuth": []
+        }
+    ], 
+    "swagger": "2.0"
+}

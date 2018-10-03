@@ -1,0 +1,196 @@
+{
+    "paths": {
+        "/access_control_policies": {
+            "post": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_intent_response"
+                        }
+                    }
+                },
+                "description": "An Access Control Policy (ACP) represents the association of a User with a role, in a given 'Context' (i.e. where can the role be exercised) e.g. an ACP can represent the following: User1 has Role1 within the boundaries of Project1. (i.e. if Role1 allows the User to update-VM, he/she can do so ONLY for VMs belonging to Project1)\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "access_control_policies"
+                ],
+                "x-ntnx-operations": [
+                    "create"
+                ],
+                "x-ntnx-kind": "access_control_policy",
+                "summary": "Create a Access Control Policy"
+            }
+        },
+        "/access_control_policies/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_list_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_status"
+                        }
+                    }
+                },
+                "description": "This operation gets a list of Access Control Policies, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "access_control_policies"
+                ],
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "access_control_policy",
+                "summary": "Get a list of Access Control Policies"
+            }
+        },
+        "/access_control_policies/{uuid}": {
+            "put": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_intent_response"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_status"
+                        }
+                    }
+                },
+                "description": "This operation submits a request to update a Access Control Policy based on the input parameters.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "access_control_policies"
+                ],
+                "x-ntnx-operations": [
+                    "update"
+                ],
+                "x-ntnx-kind": "access_control_policy",
+                "summary": "Update a Access Control Policy"
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_status"
+                        }
+                    }
+                },
+                "description": "This operation gets a Access Control Policy.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "access_control_policies"
+                ],
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "access_control_policy",
+                "summary": "Get a Access Control Policy"
+            },
+            "delete": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_intent_response"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID provided",
+                        "schema": {
+                            "$ref": "#/definitions/access_control_policy_status"
+                        }
+                    }
+                },
+                "description": "Delete an existing Access Control Policy. Warning - deleting an Access Control Policy will automatically detach the associated users and user-groups, thereby revoking the access they were granted because of this Access Control Policy.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "access_control_policies"
+                ],
+                "x-ntnx-operations": [
+                    "delete"
+                ],
+                "x-ntnx-kind": "access_control_policy",
+                "summary": "Delete a Access Control Policy"
+            }
+        },
+    }
+}

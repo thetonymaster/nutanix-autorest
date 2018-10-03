@@ -1,0 +1,172 @@
+{
+    "paths" : {
+        "/affinity_rules": {
+            "post": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/affinity_rule_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/affinity_rule_intent_response"
+                        }
+                    }
+                },
+                "description": "Creates a new affinity rule.",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "Affinity Rule",
+                        "schema": {
+                            "$ref": "#/definitions/affinity_rule_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "affinity_rules"
+                ],
+                "x-ntnx-kind": "affinity_rule",
+                "x-doc-hide": true,
+                "summary": "Create an affinity rule."
+            }
+        },
+        "/affinity_rules/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/affinity_rule_list_intent_response"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/affinity_rule_status"
+                        }
+                    }
+                },
+                "description": "Returns all the affinity rules that are currently defined.",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/affinity_rule_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "affinity_rules"
+                ],
+                "x-ntnx-kind": "affinity_rule",
+                "x-doc-hide": true,
+                "summary": "Retrieve affinity rules."
+            }
+        },
+        "/affinity_rules/{uuid}": {
+            "put": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/affinity_rule_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/affinity_rule_intent_response"
+                        }
+                    }
+                },
+                "description": "Modifies a specific affinity rule identified by its UUID. This can be used to modify the entity categories on which the rule is defined.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "description": "Affinity rule being modified.",
+                        "name": "Affinity Rule",
+                        "schema": {
+                            "$ref": "#/definitions/affinity_rule_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "affinity_rules"
+                ],
+                "x-ntnx-kind": "affinity_rule",
+                "x-doc-hide": true,
+                "summary": "Modify an affinity rule."
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/affinity_rule_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/affinity_rule_status"
+                        }
+                    }
+                },
+                "description": "Returns the description of a specific affinity rule identified by its UUID.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "affinity_rules"
+                ],
+                "x-ntnx-kind": "affinity_rule",
+                "x-doc-hide": true,
+                "summary": "Retrieve affinity rule."
+            },
+            "delete": {
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/affinity_rule_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Request Accepted",
+                        "schema": {
+                            "$ref": "#/definitions/affinity_rule_intent_response"
+                        }
+                    }
+                },
+                "description": "Deletes the affinity rule identified by its UUID.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "affinity_rules"
+                ],
+                "x-ntnx-kind": "affinity_rule",
+                "x-doc-hide": true,
+                "summary": "Delete affinity rule."
+            }
+        }   
+    }
+}

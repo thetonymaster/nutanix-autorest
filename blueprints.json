@@ -1,0 +1,672 @@
+{
+    "paths" : {
+        "/blueprints": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_intent_input_aP"
+                        }
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "Create Blueprint",
+                "x-ntnx-operations": [
+                    "create"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "description": "Given a spec creates a Blueprint with associated metadata\n"
+            }
+        },
+        "/blueprints/brownfield_import/vms/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "List the vms available for import",
+                "x-ntnx-operations": [
+                    "brownfield_view"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "description": "List the blueprint launch pending request with the filters - platform_type - account_uuid - platform_filters"
+            }
+        },
+        "/blueprints/import_file": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_upload_output"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "blueprint_file",
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "format": "binary"
+                        }
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "Create Blueprint from file",
+                "x-ntnx-operations": [
+                    "upload"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "consumes": [
+                    "application/octet-stream"
+                ],
+                "description": "Creates a blueprint from uploaded file"
+            }
+        },
+        "/blueprints/import_json": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_upload_output"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_upload_intent_input_aP"
+                        }
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "Create Blueprint using json",
+                "x-ntnx-operations": [
+                    "import"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "description": "Given a spec creates a Blueprint with associated metadata\n"
+            }
+        },
+        "/blueprints/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_list_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "List the Blueprint",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "description": "List the Blueprint with associated metadata"
+            }
+        },
+        "/blueprints/marketplace_launch": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_marketplace_launch_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_marketplace_launch_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "Launch the marketplace item",
+                "x-ntnx-operations": [
+                    "launch"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "description": "Launch the given marketplace item\n"
+            }
+        },
+        "/blueprints/pending_launches/list": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_pending_launches_list_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "List the pending Blueprint launches",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "description": "List the blueprint launch pending requests"
+            }
+        },
+        "/blueprints/{uuid}": {
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "uuid of blueprint to be updated"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_intent_input_aP"
+                        }
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "Update Blueprint",
+                "x-ntnx-operations": [
+                    "update"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "description": "Given a spec and Blueprint UUID, update Blueprint\n"
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "uuid of Blueprint to get"
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get Blueprint",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "description": "Given a UUID, returns a Blueprint definition"
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid UUID Provided",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "uuid of the blueprint to be deleted"
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "Delete Blueprint",
+                "x-ntnx-operations": [
+                    "delete"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "description": "Delete a Blueprint given its UUID"
+            }
+        },
+        "/blueprints/{uuid}/clone": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Blueprint cloning Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_clone_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "Uuid of blueprint to be cloned"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_clone_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "Clone the blueprint",
+                "x-ntnx-operations": [
+                    "clone"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "description": "Clone the given blueprint\n"
+            }
+        },
+        "/blueprints/{uuid}/export_file": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "format": "binary"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "uuid of Blueprint to get"
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "Download blueprint file",
+                "x-ntnx-operations": [
+                    "download"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "description": "Given a UUID, returns a Blueprint file"
+            }
+        },
+        "/blueprints/{uuid}/export_json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_download_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "uuid of Blueprint to get"
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get Blueprint in json format",
+                "x-ntnx-operations": [
+                    "export"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "description": "Given a UUID, returns a Blueprint definition"
+            }
+        },
+        "/blueprints/{uuid}/launch": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_launch_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "Uuid of blueprint to be launched"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_launch_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "Launch the blueprint",
+                "x-ntnx-operations": [
+                    "launch"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "description": "Launch the given blueprint\n"
+            }
+        },
+        "/blueprints/{uuid}/pending_launches/{launched_uuid}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Request Succeeded",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_pending_launches_resource"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    },
+                    "404": {
+                        "description": "Entity not found",
+                        "schema": {
+                            "$ref": "#/definitions/blueprint_status"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "uuid of Blueprint to get"
+                    },
+                    {
+                        "in": "path",
+                        "name": "launched_uuid",
+                        "format": "UUID",
+                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                        "required": true,
+                        "type": "string",
+                        "description": "Launched uuid of blueprint"
+                    }
+                ],
+                "tags": [
+                    "blueprint"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get the pending launch details",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "blueprint",
+                "description": "Get the details of the pending launch with the given uuid"
+            }
+        }
+    }
+}

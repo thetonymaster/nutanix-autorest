@@ -1,0 +1,714 @@
+{
+    "paths": {
+        "/direct_connects/connections": {
+            "post": {
+                "description": "This operation submits a request to create a direct_connect based on the input parameters.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "direct_connects"
+                ],
+                "x-doc-hide": true,
+                "summary": "Create a direct_connect",
+                "x-ntnx-operations": [
+                    "create"
+                ],
+                "x-ntnx-kind": "direct_connect",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_intent_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/direct_connects/connections/list": {
+            "post": {
+                "description": "This operation gets a list of direct_connects, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "direct_connects"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get a list of direct_connects",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "direct_connect",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_list_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_status"
+                        }
+                    }
+                }
+            }
+        },
+        "/direct_connects/connections/{uuid}": {
+            "put": {
+                "description": "This operation submits a request to update a direct_connect based on the input parameters.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "direct_connects"
+                ],
+                "x-doc-hide": true,
+                "summary": "Update a direct_connect",
+                "x-ntnx-operations": [
+                    "update"
+                ],
+                "x-ntnx-kind": "direct_connect",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_intent_response"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "This operation gets a direct_connect.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "direct_connects"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get a direct_connect",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "direct_connect",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_status"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "This operation submits a request to delete a direct_connect.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "direct_connects"
+                ],
+                "x-doc-hide": true,
+                "summary": "Delete a direct_connect",
+                "x-ntnx-operations": [
+                    "delete"
+                ],
+                "x-ntnx-kind": "direct_connect",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_intent_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/direct_connects/ports": {
+            "post": {
+                "description": "This operation submits a request to create a direct_connect_port based on the input parameters.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_port_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "direct_connect_ports"
+                ],
+                "x-doc-hide": true,
+                "summary": "Create a direct_connect_port",
+                "x-ntnx-operations": [
+                    "create"
+                ],
+                "x-ntnx-kind": "direct_connect_port",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_port_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_port_intent_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/direct_connects/ports/list": {
+            "post": {
+                "description": "This operation gets a list of direct_connect_ports, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_port_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "direct_connect_ports"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get a list of direct_connect_ports",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "direct_connect_port",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_port_list_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_port_status"
+                        }
+                    }
+                }
+            }
+        },
+        "/direct_connects/ports/{uuid}": {
+            "put": {
+                "description": "This operation submits a request to update a direct_connect_port based on the input parameters.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_port_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "direct_connect_ports"
+                ],
+                "x-doc-hide": true,
+                "summary": "Update a direct_connect_port",
+                "x-ntnx-operations": [
+                    "update"
+                ],
+                "x-ntnx-kind": "direct_connect_port",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_port_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_port_intent_response"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "This operation gets a direct_connect_port.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "direct_connect_ports"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get a direct_connect_port",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "direct_connect_port",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_port_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_port_status"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "This operation submits a request to delete a direct_connect_port.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "direct_connect_ports"
+                ],
+                "x-doc-hide": true,
+                "summary": "Delete a direct_connect_port",
+                "x-ntnx-operations": [
+                    "delete"
+                ],
+                "x-ntnx-kind": "direct_connect_port",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_port_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/direct_connects/service_providers": {
+            "post": {
+                "description": "This operation submits a request to create a direct_connect_service_provider based on the input parameters.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_service_provider_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "direct_connect_service_providers"
+                ],
+                "x-doc-hide": true,
+                "summary": "Create a direct_connect_service_provider",
+                "x-ntnx-operations": [
+                    "create"
+                ],
+                "x-ntnx-kind": "direct_connect_service_provider",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_service_provider_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_service_provider_intent_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/direct_connects/service_providers/list": {
+            "post": {
+                "description": "This operation gets a list of direct_connect_service_providers, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_service_provider_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "direct_connect_service_providers"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get a list of direct_connect_service_providers",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "direct_connect_service_provider",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_service_provider_list_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_service_provider_status"
+                        }
+                    }
+                }
+            }
+        },
+        "/direct_connects/service_providers/{uuid}": {
+            "put": {
+                "description": "This operation submits a request to update a direct_connect_service_provider based on the input parameters.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_service_provider_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "direct_connect_service_providers"
+                ],
+                "x-doc-hide": true,
+                "summary": "Update a direct_connect_service_provider",
+                "x-ntnx-operations": [
+                    "update"
+                ],
+                "x-ntnx-kind": "direct_connect_service_provider",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_service_provider_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_service_provider_intent_response"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "This operation gets a direct_connect_service_provider.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "direct_connect_service_providers"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get a direct_connect_service_provider",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "direct_connect_service_provider",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_service_provider_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_service_provider_status"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "This operation submits a request to delete a direct_connect_service_provider.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "direct_connect_service_providers"
+                ],
+                "x-doc-hide": true,
+                "summary": "Delete a direct_connect_service_provider",
+                "x-ntnx-operations": [
+                    "delete"
+                ],
+                "x-ntnx-kind": "direct_connect_service_provider",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_service_provider_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/direct_connects/virtual_interfaces": {
+            "post": {
+                "description": "This operation submits a request to create a direct_connect_virtual_interface based on the input parameters.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_virtual_interface_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "direct_connect_virtual_interfaces"
+                ],
+                "x-doc-hide": true,
+                "summary": "Create a direct_connect_virtual_interface",
+                "x-ntnx-operations": [
+                    "create"
+                ],
+                "x-ntnx-kind": "direct_connect_virtual_interface",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_virtual_interface_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_virtual_interface_intent_response"
+                        }
+                    }
+                }
+            }
+        },
+        "/direct_connects/virtual_interfaces/list": {
+            "post": {
+                "description": "This operation gets a list of direct_connect_virtual_interfaces, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n",
+                "parameters": [
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "get_entities_request",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_virtual_interface_list_metadata"
+                        }
+                    }
+                ],
+                "tags": [
+                    "direct_connect_virtual_interfaces"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get a list of direct_connect_virtual_interfaces",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "direct_connect_virtual_interface",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_virtual_interface_list_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_virtual_interface_status"
+                        }
+                    }
+                }
+            }
+        },
+        "/direct_connects/virtual_interfaces/{uuid}": {
+            "put": {
+                "description": "This operation submits a request to update a direct_connect_virtual_interface based on the input parameters.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    },
+                    {
+                        "required": true,
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_virtual_interface_intent_input"
+                        }
+                    }
+                ],
+                "tags": [
+                    "direct_connect_virtual_interfaces"
+                ],
+                "x-doc-hide": true,
+                "summary": "Update a direct_connect_virtual_interface",
+                "x-ntnx-operations": [
+                    "update"
+                ],
+                "x-ntnx-kind": "direct_connect_virtual_interface",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_virtual_interface_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_virtual_interface_intent_response"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "This operation gets a direct_connect_virtual_interface.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "direct_connect_virtual_interfaces"
+                ],
+                "x-doc-hide": true,
+                "summary": "Get a direct_connect_virtual_interface",
+                "x-ntnx-operations": [
+                    "view"
+                ],
+                "x-ntnx-kind": "direct_connect_virtual_interface",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_virtual_interface_intent_response"
+                        }
+                    },
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_virtual_interface_status"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "This operation submits a request to delete a direct_connect_virtual_interface.",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/uuid"
+                    }
+                ],
+                "tags": [
+                    "direct_connect_virtual_interfaces"
+                ],
+                "x-doc-hide": true,
+                "summary": "Delete a direct_connect_virtual_interface",
+                "x-ntnx-operations": [
+                    "delete"
+                ],
+                "x-ntnx-kind": "direct_connect_virtual_interface",
+                "responses": {
+                    "default": {
+                        "description": "Internal Error",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_virtual_interface_status"
+                        }
+                    },
+                    "202": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/direct_connect_virtual_interface_intent_response"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
