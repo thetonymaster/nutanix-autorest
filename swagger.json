@@ -1,992 +1,977 @@
 {
   "info": {
-      "version": "3.1.0",
-      "description": "Move programming from the user to the machine.",
-      "title": "Nutanix Intentful API"
+    "version": "3.1.0",
+    "description": "Move programming from the user to the machine.",
+    "title": "Nutanix Intentful API"
   },
   "host": "35.196.200.179:9440",
   "schemes": [
-      "http"
+    "http"
   ],
   "paths": {
-      "/subnets": {
-          "post": {
-              "responses": {
-                  "default": {
-                      "description": "Internal Error",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_status"
-                      }
-                  },
-                  "202": {
-                      "description": "Request Accepted",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_intent_response"
-                      }
-                  }
-              },
-              "description": "This operation submits a request to create a subnet based on the input parameters.\nA subnet is a block of IP addresses.\n",
-              "parameters": [
-                  {
-                      "required": true,
-                      "in": "body",
-                      "name": "body",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_intent_input"
-                      }
-                  }
-              ],
-              "tags": [
-                  "subnets"
-              ],
-              "x-ntnx-operations": [
-                  "create"
-              ],
-              "x-ntnx-kind": "subnet",
-              "summary": "Create a subnet"
-          }
-      },
-      "/subnets/list": {
-          "post": {
-              "responses": {
-                  "200": {
-                      "description": "Success",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_list_intent_response"
-                      }
-                  },
-                  "default": {
-                      "description": "Internal Error",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_status"
-                      }
-                  }
-              },
-              "description": "This operation gets a list of subnets, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n",
-              "parameters": [
-                  {
-                      "required": true,
-                      "in": "body",
-                      "name": "get_entities_request",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_list_metadata"
-                      }
-                  }
-              ],
-              "tags": [
-                  "subnets"
-              ],
-              "x-ntnx-operations": [
-                  "view"
-              ],
-              "x-ntnx-kind": "subnet",
-              "summary": "Get a list of subnets"
-          }
-      },
-      "/subnets/{uuid}": {
-          "put": {
-              "responses": {
-                  "default": {
-                      "description": "Internal Error",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_status"
-                      }
-                  },
-                  "202": {
-                      "description": "Request Accepted",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_intent_response"
-                      }
-                  },
-                  "404": {
-                      "description": "Invalid UUID provided",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_status"
-                      }
-                  }
-              },
-              "description": "This operation submits a request to update a subnet based on the input parameters.\n",
-              "parameters": [
-                  {
-                      "$ref": "#/parameters/uuid"
-                  },
-                  {
-                      "required": true,
-                      "in": "body",
-                      "name": "body",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_intent_input"
-                      }
-                  }
-              ],
-              "tags": [
-                  "subnets"
-              ],
-              "x-ntnx-operations": [
-                  "update"
-              ],
-              "x-ntnx-kind": "subnet",
-              "summary": "Update a subnet"
+    "/network_security_rules": {
+      "post": {
+        "responses": {
+          "default": {
+            "description": "Internal Error",
+            "schema": {
+              "$ref": "#/definitions/network_security_rule_status"
+            }
           },
-          "get": {
-              "responses": {
-                  "200": {
-                      "description": "Success",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_intent_response"
-                      }
-                  },
-                  "default": {
-                      "description": "Internal Error",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_status"
-                      }
-                  },
-                  "404": {
-                      "description": "Invalid UUID provided",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_status"
-                      }
-                  }
-              },
-              "description": "This operation gets a subnet.",
-              "parameters": [
-                  {
-                      "$ref": "#/parameters/uuid"
-                  }
-              ],
-              "tags": [
-                  "subnets"
-              ],
-              "x-ntnx-operations": [
-                  "view"
-              ],
-              "x-ntnx-kind": "subnet",
-              "summary": "Get a subnet"
-          },
-          "delete": {
-              "responses": {
-                  "default": {
-                      "description": "Internal Error",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_status"
-                      }
-                  },
-                  "202": {
-                      "description": "Request Accepted",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_intent_response"
-                      }
-                  },
-                  "404": {
-                      "description": "Invalid UUID provided",
-                      "schema": {
-                          "$ref": "#/definitions/subnet_status"
-                      }
-                  }
-              },
-              "description": "This operation submits a request to delete a subnet.",
-              "parameters": [
-                  {
-                      "$ref": "#/parameters/uuid"
-                  }
-              ],
-              "tags": [
-                  "subnets"
-              ],
-              "x-ntnx-operations": [
-                  "delete"
-              ],
-              "x-ntnx-kind": "subnet",
-              "summary": "Delete a subnet"
+          "202": {
+            "description": "Request Accepted",
+            "schema": {
+              "$ref": "#/definitions/network_security_rule_intent_response"
+            }
           }
+        },
+        "parameters": [
+          {
+            "required": true,
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/network_security_rule_intent_input"
+            }
+          }
+        ],
+        "tags": [
+          "network_security_rules"
+        ],
+        "description": "This operation submits a request to create a Network security rule based on the input parameters.\n",
+        "x-ntnx-kind": "network_security_rule",
+        "summary": "Create a Network security rule"
       }
+    },
+    "/network_security_rules/list": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/network_security_rule_list_intent_response"
+            }
+          },
+          "default": {
+            "description": "Internal Error",
+            "schema": {
+              "$ref": "#/definitions/network_security_rule_status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "required": true,
+            "in": "body",
+            "name": "get_entities_request",
+            "schema": {
+              "$ref": "#/definitions/network_security_rule_list_metadata"
+            }
+          }
+        ],
+        "tags": [
+          "network_security_rules"
+        ],
+        "description": "This operation gets a list of Network security rules, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n",
+        "x-ntnx-kind": "network_security_rule",
+        "summary": "Get all network security rules"
+      }
+    },
+    "/network_security_rules/{uuid}": {
+      "put": {
+        "responses": {
+          "default": {
+            "description": "Internal Error",
+            "schema": {
+              "$ref": "#/definitions/network_security_rule_status"
+            }
+          },
+          "202": {
+            "description": "Request Accepted",
+            "schema": {
+              "$ref": "#/definitions/network_security_rule_intent_response"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/parameters/uuid"
+          },
+          {
+            "required": true,
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/network_security_rule_intent_input"
+            }
+          }
+        ],
+        "tags": [
+          "network_security_rules"
+        ],
+        "description": "This operation submits a request to update a Network security rule based on the input parameters.\n",
+        "x-ntnx-kind": "network_security_rule",
+        "summary": "Update a Network security rule"
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/network_security_rule_intent_response"
+            }
+          },
+          "default": {
+            "description": "Internal Error",
+            "schema": {
+              "$ref": "#/definitions/network_security_rule_status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/parameters/uuid"
+          }
+        ],
+        "tags": [
+          "network_security_rules"
+        ],
+        "description": "This operation gets a Network security rule.",
+        "x-ntnx-kind": "network_security_rule",
+        "summary": "Get a Network security rule"
+      },
+      "delete": {
+        "responses": {
+          "default": {
+            "description": "Internal Error",
+            "schema": {
+              "$ref": "#/definitions/network_security_rule_status"
+            }
+          },
+          "202": {
+            "description": "Request Accepted",
+            "schema": {
+              "$ref": "#/definitions/network_security_rule_intent_response"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/parameters/uuid"
+          }
+        ],
+        "tags": [
+          "network_security_rules"
+        ],
+        "description": "This operation submits a request to delete a Network security rule.",
+        "x-ntnx-kind": "network_security_rule",
+        "summary": "Delete a Network security rule"
+      }
+    }
   },
   "parameters": {
-      "uuid": {
-          "in": "path",
-          "description": "The UUID of the entity.",
-          "format": "UUID",
-          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-          "required": true,
-          "type": "string",
-          "name": "uuid"
-      }
+    "uuid": {
+      "in": "path",
+      "description": "The UUID of the entity.",
+      "format": "UUID",
+      "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+      "required": true,
+      "type": "string",
+      "name": "uuid"
+    }
   },
   "produces": [
-      "application/json"
+    "application/json"
   ],
   "basePath": "/api/nutanix/v3",
   "securityDefinitions": {
-      "basicAuth": {
-          "type": "basic"
-      }
+    "basicAuth": {
+      "type": "basic"
+    }
   },
-  "definitions" : {
-      "subnet_intent_response": {
-          "title": "subnet Intent Response",
-          "required": [
-            "api_version",
-            "metadata"
-          ],
-          "type": "object",
-          "properties": {
-            "status": {
-              "$ref": "#/definitions/subnet_def_status"
-            },
-            "spec": {
-              "$ref": "#/definitions/subnet"
-            },
-            "api_version": {
-              "type": "string"
-            },
-            "metadata": {
-              "$ref": "#/definitions/subnet_metadata"
-            }
-          },
-          "description": "Response object for intentful operations on a subnet"
+  "definitions": {
+    "network_security_rule_intent_response": {
+      "title": "network_security_rule Intent Response",
+      "required": [
+        "api_version",
+        "metadata"
+      ],
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/network_security_rule_def_status"
         },
-        "subnet_status": {
-          "title": "Response Kind",
-          "type": "object",
-          "properties": {
-            "kind": {
-              "default": "subnet",
-              "readOnly": false,
-              "type": "string",
-              "description": "The kind name",
-              "x-ntnx-enum": [
-                "subnet"
-              ]
-            },
-            "code": {
-              "readOnly": false,
-              "type": "integer",
-              "description": "The HTTP error code."
-            },
-            "message_list": {
-              "items": {
-                "$ref": "#/definitions/message_resource"
-              },
-              "readOnly": false,
-              "type": "array"
-            },
-            "state": {
-              "readOnly": false,
-              "type": "string"
-            },
-            "api_version": {
-              "readOnly": false,
-              "type": "string"
-            }
-          },
-          "description": "The status of a REST API call. Only used when there is a failure to\nreport.\n"
+        "spec": {
+          "$ref": "#/definitions/network_security_rule"
         },
-        "subnet_intent_input": {
-          "title": "subnet Intent Entity",
-          "required": [
-            "metadata",
-            "spec"
-          ],
-          "type": "object",
-          "properties": {
-            "spec": {
-              "$ref": "#/definitions/subnet"
-            },
-            "api_version": {
-              "default": "3.1.0",
-              "type": "string"
-            },
-            "metadata": {
-              "$ref": "#/definitions/subnet_metadata"
-            }
-          },
-          "description": "An intentful representation of a subnet"
+        "api_version": {
+          "type": "string"
         },
-        "subnet_list_intent_response": {
-          "title": "Entity Intent List Response",
-          "required": [
-            "api_version",
-            "metadata"
-          ],
-          "type": "object",
-          "properties": {
-            "entities": {
-              "items": {
-                "$ref": "#/definitions/subnet_intent_resource"
-              },
-              "type": "array"
-            },
-            "api_version": {
-              "type": "string"
-            },
-            "metadata": {
-              "$ref": "#/definitions/subnet_list_metadata_output"
-            }
-          },
-          "description": "Response object for intentful operation of subnets"
-        },
-        "subnet_list_metadata": {
-          "title": "Metadata for subnet list",
-          "type": "object",
-          "properties": {
-            "filter": {
-              "type": "string",
-              "description": "The filter in FIQL syntax used for the results."
-            },
-            "kind": {
-              "default": "subnet",
-              "x-ntnx-enum": [
-                "subnet"
-              ],
-              "type": "string",
-              "description": "The kind name"
-            },
-            "sort_order": {
-              "$ref": "#/definitions/sort_order"
-            },
-            "offset": {
-              "minimum": 0,
-              "type": "integer",
-              "description": "Offset from the start of the entity list",
-              "format": "int32"
-            },
-            "length": {
-              "minimum": 1,
-              "type": "integer",
-              "description": "The number of records to retrieve relative to the offset",
-              "format": "int32"
-            },
-            "sort_attribute": {
-              "type": "string",
-              "description": "The attribute to perform sort on"
-            }
-          },
-          "description": "All api calls that return a list will have this metadata block as input\n"
-        },
-        "subnet_def_status": {
-          "title": "subnet Intent Status with placement specified",
-          "required": [
-            "name",
-            "resources"
-          ],
-          "type": "object",
-          "properties": {
-            "state": {
-              "type": "string",
-              "description": "The state of the subnet."
-            },
-            "name": {
-              "type": "string",
-              "description": "subnet Name."
-            },
-            "availability_zone_reference": {
-              "$ref": "#/definitions/availability_zone_reference"
-            },
-            "message_list": {
-              "items": {
-                "$ref": "#/definitions/message_resource"
-              },
-              "type": "array",
-              "description": "Any error messages for the subnet, if in an error state."
-            },
-            "cluster_reference": {
-              "$ref": "#/definitions/cluster_reference"
-            },
-            "resources": {
-              "$ref": "#/definitions/subnet_resources_def_status"
-            },
-            "description": {
-              "type": "string",
-              "description": "A description for subnet."
-            }
-          },
-          "description": "An intentful representation of a subnet status"
-        },
-        "subnet": {
-          "title": "subnet Intent Spec with placement specified",
-          "required": [
-            "name",
-            "resources"
-          ],
-          "type": "object",
-          "properties": {
-            "description": {
-              "type": "string",
-              "description": "A description for subnet.",
-              "maxLength": 1000
-            },
-            "resources": {
-              "$ref": "#/definitions/subnet_resources"
-            },
-            "cluster_reference": {
-              "$ref": "#/definitions/cluster_reference"
-            },
-            "name": {
-              "type": "string",
-              "description": "subnet Name.",
-              "maxLength": 64
-            },
-            "availability_zone_reference": {
-              "$ref": "#/definitions/availability_zone_reference"
-            }
-          },
-          "description": "An intentful representation of a subnet spec"
-        },
-        "subnet_metadata": {
-          "title": "subnet metadata",
-          "required": [
-            "kind"
-          ],
-          "type": "object",
-          "properties": {
-            "last_update_time": {
-              "readOnly": false,
-              "type": "string",
-              "description": "UTC date and time in RFC-3339 format when subnet was last updated\n",
-              "format": "date-time"
-            },
-            "kind": {
-              "default": "subnet",
-              "readOnly": false,
-              "type": "string",
-              "description": "The kind name",
-              "x-ntnx-enum": [
-                "subnet"
-              ]
-            },
-            "uuid": {
-              "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-              "type": "string",
-              "description": "subnet uuid",
-              "format": "UUID"
-            },
-            "project_reference": {
-              "description": "The project the subnet is in.",
-              "$ref": "#/definitions/project_reference"
-            },
-            "spec_version": {
-              "type": "integer",
-              "description": "Version number of the latest spec."
-            },
-            "creation_time": {
-              "readOnly": false,
-              "type": "string",
-              "description": "UTC date and time in RFC-3339 format when subnet was created\n",
-              "format": "date-time"
-            },
-            "spec_hash": {
-              "type": "string",
-              "description": "Hash of the spec. This will be returned from server.\n"
-            },
-            "owner_reference": {
-              "$ref": "#/definitions/user_reference"
-            },
-            "categories": {
-              "additionalProperties": {
-                "type": "string"
-              },
-              "type": "object",
-              "description": "Categories for the subnet"
-            },
-            "name": {
-              "readOnly": false,
-              "type": "string",
-              "description": "subnet name",
-              "maxLength": 64
-            }
-          },
-          "description": "The subnet kind metadata"
-        },
-        "message_resource": {
-          "title": "Message.",
-          "required": [
-            "message",
-            "reason"
-          ],
-          "type": "object",
-          "properties": {
-            "message": {
-              "type": "string",
-              "description": "If state is ERROR, a message describing the error."
-            },
-            "reason": {
-              "x-ntnx-enum": [
-                "ACCESS_DENIED",
-                "ACCESS_FORBIDDEN",
-                "ACTION_NOT_SUPPORTED",
-                "AUTHENTICATION_REQUIRED",
-                "BEARER_TOKEN_EXPIRED",
-                "BEARER_TOKEN_BAD_SIGNATURE",
-                "CANNOT_MODIFY_PRE_CONFIGURED_REPORT",
-                "CATEGORY_NAME_VALUE_MISMATCH",
-                "CONFIGURATION_INCOMPLETE",
-                "CONCURRENT_REQUESTS_NOT_ALLOWED",
-                "DEFAULT_PROJECT_UNAVAILABLE",
-                "DESERIALIZATION_FAILED",
-                "DIRECTORY_SERVICE_CONNECTION_FAILED",
-                "ENTITY_ALREADY_EXISTS",
-                "ENTITY_DELETION_FAILED",
-                "ENTITY_IS_READONLY",
-                "ENTITY_NAME_UUID_MISMATCH",
-                "ENTITY_NOT_CONFIGURED",
-                "ENTITY_NOT_FOUND",
-                "ENTITY_SAVE_ERROR",
-                "ENTITY_UPDATE_FAILED",
-                "IDEMPOTENCE_UUID_CREATION_FAILED",
-                "IDP_NOT_REACHABLE",
-                "INTERNAL_ERROR",
-                "INVALID_ARGUMENT",
-                "INVALID_AZ_NAME",
-                "INVALID_CONTENT_TYPE",
-                "INVALID_DATA_FORMAT",
-                "INVALID_PORTAL_CONFIGURATION",
-                "INVALID_REQUEST",
-                "INVALID_UUID",
-                "INVALID_OWNER_REFERENCE",
-                "INTERNAL_AZ_PROXY_SETUP_ERROR",
-                "INTERNAL_ERROR_REMOTE_REQUEST",
-                "INTERNAL_ROLE_ACCESS_DENIED",
-                "INCORRECT_EVENTS_FILTER",
-                "MISSING_ATTRIBUTE",
-                "MISSING_CURRENT_USER_METADATA",
-                "NAME_NOT_IN_DOMAIN",
-                "NO_RESPONSE_RECEIVED_FROM_PORTAL",
-                "PE_NOT_PAIRED_WITH_PC",
-                "PC_NOT_PAIRED_WITH_XI_PORTAL",
-                "REFERENCE_ERROR",
-                "RESERVED_ROLE_ACCESS_DENIED",
-                "REQUEST_NOT_SUPPORTED",
-                "REMOTE_CLUSTER_IP_FETCH_FAILED",
-                "REMOTE_CLUSTER_NOT_CONNECTED",
-                "REMOTE_CONNECTION_EXISTS",
-                "REMOTE_CONNECTION_NOT_FOUND",
-                "REPORT_CONFIG_NOT_FOUND",
-                "REPORTING_RESOURCE_NOT_FOUND",
-                "REPORTING_INTERNAL_ERROR",
-                "SERVICE_UNAVAILABLE",
-                "SEARCH_RESULT_PROCESSING_ERROR",
-                "TOO_MANY_REQUESTS",
-                "UNCONFIGURED_API_KEY",
-                "UNCONFIGURED_PORTAL_CONNECTION",
-                "UNSPECIFIED_EVENTS_FILTER",
-                "UNSUPPORTED_AZ_PROXY_API",
-                "UNSUPPORTED_MEDIA_TYPE_ERROR",
-                "UNSUPPORTED_API_VERSION",
-                "UPLOAD_TO_S3_FAILED",
-                "VALIDATION_ERROR",
-                "INVALID_SSL_CERTIFICATE",
-                "ERROR_ATTACHING_FILE_TO_CASE",
-                "SPEC_UPDATE_ERROR",
-                "SPEC_INCOMPATIBLE_ERROR"
-              ],
-              "type": "string",
-              "description": "If state is ERROR, a machine-readable snake-cased string."
-            },
-            "details": {
-              "additionalProperties": {
-                "type": "string"
-              },
-              "readOnly": false,
-              "type": "object",
-              "description": "Custom key-value details relevant to the status."
-            }
-          },
-          "description": "message."
-        },
-        "subnet_intent_resource": {
-          "title": "subnet Intent Response",
-          "required": [
-            "metadata"
-          ],
-          "type": "object",
-          "properties": {
-            "status": {
-              "$ref": "#/definitions/subnet_def_status"
-            },
-            "spec": {
-              "$ref": "#/definitions/subnet"
-            },
-            "api_version": {
-              "type": "string"
-            },
-            "metadata": {
-              "$ref": "#/definitions/subnet_metadata"
-            }
-          },
-          "description": "Response object for intentful operations on a subnet"
-        },
-        "subnet_list_metadata_output": {
-          "title": "Metadata for subnet list output",
-          "type": "object",
-          "properties": {
-            "filter": {
-              "type": "string",
-              "description": "The filter used for the results"
-            },
-            "kind": {
-              "default": "subnet",
-              "x-ntnx-enum": [
-                "subnet"
-              ],
-              "type": "string",
-              "description": "The kind name"
-            },
-            "sort_order": {
-              "$ref": "#/definitions/sort_order"
-            },
-            "offset": {
-              "type": "integer",
-              "description": "Offset from the start of the entity list"
-            },
-            "total_matches": {
-              "type": "integer",
-              "description": "Total matches found"
-            },
-            "length": {
-              "type": "integer",
-              "description": "The number of records retrieved relative to the offset"
-            },
-            "sort_attribute": {
-              "type": "string",
-              "description": "The attribute to perform sort on"
-            }
-          },
-          "description": "All api calls that return a list will have this metadata block\n"
-        },
-        "sort_order": {
+        "metadata": {
+          "$ref": "#/definitions/network_security_rule_metadata"
+        }
+      },
+      "description": "Response object for intentful operations on a network_security_rule"
+    },
+    "network_security_rule_status": {
+      "title": "Response Kind",
+      "type": "object",
+      "properties": {
+        "kind": {
+          "default": "network_security_rule",
+          "readOnly": false,
+          "type": "string",
+          "description": "The kind name",
           "x-ntnx-enum": [
-            "ASCENDING",
-            "DESCENDING"
+            "network_security_rule"
+          ]
+        },
+        "code": {
+          "readOnly": false,
+          "type": "integer",
+          "description": "The HTTP error code."
+        },
+        "message_list": {
+          "items": {
+            "$ref": "#/definitions/message_resource"
+          },
+          "readOnly": false,
+          "type": "array"
+        },
+        "state": {
+          "readOnly": false,
+          "type": "string"
+        },
+        "api_version": {
+          "readOnly": false,
+          "type": "string"
+        }
+      },
+      "description": "The status of a REST API call. Only used when there is a failure to\nreport.\n"
+    },
+    "network_security_rule_intent_input": {
+      "title": "network_security_rule Intent Entity",
+      "required": [
+        "metadata",
+        "spec"
+      ],
+      "type": "object",
+      "properties": {
+        "spec": {
+          "$ref": "#/definitions/network_security_rule"
+        },
+        "api_version": {
+          "default": "3.1.0",
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/network_security_rule_metadata"
+        }
+      },
+      "description": "An intentful representation of a network_security_rule"
+    },
+    "network_security_rule_list_intent_response": {
+      "title": "Entity Intent List Response",
+      "required": [
+        "api_version",
+        "metadata"
+      ],
+      "type": "object",
+      "properties": {
+        "entities": {
+          "items": {
+            "$ref": "#/definitions/network_security_rule_intent_resource"
+          },
+          "type": "array"
+        },
+        "api_version": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/network_security_rule_list_metadata_output"
+        }
+      },
+      "description": "Response object for intentful operation of network_security_rules"
+    },
+    "network_security_rule_list_metadata": {
+      "title": "Metadata for network_security_rule list",
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "string",
+          "description": "The filter in FIQL syntax used for the results."
+        },
+        "kind": {
+          "default": "network_security_rule",
+          "x-ntnx-enum": [
+            "network_security_rule"
           ],
           "type": "string",
-          "description": "The sort order in which results are returned",
-          "title": "Sort order"
+          "description": "The kind name"
         },
-        "availability_zone_reference": {
-          "title": "Reference to a availability_zone",
-          "required": [
-            "kind",
-            "uuid"
-          ],
-          "type": "object",
-          "properties": {
-            "kind": {
-              "default": "availability_zone",
-              "readOnly": false,
-              "type": "string",
-              "description": "The kind name",
-              "x-ntnx-enum": [
-                "availability_zone"
-              ]
-            },
-            "name": {
-              "readOnly": false,
-              "type": "string"
-            },
-            "uuid": {
-              "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-              "type": "string",
-              "format": "UUID"
-            }
-          },
-          "description": "The reference to a availability_zone"
+        "sort_order": {
+          "$ref": "#/definitions/sort_order"
         },
-        "cluster_reference": {
-          "title": "Reference to a cluster",
-          "required": [
-            "kind",
-            "uuid"
-          ],
-          "type": "object",
-          "properties": {
-            "kind": {
-              "default": "cluster",
-              "readOnly": false,
-              "type": "string",
-              "description": "The kind name",
-              "x-ntnx-enum": [
-                "cluster"
-              ]
-            },
-            "name": {
-              "readOnly": false,
-              "type": "string"
-            },
-            "uuid": {
-              "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-              "type": "string",
-              "format": "UUID"
-            }
-          },
-          "description": "The reference to a cluster"
+        "offset": {
+          "minimum": 0,
+          "type": "integer",
+          "description": "Offset from the start of the entity list",
+          "format": "int32"
         },
-        "subnet_resources_def_status": {
-          "title": "Subnet creation/modification status",
-          "type": "object",
-          "properties": {
-            "vswitch_name": {
-              "type": "string"
-            },
-            "subnet_type": {
-              "x-ntnx-enum": [
-                "VLAN"
-              ],
-              "type": "string"
-            },
-            "ip_config": {
-              "$ref": "#/definitions/ip_config"
-            },
-            "vlan_id": {
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32"
-            },
-            "network_function_chain_reference": {
-              "$ref": "#/definitions/network_function_chain_reference"
-            }
-          },
-          "description": "Subnet creation/modification status."
+        "length": {
+          "minimum": 1,
+          "type": "integer",
+          "description": "The number of records to retrieve relative to the offset",
+          "format": "int32"
         },
-        "subnet_resources": {
-          "title": "Subnet creation/modification spec",
-          "required": [
-            "subnet_type"
-          ],
-          "type": "object",
-          "properties": {
-            "vswitch_name": {
-              "type": "string",
-              "maxLength": 64
-            },
-            "subnet_type": {
-              "x-ntnx-enum": [
-                "VLAN"
-              ],
-              "type": "string"
-            },
-            "ip_config": {
-              "$ref": "#/definitions/ip_config"
-            },
-            "vlan_id": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "network_function_chain_reference": {
-              "$ref": "#/definitions/network_function_chain_reference"
-            }
+        "sort_attribute": {
+          "type": "string",
+          "description": "The attribute to perform sort on"
+        }
+      },
+      "description": "All api calls that return a list will have this metadata block as input\n"
+    },
+    "network_security_rule_def_status": {
+      "title": "Network security rule status",
+      "type": "object",
+      "properties": {
+        "state": {
+          "readOnly": false,
+          "type": "string"
+        },
+        "message_list": {
+          "items": {
+            "$ref": "#/definitions/message_resource"
           },
-          "description": "Subnet creation/modification spec."
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "resources": {
+          "$ref": "#/definitions/network_security_rule_resources"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "description": "Network security rule status"
+    },
+    "network_security_rule": {
+      "title": "Network security rule",
+      "required": [
+        "name",
+        "resources"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "resources": {
+          "$ref": "#/definitions/network_security_rule_resources"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 1000
+        }
+      },
+      "description": "Network security rule"
+    },
+    "network_security_rule_metadata": {
+      "title": "network_security_rule metadata",
+      "required": [
+        "kind"
+      ],
+      "type": "object",
+      "properties": {
+        "last_update_time": {
+          "readOnly": false,
+          "type": "string",
+          "description": "UTC date and time in RFC-3339 format when network_security_rule was last updated\n",
+          "format": "date-time"
+        },
+        "kind": {
+          "default": "network_security_rule",
+          "readOnly": false,
+          "type": "string",
+          "description": "The kind name",
+          "x-ntnx-enum": [
+            "network_security_rule"
+          ]
+        },
+        "uuid": {
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+          "type": "string",
+          "description": "network_security_rule uuid",
+          "format": "UUID"
         },
         "project_reference": {
-          "title": "Reference to a project",
-          "required": [
-            "kind",
-            "uuid"
-          ],
-          "type": "object",
-          "properties": {
-            "kind": {
-              "default": "project",
-              "readOnly": false,
-              "type": "string",
-              "description": "The kind name",
-              "x-ntnx-enum": [
-                "project"
-              ]
-            },
-            "name": {
-              "readOnly": false,
-              "type": "string"
-            },
-            "uuid": {
-              "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-              "type": "string",
-              "format": "UUID"
-            }
-          },
-          "description": "The reference to a project"
+          "description": "The project the network_security_rule is in.",
+          "$ref": "#/definitions/project_reference"
         },
-        "user_reference": {
-          "title": "Reference to a user",
-          "required": [
-            "kind",
-            "uuid"
-          ],
-          "type": "object",
-          "properties": {
-            "kind": {
-              "default": "user",
-              "readOnly": false,
-              "type": "string",
-              "description": "The kind name",
-              "x-ntnx-enum": [
-                "user"
-              ]
-            },
-            "name": {
-              "readOnly": false,
-              "type": "string"
-            },
-            "uuid": {
-              "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-              "type": "string",
-              "format": "UUID"
-            }
-          },
-          "description": "The reference to a user"
+        "spec_version": {
+          "type": "integer",
+          "description": "Version number of the latest spec."
         },
-        "ip_config": {
-          "title": "IP config",
+        "creation_time": {
+          "readOnly": false,
+          "type": "string",
+          "description": "UTC date and time in RFC-3339 format when network_security_rule was created\n",
+          "format": "date-time"
+        },
+        "spec_hash": {
+          "type": "string",
+          "description": "Hash of the spec. This will be returned from server.\n"
+        },
+        "owner_reference": {
+          "$ref": "#/definitions/user_reference"
+        },
+        "categories": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object",
+          "description": "Categories for the network_security_rule"
+        },
+        "name": {
+          "readOnly": false,
+          "type": "string",
+          "description": "network_security_rule name",
+          "maxLength": 64
+        }
+      },
+      "description": "The network_security_rule kind metadata"
+    },
+    "message_resource": {
+      "title": "Message.",
+      "required": [
+        "message",
+        "reason"
+      ],
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "If state is ERROR, a message describing the error."
+        },
+        "reason": {
+          "x-ntnx-enum": [
+            "ACCESS_DENIED",
+            "ACCESS_FORBIDDEN",
+            "ACTION_NOT_SUPPORTED",
+            "AUTHENTICATION_REQUIRED",
+            "BEARER_TOKEN_EXPIRED",
+            "BEARER_TOKEN_BAD_SIGNATURE",
+            "CANNOT_MODIFY_PRE_CONFIGURED_REPORT",
+            "CATEGORY_NAME_VALUE_MISMATCH",
+            "CONFIGURATION_INCOMPLETE",
+            "CONCURRENT_REQUESTS_NOT_ALLOWED",
+            "DEFAULT_PROJECT_UNAVAILABLE",
+            "DESERIALIZATION_FAILED",
+            "DIRECTORY_SERVICE_CONNECTION_FAILED",
+            "ENTITY_ALREADY_EXISTS",
+            "ENTITY_DELETION_FAILED",
+            "ENTITY_IS_READONLY",
+            "ENTITY_NAME_UUID_MISMATCH",
+            "ENTITY_NOT_CONFIGURED",
+            "ENTITY_NOT_FOUND",
+            "ENTITY_SAVE_ERROR",
+            "ENTITY_UPDATE_FAILED",
+            "IDEMPOTENCE_UUID_CREATION_FAILED",
+            "IDP_NOT_REACHABLE",
+            "INTERNAL_ERROR",
+            "INVALID_ARGUMENT",
+            "INVALID_AZ_NAME",
+            "INVALID_CONTENT_TYPE",
+            "INVALID_DATA_FORMAT",
+            "INVALID_PORTAL_CONFIGURATION",
+            "INVALID_REQUEST",
+            "INVALID_UUID",
+            "INVALID_OWNER_REFERENCE",
+            "INTERNAL_AZ_PROXY_SETUP_ERROR",
+            "INTERNAL_ERROR_REMOTE_REQUEST",
+            "INTERNAL_ROLE_ACCESS_DENIED",
+            "INCORRECT_EVENTS_FILTER",
+            "MISSING_ATTRIBUTE",
+            "MISSING_CURRENT_USER_METADATA",
+            "NAME_NOT_IN_DOMAIN",
+            "NO_RESPONSE_RECEIVED_FROM_PORTAL",
+            "PE_NOT_PAIRED_WITH_PC",
+            "PC_NOT_PAIRED_WITH_XI_PORTAL",
+            "REFERENCE_ERROR",
+            "RESERVED_ROLE_ACCESS_DENIED",
+            "REQUEST_NOT_SUPPORTED",
+            "REMOTE_CLUSTER_IP_FETCH_FAILED",
+            "REMOTE_CLUSTER_NOT_CONNECTED",
+            "REMOTE_CONNECTION_EXISTS",
+            "REMOTE_CONNECTION_NOT_FOUND",
+            "REPORT_CONFIG_NOT_FOUND",
+            "REPORTING_RESOURCE_NOT_FOUND",
+            "REPORTING_INTERNAL_ERROR",
+            "SERVICE_UNAVAILABLE",
+            "SEARCH_RESULT_PROCESSING_ERROR",
+            "TOO_MANY_REQUESTS",
+            "UNCONFIGURED_API_KEY",
+            "UNCONFIGURED_PORTAL_CONNECTION",
+            "UNSPECIFIED_EVENTS_FILTER",
+            "UNSUPPORTED_AZ_PROXY_API",
+            "UNSUPPORTED_MEDIA_TYPE_ERROR",
+            "UNSUPPORTED_API_VERSION",
+            "UPLOAD_TO_S3_FAILED",
+            "VALIDATION_ERROR",
+            "INVALID_SSL_CERTIFICATE",
+            "ERROR_ATTACHING_FILE_TO_CASE",
+            "SPEC_UPDATE_ERROR",
+            "SPEC_INCOMPATIBLE_ERROR"
+          ],
+          "type": "string",
+          "description": "If state is ERROR, a machine-readable snake-cased string."
+        },
+        "details": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "readOnly": false,
+          "type": "object",
+          "description": "Custom key-value details relevant to the status."
+        }
+      },
+      "description": "message."
+    },
+    "network_security_rule_intent_resource": {
+      "title": "network_security_rule Intent Response",
+      "required": [
+        "metadata"
+      ],
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/network_security_rule_def_status"
+        },
+        "spec": {
+          "$ref": "#/definitions/network_security_rule"
+        },
+        "api_version": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/network_security_rule_metadata"
+        }
+      },
+      "description": "Response object for intentful operations on a network_security_rule"
+    },
+    "network_security_rule_list_metadata_output": {
+      "title": "Metadata for network_security_rule list output",
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "string",
+          "description": "The filter used for the results"
+        },
+        "kind": {
+          "default": "network_security_rule",
+          "x-ntnx-enum": [
+            "network_security_rule"
+          ],
+          "type": "string",
+          "description": "The kind name"
+        },
+        "sort_order": {
+          "$ref": "#/definitions/sort_order"
+        },
+        "offset": {
+          "type": "integer",
+          "description": "Offset from the start of the entity list"
+        },
+        "total_matches": {
+          "type": "integer",
+          "description": "Total matches found"
+        },
+        "length": {
+          "type": "integer",
+          "description": "The number of records retrieved relative to the offset"
+        },
+        "sort_attribute": {
+          "type": "string",
+          "description": "The attribute to perform sort on"
+        }
+      },
+      "description": "All api calls that return a list will have this metadata block\n"
+    },
+    "sort_order": {
+      "x-ntnx-enum": [
+        "ASCENDING",
+        "DESCENDING"
+      ],
+      "type": "string",
+      "description": "The sort order in which results are returned",
+      "title": "Sort order"
+    },
+    "network_security_rule_resources": {
+      "description": "Network security rule resources",
+      "title": "Network security rule resources",
+      "type": "object",
+      "properties": {
+        "app_rule": {
+          "title": "App rule",
           "type": "object",
           "properties": {
-            "pool_list": {
+            "action": {
+              "x-ntnx-enum": [
+                "APPLY",
+                "MONITOR"
+              ],
+              "type": "string",
+              "description": "Type of deployment of the rule."
+            },
+            "outbound_allow_list": {
               "items": {
-                "$ref": "#/definitions/ip_pool"
+                "$ref": "#/definitions/network_rule"
               },
               "type": "array"
             },
-            "default_gateway_ip": {
-              "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
-              "type": "string",
-              "description": "Default gateway IP address."
+            "target_group": {
+              "$ref": "#/definitions/target_group"
             },
-            "prefix_length": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "subnet_ip": {
-              "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
-              "type": "string",
-              "description": "Subnet IP address."
-            },
-            "dhcp_options": {
-              "$ref": "#/definitions/dhcp_options"
-            },
-            "dhcp_server_address": {
-              "$ref": "#/definitions/address"
+            "inbound_allow_list": {
+              "items": {
+                "$ref": "#/definitions/network_rule"
+              },
+              "type": "array"
             }
           },
-          "description": "IP config."
+          "description": "These rules govern what flows are allowed. Target group is a required attribute.  Empty inbound_allow_list will not anything into target group. Empty outbound_allow_list will allow everything from target group.\n"
         },
-        "network_function_chain_reference": {
-          "title": "Reference to a network_function_chain",
-          "required": [
-            "kind",
-            "uuid"
-          ],
+        "quarantine_rule": {
+          "title": "Quarantine rule",
           "type": "object",
           "properties": {
-            "kind": {
-              "default": "network_function_chain",
-              "readOnly": false,
-              "type": "string",
-              "description": "The kind name",
+            "action": {
               "x-ntnx-enum": [
-                "network_function_chain"
-              ]
-            },
-            "name": {
-              "readOnly": false,
-              "type": "string"
-            },
-            "uuid": {
-              "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                "APPLY",
+                "MONITOR"
+              ],
               "type": "string",
-              "format": "UUID"
-            }
-          },
-          "description": "The reference to a network_function_chain"
-        },
-        "ip_pool": {
-          "title": "IP pool",
-          "type": "object",
-          "properties": {
-            "range": {
-              "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)[ ](?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
-              "type": "string",
-              "description": "Range of IPs (example: 10.0.0.9 10.0.0.19).\n"
-            }
-          },
-          "description": "IP pool."
-        },
-        "dhcp_options": {
-          "title": "DHCP options",
-          "type": "object",
-          "properties": {
-            "domain_name_server_list": {
+              "description": "Type of action."
+            },
+            "outbound_allow_list": {
               "items": {
-                "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
-                "type": "string"
+                "$ref": "#/definitions/network_rule"
               },
               "type": "array"
             },
-            "boot_file_name": {
-              "type": "string"
+            "target_group": {
+              "$ref": "#/definitions/target_group"
             },
-            "domain_search_list": {
+            "inbound_allow_list": {
               "items": {
-                "type": "string"
+                "$ref": "#/definitions/network_rule"
               },
               "type": "array"
-            },
-            "domain_name": {
-              "type": "string"
-            },
-            "tftp_server_name": {
-              "type": "string"
             }
           },
-          "description": "Spec for defining DHCP options."
+          "description": "These rules are used for quarantining suspected VMs. Target group is a required attribute.  Empty inbound_allow_list will not allow anything into target group. Empty outbound_allow_list will allow everything from target group.\n"
         },
-        "address": {
-          "description": "Host address.",
-          "title": "Host address.",
+        "isolation_rule": {
+          "title": "Isolation rule",
           "type": "object",
           "properties": {
-            "ip": {
-              "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+            "action": {
+              "x-ntnx-enum": [
+                "APPLY",
+                "MONITOR"
+              ],
               "type": "string",
-              "description": "IPV4 address."
+              "description": "Type of action."
             },
-            "ipv6": {
-              "pattern": "(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))",
-              "type": "string",
-              "description": "IPV6 address."
+            "first_entity_filter": {
+              "description": "The set of categories that matching VMs need to have.",
+              "$ref": "#/definitions/category_filter"
             },
-            "port": {
-              "type": "integer",
-              "description": "Port Number",
-              "format": "int32"
-            },
-            "fqdn": {
-              "type": "string",
-              "description": "Fully qualified domain name."
+            "second_entity_filter": {
+              "description": "The set of categories that matching VMs need to have.",
+              "$ref": "#/definitions/category_filter"
             }
           },
-          "x-ntnx-one-of": [
-            {
-              "required": [
-                "ip"
-              ]
-            },
-            {
-              "required": [
-                "ipv6"
-              ]
-            },
-            {
-              "required": [
-                "fqdn"
-              ]
-            }
+          "description": "These rules are used for environmental isolation."
+        }
+      },
+      "x-ntnx-one-of": [
+        {
+          "required": [
+            "app_rule"
+          ]
+        },
+        {
+          "required": [
+            "isolation_rule"
+          ]
+        },
+        {
+          "required": [
+            "quarantine_rule"
           ]
         }
+      ]
+    },
+    "project_reference": {
+      "title": "Reference to a project",
+      "required": [
+        "kind",
+        "uuid"
+      ],
+      "type": "object",
+      "properties": {
+        "kind": {
+          "default": "project",
+          "readOnly": false,
+          "type": "string",
+          "description": "The kind name",
+          "x-ntnx-enum": [
+            "project"
+          ]
+        },
+        "name": {
+          "readOnly": false,
+          "type": "string"
+        },
+        "uuid": {
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+          "type": "string",
+          "format": "UUID"
+        }
+      },
+      "description": "The reference to a project"
+    },
+    "user_reference": {
+      "title": "Reference to a user",
+      "required": [
+        "kind",
+        "uuid"
+      ],
+      "type": "object",
+      "properties": {
+        "kind": {
+          "default": "user",
+          "readOnly": false,
+          "type": "string",
+          "description": "The kind name",
+          "x-ntnx-enum": [
+            "user"
+          ]
+        },
+        "name": {
+          "readOnly": false,
+          "type": "string"
+        },
+        "uuid": {
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+          "type": "string",
+          "format": "UUID"
+        }
+      },
+      "description": "The reference to a user"
+    },
+    "network_rule": {
+      "title": "Network rule",
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "x-ntnx-enum": [
+            "ALL",
+            "ICMP",
+            "TCP",
+            "UDP"
+          ],
+          "type": "string",
+          "description": "Select a protocol to allow.  Multiple protocols can be allowed by repeating network_rule object.  If a protocol is not configured in the network_rule object then it is allowed."
+        },
+        "ip_subnet": {
+          "$ref": "#/definitions/ip_subnet"
+        },
+        "tcp_port_range_list": {
+          "items": {
+            "$ref": "#/definitions/port_range"
+          },
+          "type": "array",
+          "description": "List of TCP ports that are allowed by this rule."
+        },
+        "udp_port_range_list": {
+          "items": {
+            "$ref": "#/definitions/port_range"
+          },
+          "type": "array",
+          "description": "List of UDP ports that are allowed by this rule."
+        },
+        "peer_specification_type": {
+          "x-ntnx-enum": [
+            "ALL",
+            "FILTER",
+            "IP_SUBNET"
+          ],
+          "type": "string",
+          "description": "The set of categories that matching VMs need to have."
+        },
+        "filter": {
+          "description": "The set of categories that matching VMs need to have.",
+          "$ref": "#/definitions/category_filter"
+        },
+        "icmp_type_code_list": {
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "type": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "type": "array",
+          "description": "List of ICMP types and codes allowed by this rule."
+        },
+        "network_function_chain_reference": {
+          "$ref": "#/definitions/network_function_chain_reference"
+        },
+        "expiration_time": {
+          "type": "string",
+          "description": "Timestamp of expiration time.",
+          "maxLength": 64
+        }
+      },
+      "description": "Network rule"
+    },
+    "target_group": {
+      "title": "Target group",
+      "type": "object",
+      "properties": {
+        "filter": {
+          "description": "The set of categories that matching VMs need to have.",
+          "$ref": "#/definitions/category_filter"
+        },
+        "default_internal_policy": {
+          "x-ntnx-enum": [
+            "ALLOW_ALL",
+            "DENY_ALL"
+          ],
+          "type": "string",
+          "description": "Default policy for communication within target group."
+        },
+        "peer_specification_type": {
+          "x-ntnx-enum": [
+            "FILTER"
+          ],
+          "type": "string",
+          "description": "Way to identify the object for which rule is applied."
+        }
+      },
+      "description": "Target group"
+    },
+    "category_filter": {
+      "title": "A category filter",
+      "required": [
+        "params"
+      ],
+      "type": "object",
+      "properties": {
+        "type": {
+          "default": "CATEGORIES_MATCH_ANY",
+          "x-ntnx-enum": [
+            "CATEGORIES_MATCH_ALL",
+            "CATEGORIES_MATCH_ANY"
+          ],
+          "type": "string",
+          "description": "The type of the filter being used."
+        },
+        "kind_list": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "description": "List of kinds associated with this filter."
+        },
+        "params": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "string"
+          },
+          "type": "object",
+          "description": "A list of category key and list of values."
+        }
+      },
+      "description": "A category filter."
+    },
+    "ip_subnet": {
+      "title": "IP subnet.",
+      "type": "object",
+      "properties": {
+        "ip": {
+          "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+          "type": "string",
+          "description": "IPV4 address."
+        },
+        "prefix_length": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "description": "IP subnet provided as an address and prefix length."
+    },
+    "port_range": {
+      "title": "TCP/UDP ports.",
+      "type": "object",
+      "properties": {
+        "end_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "start_port": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "description": "Range of TCP/UDP ports."
+    },
+    "network_function_chain_reference": {
+      "title": "Reference to a network_function_chain",
+      "required": [
+        "kind",
+        "uuid"
+      ],
+      "type": "object",
+      "properties": {
+        "kind": {
+          "default": "network_function_chain",
+          "readOnly": false,
+          "type": "string",
+          "description": "The kind name",
+          "x-ntnx-enum": [
+            "network_function_chain"
+          ]
+        },
+        "name": {
+          "readOnly": false,
+          "type": "string"
+        },
+        "uuid": {
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+          "type": "string",
+          "format": "UUID"
+        }
+      },
+      "description": "The reference to a network_function_chain"
+    }
   },
   "security": [
-      {
-          "basicAuth": []
-      }
+    {
+      "basicAuth": []
+    }
   ],
   "swagger": "2.0"
 }
