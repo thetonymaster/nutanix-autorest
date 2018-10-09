@@ -9,163 +9,372 @@
     "http"
   ],
   "paths": {
-    "/network_security_rules": {
-      "post": {
-        "responses": {
-          "default": {
-            "description": "Internal Error",
-            "schema": {
-              "$ref": "#/definitions/network_security_rule_status"
-            }
-          },
-          "202": {
-            "description": "Request Accepted",
-            "schema": {
-              "$ref": "#/definitions/network_security_rule_intent_response"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "required": true,
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/network_security_rule_intent_input"
-            }
-          }
-        ],
-        "tags": [
-          "network_security_rules"
-        ],
-        "description": "This operation submits a request to create a Network security rule based on the input parameters.\n",
-        "x-ntnx-kind": "network_security_rule",
-        "summary": "Create a Network security rule"
-      }
-    },
-    "/network_security_rules/list": {
+    "/categories/list": {
       "post": {
         "responses": {
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/network_security_rule_list_intent_response"
+              "$ref": "#/definitions/category_key_list_response"
             }
           },
           "default": {
             "description": "Internal Error",
             "schema": {
-              "$ref": "#/definitions/network_security_rule_status"
+              "$ref": "#/definitions/category_status"
             }
           }
         },
+        "description": "List the category keys.\n",
         "parameters": [
           {
-            "required": true,
+            "required": false,
             "in": "body",
             "name": "get_entities_request",
             "schema": {
-              "$ref": "#/definitions/network_security_rule_list_metadata"
+              "$ref": "#/definitions/category_list_metadata"
             }
           }
         ],
         "tags": [
-          "network_security_rules"
+          "category"
         ],
-        "description": "This operation gets a list of Network security rules, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n",
-        "x-ntnx-kind": "network_security_rule",
-        "summary": "Get all network security rules"
+        "x-ntnx-operations": [
+          "view_name"
+        ],
+        "x-ntnx-kind": "category",
+        "summary": "List the category keys."
       }
     },
-    "/network_security_rules/{uuid}": {
+    "/categories/{name}": {
       "put": {
         "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/category_key_status"
+            }
+          },
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/category_key_status"
+            }
+          },
           "default": {
             "description": "Internal Error",
             "schema": {
-              "$ref": "#/definitions/network_security_rule_status"
-            }
-          },
-          "202": {
-            "description": "Request Accepted",
-            "schema": {
-              "$ref": "#/definitions/network_security_rule_intent_response"
+              "$ref": "#/definitions/category_status"
             }
           }
         },
+        "description": "Create or Update a category Key.",
         "parameters": [
           {
-            "$ref": "#/parameters/uuid"
+            "required": true,
+            "type": "string",
+            "name": "name",
+            "in": "path",
+            "maxLength": 64
           },
           {
             "required": true,
             "in": "body",
-            "name": "body",
+            "name": "spec",
             "schema": {
-              "$ref": "#/definitions/network_security_rule_intent_input"
+              "$ref": "#/definitions/category_key"
             }
           }
         ],
         "tags": [
-          "network_security_rules"
+          "category"
         ],
-        "description": "This operation submits a request to update a Network security rule based on the input parameters.\n",
-        "x-ntnx-kind": "network_security_rule",
-        "summary": "Update a Network security rule"
+        "x-ntnx-operations": [
+          "create_or_update_name"
+        ],
+        "x-ntnx-kind": "category",
+        "summary": "Create or Update a category Key."
       },
       "get": {
         "responses": {
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/network_security_rule_intent_response"
+              "$ref": "#/definitions/category_key_status"
             }
           },
           "default": {
             "description": "Internal Error",
             "schema": {
-              "$ref": "#/definitions/network_security_rule_status"
+              "$ref": "#/definitions/category_status"
             }
           }
         },
+        "description": "Get a category key.",
         "parameters": [
           {
-            "$ref": "#/parameters/uuid"
+            "required": true,
+            "type": "string",
+            "name": "name",
+            "in": "path",
+            "maxLength": 64
           }
         ],
         "tags": [
-          "network_security_rules"
+          "category"
         ],
-        "description": "This operation gets a Network security rule.",
-        "x-ntnx-kind": "network_security_rule",
-        "summary": "Get a Network security rule"
+        "x-ntnx-operations": [
+          "view_name"
+        ],
+        "x-ntnx-kind": "category",
+        "summary": "Get a category key."
       },
       "delete": {
         "responses": {
+          "200": {
+            "description": "Success"
+          },
           "default": {
             "description": "Internal Error",
             "schema": {
-              "$ref": "#/definitions/network_security_rule_status"
-            }
-          },
-          "202": {
-            "description": "Request Accepted",
-            "schema": {
-              "$ref": "#/definitions/network_security_rule_intent_response"
+              "$ref": "#/definitions/category_status"
             }
           }
         },
+        "description": "Delete a category Key.",
         "parameters": [
           {
-            "$ref": "#/parameters/uuid"
+            "required": true,
+            "type": "string",
+            "name": "name",
+            "in": "path",
+            "maxLength": 64
           }
         ],
         "tags": [
-          "network_security_rules"
+          "category"
         ],
-        "description": "This operation submits a request to delete a Network security rule.",
-        "x-ntnx-kind": "network_security_rule",
-        "summary": "Delete a Network security rule"
+        "x-ntnx-operations": [
+          "delete_name"
+        ],
+        "x-ntnx-kind": "category",
+        "summary": "Delete a category Key."
+      }
+    },
+    "/categories/{name}/list": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/category_value_list_response"
+            }
+          },
+          "default": {
+            "description": "Internal Error",
+            "schema": {
+              "$ref": "#/definitions/category_status"
+            }
+          }
+        },
+        "description": "List the values for a specified key.\n",
+        "parameters": [
+          {
+            "required": true,
+            "type": "string",
+            "name": "name",
+            "in": "path",
+            "maxLength": 64
+          },
+          {
+            "required": false,
+            "in": "body",
+            "name": "get_entities_request",
+            "schema": {
+              "$ref": "#/definitions/category_list_metadata"
+            }
+          }
+        ],
+        "tags": [
+          "category"
+        ],
+        "x-ntnx-operations": [
+          "view_value"
+        ],
+        "x-ntnx-kind": "category",
+        "summary": "List the values for a specified key."
+      }
+    },
+    "/categories/{name}/{value}": {
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/category_value_status"
+            }
+          },
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/category_value_status"
+            }
+          },
+          "default": {
+            "description": "Internal Error",
+            "schema": {
+              "$ref": "#/definitions/category_status"
+            }
+          }
+        },
+        "description": "Create or Update a category value. Creates when value doesn't exist.\n",
+        "parameters": [
+          {
+            "required": true,
+            "type": "string",
+            "name": "name",
+            "in": "path",
+            "maxLength": 64
+          },
+          {
+            "required": true,
+            "type": "string",
+            "name": "value",
+            "in": "path",
+            "maxLength": 64
+          },
+          {
+            "required": true,
+            "in": "body",
+            "name": "spec",
+            "schema": {
+              "$ref": "#/definitions/category_value"
+            }
+          }
+        ],
+        "tags": [
+          "category"
+        ],
+        "x-ntnx-operations": [
+          "create_or_update_value"
+        ],
+        "x-ntnx-kind": "category",
+        "summary": "Create or Update a category value."
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/category_value_status"
+            }
+          },
+          "default": {
+            "description": "Internal Error",
+            "schema": {
+              "$ref": "#/definitions/category_status"
+            }
+          }
+        },
+        "description": "Get a category value.",
+        "parameters": [
+          {
+            "required": true,
+            "type": "string",
+            "name": "name",
+            "in": "path",
+            "maxLength": 64
+          },
+          {
+            "required": true,
+            "type": "string",
+            "name": "value",
+            "in": "path",
+            "maxLength": 64
+          }
+        ],
+        "tags": [
+          "category"
+        ],
+        "x-ntnx-operations": [
+          "view_value"
+        ],
+        "x-ntnx-kind": "category",
+        "summary": "Get a category value."
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Internal Error",
+            "schema": {
+              "$ref": "#/definitions/category_status"
+            }
+          }
+        },
+        "description": "Delete a category value.",
+        "parameters": [
+          {
+            "required": true,
+            "type": "string",
+            "name": "name",
+            "in": "path",
+            "maxLength": 64
+          },
+          {
+            "required": true,
+            "type": "string",
+            "name": "value",
+            "in": "path",
+            "maxLength": 64
+          }
+        ],
+        "tags": [
+          "category"
+        ],
+        "x-ntnx-operations": [
+          "delete_value"
+        ],
+        "x-ntnx-kind": "category",
+        "summary": "Delete a category value."
+      }
+    },
+    "/category/query": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/category_query_response"
+            }
+          },
+          "default": {
+            "description": "Internal Error",
+            "schema": {
+              "$ref": "#/definitions/category_status"
+            }
+          }
+        },
+        "description": "Get list of entities attached to categories or policies in which categories are used as defined by the filter criteria.\n",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "query",
+            "schema": {
+              "$ref": "#/definitions/category_query_input"
+            }
+          }
+        ],
+        "tags": [
+          "category"
+        ],
+        "x-ntnx-operations": [
+          "view_value"
+        ],
+        "x-ntnx-kind": "category",
+        "summary": "Get category usage details."
       }
     }
   },
@@ -190,40 +399,37 @@
     }
   },
   "definitions": {
-    "network_security_rule_intent_response": {
-      "title": "network_security_rule Intent Response",
-      "required": [
-        "api_version",
-        "metadata"
-      ],
+    "category_key_list_response": {
+      "title": "Category key list response.",
       "type": "object",
       "properties": {
-        "status": {
-          "$ref": "#/definitions/network_security_rule_def_status"
-        },
-        "spec": {
-          "$ref": "#/definitions/network_security_rule"
+        "entities": {
+          "items": {
+            "$ref": "#/definitions/category_key_status"
+          },
+          "type": "array"
         },
         "api_version": {
-          "type": "string"
+          "type": "string",
+          "description": "Api Version."
         },
         "metadata": {
-          "$ref": "#/definitions/network_security_rule_metadata"
+          "$ref": "#/definitions/category_list_metadata"
         }
       },
-      "description": "Response object for intentful operations on a network_security_rule"
+      "description": "Category key list response."
     },
-    "network_security_rule_status": {
+    "category_status": {
       "title": "Response Kind",
       "type": "object",
       "properties": {
         "kind": {
-          "default": "network_security_rule",
+          "default": "category",
           "readOnly": false,
           "type": "string",
           "description": "The kind name",
           "x-ntnx-enum": [
-            "network_security_rule"
+            "category"
           ]
         },
         "code": {
@@ -249,52 +455,8 @@
       },
       "description": "The status of a REST API call. Only used when there is a failure to\nreport.\n"
     },
-    "network_security_rule_intent_input": {
-      "title": "network_security_rule Intent Entity",
-      "required": [
-        "metadata",
-        "spec"
-      ],
-      "type": "object",
-      "properties": {
-        "spec": {
-          "$ref": "#/definitions/network_security_rule"
-        },
-        "api_version": {
-          "default": "3.1.0",
-          "type": "string"
-        },
-        "metadata": {
-          "$ref": "#/definitions/network_security_rule_metadata"
-        }
-      },
-      "description": "An intentful representation of a network_security_rule"
-    },
-    "network_security_rule_list_intent_response": {
-      "title": "Entity Intent List Response",
-      "required": [
-        "api_version",
-        "metadata"
-      ],
-      "type": "object",
-      "properties": {
-        "entities": {
-          "items": {
-            "$ref": "#/definitions/network_security_rule_intent_resource"
-          },
-          "type": "array"
-        },
-        "api_version": {
-          "type": "string"
-        },
-        "metadata": {
-          "$ref": "#/definitions/network_security_rule_list_metadata_output"
-        }
-      },
-      "description": "Response object for intentful operation of network_security_rules"
-    },
-    "network_security_rule_list_metadata": {
-      "title": "Metadata for network_security_rule list",
+    "category_list_metadata": {
+      "title": "Metadata for category list",
       "type": "object",
       "properties": {
         "filter": {
@@ -302,9 +464,9 @@
           "description": "The filter in FIQL syntax used for the results."
         },
         "kind": {
-          "default": "network_security_rule",
+          "default": "category",
           "x-ntnx-enum": [
-            "network_security_rule"
+            "category"
           ],
           "type": "string",
           "description": "The kind name"
@@ -331,117 +493,221 @@
       },
       "description": "All api calls that return a list will have this metadata block as input\n"
     },
-    "network_security_rule_def_status": {
-      "title": "Network security rule status",
+    "category_key_status": {
+      "title": "Category Key Definition.",
+      "required": [
+        "name"
+      ],
       "type": "object",
       "properties": {
-        "state": {
-          "readOnly": false,
-          "type": "string"
-        },
-        "message_list": {
-          "items": {
-            "$ref": "#/definitions/message_resource"
-          },
-          "type": "array"
+        "description": {
+          "type": "string",
+          "description": "Description of the category.",
+          "maxLength": 1000
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "description": "Name of the category.",
+          "maxLength": 64
         },
-        "resources": {
-          "$ref": "#/definitions/network_security_rule_resources"
+        "api_version": {
+          "type": "string",
+          "description": "API version."
         },
-        "description": {
-          "type": "string"
+        "system_defined": {
+          "readOnly": false,
+          "type": "boolean",
+          "description": "Specifying whether its a system defined category."
         }
       },
-      "description": "Network security rule status"
+      "description": "Category Key Definition."
     },
-    "network_security_rule": {
-      "title": "Network security rule",
+    "category_key": {
+      "title": "Category Key definition.",
       "required": [
-        "name",
-        "resources"
+        "name"
       ],
+      "type": "object",
       "properties": {
         "name": {
           "type": "string",
+          "description": "Name of the category.",
           "maxLength": 64
         },
-        "resources": {
-          "$ref": "#/definitions/network_security_rule_resources"
+        "api_version": {
+          "type": "string",
+          "description": "API version."
         },
         "description": {
           "type": "string",
+          "description": "Description of the category.",
           "maxLength": 1000
         }
       },
-      "description": "Network security rule"
+      "description": "Category key definition."
     },
-    "network_security_rule_metadata": {
-      "title": "network_security_rule metadata",
-      "required": [
-        "kind"
-      ],
+    "category_value_list_response": {
+      "title": "Category value list response.",
       "type": "object",
       "properties": {
-        "last_update_time": {
-          "readOnly": false,
-          "type": "string",
-          "description": "UTC date and time in RFC-3339 format when network_security_rule was last updated\n",
-          "format": "date-time"
-        },
-        "kind": {
-          "default": "network_security_rule",
-          "readOnly": false,
-          "type": "string",
-          "description": "The kind name",
-          "x-ntnx-enum": [
-            "network_security_rule"
-          ]
-        },
-        "uuid": {
-          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-          "type": "string",
-          "description": "network_security_rule uuid",
-          "format": "UUID"
-        },
-        "project_reference": {
-          "description": "The project the network_security_rule is in.",
-          "$ref": "#/definitions/project_reference"
-        },
-        "spec_version": {
-          "type": "integer",
-          "description": "Version number of the latest spec."
-        },
-        "creation_time": {
-          "readOnly": false,
-          "type": "string",
-          "description": "UTC date and time in RFC-3339 format when network_security_rule was created\n",
-          "format": "date-time"
-        },
-        "spec_hash": {
-          "type": "string",
-          "description": "Hash of the spec. This will be returned from server.\n"
-        },
-        "owner_reference": {
-          "$ref": "#/definitions/user_reference"
-        },
-        "categories": {
-          "additionalProperties": {
-            "type": "string"
+        "entities": {
+          "items": {
+            "$ref": "#/definitions/category_value_status"
           },
-          "type": "object",
-          "description": "Categories for the network_security_rule"
+          "type": "array"
+        },
+        "api_version": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/category_list_metadata"
+        }
+      },
+      "description": "Category Value list response."
+    },
+    "category_value_status": {
+      "title": "Category Value Definition.",
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Description of the category value.",
+          "maxLength": 1000
+        },
+        "api_version": {
+          "type": "string",
+          "description": "API version."
         },
         "name": {
           "readOnly": false,
           "type": "string",
-          "description": "network_security_rule name",
+          "description": "The name of the category.",
           "maxLength": 64
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the category.",
+          "maxLength": 64
+        },
+        "system_defined": {
+          "readOnly": false,
+          "type": "boolean",
+          "description": "Specifying whether its a system defined category."
         }
       },
-      "description": "The network_security_rule kind metadata"
+      "description": "Category value definition."
+    },
+    "category_value": {
+      "title": "Category Value definition.",
+      "type": "object",
+      "properties": {
+        "api_version": {
+          "type": "string",
+          "description": "API version."
+        },
+        "value": {
+          "type": "string",
+          "description": "Value for the category.",
+          "maxLength": 64
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the category value.",
+          "maxLength": 1000
+        }
+      },
+      "description": "Category value definition."
+    },
+    "category_query_response": {
+      "title": "Category Query Response",
+      "type": "object",
+      "properties": {
+        "results": {
+          "items": {
+            "type": "object",
+            "properties": {
+              "filtered_entity_count": {
+                "type": "integer",
+                "description": "Total number of filtered results.",
+                "format": "int64"
+              },
+              "kind": {
+                "type": "string",
+                "description": "The entity kind."
+              },
+              "entity_any_reference_list": {
+                "items": {
+                  "$ref": "#/definitions/entity_reference"
+                },
+                "type": "array",
+                "description": "List of entity references."
+              },
+              "total_entity_count": {
+                "type": "integer",
+                "description": "Total number of the matched results.",
+                "format": "int64"
+              }
+            }
+          },
+          "type": "array"
+        },
+        "api_version": {
+          "type": "string",
+          "description": "API version."
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Response metadata.",
+          "properties": {
+            "total_matches": {
+              "type": "integer",
+              "description": "Total number of matched results.",
+              "format": "int64"
+            },
+            "usage_type": {
+              "$ref": "#/definitions/category_query_usage_type"
+            },
+            "group_member_offset": {
+              "type": "integer",
+              "description": "The offset into the total records set to return per group.\n",
+              "format": "int64"
+            },
+            "group_member_count": {
+              "type": "integer",
+              "description": "The maximum number of records to return per group.",
+              "format": "int64"
+            }
+          }
+        }
+      },
+      "description": "Categories query response object."
+    },
+    "category_query_input": {
+      "title": "Category Query Input",
+      "type": "object",
+      "properties": {
+        "usage_type": {
+          "$ref": "#/definitions/category_query_usage_type"
+        },
+        "group_member_offset": {
+          "type": "integer",
+          "description": "The offset into the total member set to return per group.",
+          "format": "int64"
+        },
+        "group_member_count": {
+          "type": "integer",
+          "description": "The maximum number of members to return per group.",
+          "format": "int64"
+        },
+        "category_filter": {
+          "$ref": "#/definitions/category_filter"
+        },
+        "api_version": {
+          "type": "string",
+          "description": "API version."
+        }
+      },
+      "description": "Categories query input object."
     },
     "message_resource": {
       "title": "Message.",
@@ -539,66 +805,6 @@
       },
       "description": "message."
     },
-    "network_security_rule_intent_resource": {
-      "title": "network_security_rule Intent Response",
-      "required": [
-        "metadata"
-      ],
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/network_security_rule_def_status"
-        },
-        "spec": {
-          "$ref": "#/definitions/network_security_rule"
-        },
-        "api_version": {
-          "type": "string"
-        },
-        "metadata": {
-          "$ref": "#/definitions/network_security_rule_metadata"
-        }
-      },
-      "description": "Response object for intentful operations on a network_security_rule"
-    },
-    "network_security_rule_list_metadata_output": {
-      "title": "Metadata for network_security_rule list output",
-      "type": "object",
-      "properties": {
-        "filter": {
-          "type": "string",
-          "description": "The filter used for the results"
-        },
-        "kind": {
-          "default": "network_security_rule",
-          "x-ntnx-enum": [
-            "network_security_rule"
-          ],
-          "type": "string",
-          "description": "The kind name"
-        },
-        "sort_order": {
-          "$ref": "#/definitions/sort_order"
-        },
-        "offset": {
-          "type": "integer",
-          "description": "Offset from the start of the entity list"
-        },
-        "total_matches": {
-          "type": "integer",
-          "description": "Total matches found"
-        },
-        "length": {
-          "type": "integer",
-          "description": "The number of records retrieved relative to the offset"
-        },
-        "sort_attribute": {
-          "type": "string",
-          "description": "The attribute to perform sort on"
-        }
-      },
-      "description": "All api calls that return a list will have this metadata block\n"
-    },
     "sort_order": {
       "x-ntnx-enum": [
         "ASCENDING",
@@ -608,268 +814,51 @@
       "description": "The sort order in which results are returned",
       "title": "Sort order"
     },
-    "network_security_rule_resources": {
-      "description": "Network security rule resources",
-      "title": "Network security rule resources",
-      "type": "object",
-      "properties": {
-        "app_rule": {
-          "title": "App rule",
-          "type": "object",
-          "properties": {
-            "action": {
-              "x-ntnx-enum": [
-                "APPLY",
-                "MONITOR"
-              ],
-              "type": "string",
-              "description": "Type of deployment of the rule."
-            },
-            "outbound_allow_list": {
-              "items": {
-                "$ref": "#/definitions/network_rule"
-              },
-              "type": "array"
-            },
-            "target_group": {
-              "$ref": "#/definitions/target_group"
-            },
-            "inbound_allow_list": {
-              "items": {
-                "$ref": "#/definitions/network_rule"
-              },
-              "type": "array"
-            }
-          },
-          "description": "These rules govern what flows are allowed. Target group is a required attribute.  Empty inbound_allow_list will not anything into target group. Empty outbound_allow_list will allow everything from target group.\n"
-        },
-        "quarantine_rule": {
-          "title": "Quarantine rule",
-          "type": "object",
-          "properties": {
-            "action": {
-              "x-ntnx-enum": [
-                "APPLY",
-                "MONITOR"
-              ],
-              "type": "string",
-              "description": "Type of action."
-            },
-            "outbound_allow_list": {
-              "items": {
-                "$ref": "#/definitions/network_rule"
-              },
-              "type": "array"
-            },
-            "target_group": {
-              "$ref": "#/definitions/target_group"
-            },
-            "inbound_allow_list": {
-              "items": {
-                "$ref": "#/definitions/network_rule"
-              },
-              "type": "array"
-            }
-          },
-          "description": "These rules are used for quarantining suspected VMs. Target group is a required attribute.  Empty inbound_allow_list will not allow anything into target group. Empty outbound_allow_list will allow everything from target group.\n"
-        },
-        "isolation_rule": {
-          "title": "Isolation rule",
-          "type": "object",
-          "properties": {
-            "action": {
-              "x-ntnx-enum": [
-                "APPLY",
-                "MONITOR"
-              ],
-              "type": "string",
-              "description": "Type of action."
-            },
-            "first_entity_filter": {
-              "description": "The set of categories that matching VMs need to have.",
-              "$ref": "#/definitions/category_filter"
-            },
-            "second_entity_filter": {
-              "description": "The set of categories that matching VMs need to have.",
-              "$ref": "#/definitions/category_filter"
-            }
-          },
-          "description": "These rules are used for environmental isolation."
-        }
-      },
-      "x-ntnx-one-of": [
-        {
-          "required": [
-            "app_rule"
-          ]
-        },
-        {
-          "required": [
-            "isolation_rule"
-          ]
-        },
-        {
-          "required": [
-            "quarantine_rule"
-          ]
-        }
-      ]
-    },
-    "project_reference": {
-      "title": "Reference to a project",
-      "required": [
-        "kind",
-        "uuid"
-      ],
+    "entity_reference": {
+      "title": "Entity Reference.",
       "type": "object",
       "properties": {
         "kind": {
-          "default": "project",
-          "readOnly": false,
           "type": "string",
-          "description": "The kind name",
-          "x-ntnx-enum": [
-            "project"
-          ]
+          "description": "Kind of the reference."
         },
-        "name": {
-          "readOnly": false,
-          "type": "string"
+        "type": {
+          "x-ntnx-enum": [
+            "CATEGORIES_MATCH_ALL",
+            "CATEGORIES_MATCH_ANY"
+          ],
+          "type": "string",
+          "description": "The type of filter being used."
         },
         "uuid": {
           "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
           "type": "string",
+          "description": "UUID of the entity.",
           "format": "UUID"
-        }
-      },
-      "description": "The reference to a project"
-    },
-    "user_reference": {
-      "title": "Reference to a user",
-      "required": [
-        "kind",
-        "uuid"
-      ],
-      "type": "object",
-      "properties": {
-        "kind": {
-          "default": "user",
-          "readOnly": false,
-          "type": "string",
-          "description": "The kind name",
-          "x-ntnx-enum": [
-            "user"
-          ]
+        },
+        "categories": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object",
+          "description": "Categories for the entity."
         },
         "name": {
-          "readOnly": false,
-          "type": "string"
-        },
-        "uuid": {
-          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
           "type": "string",
-          "format": "UUID"
-        }
-      },
-      "description": "The reference to a user"
-    },
-    "network_rule": {
-      "title": "Network rule",
-      "type": "object",
-      "properties": {
-        "protocol": {
-          "x-ntnx-enum": [
-            "ALL",
-            "ICMP",
-            "TCP",
-            "UDP"
-          ],
-          "type": "string",
-          "description": "Select a protocol to allow.  Multiple protocols can be allowed by repeating network_rule object.  If a protocol is not configured in the network_rule object then it is allowed."
-        },
-        "ip_subnet": {
-          "$ref": "#/definitions/ip_subnet"
-        },
-        "tcp_port_range_list": {
-          "items": {
-            "$ref": "#/definitions/port_range"
-          },
-          "type": "array",
-          "description": "List of TCP ports that are allowed by this rule."
-        },
-        "udp_port_range_list": {
-          "items": {
-            "$ref": "#/definitions/port_range"
-          },
-          "type": "array",
-          "description": "List of UDP ports that are allowed by this rule."
-        },
-        "peer_specification_type": {
-          "x-ntnx-enum": [
-            "ALL",
-            "FILTER",
-            "IP_SUBNET"
-          ],
-          "type": "string",
-          "description": "The set of categories that matching VMs need to have."
-        },
-        "filter": {
-          "description": "The set of categories that matching VMs need to have.",
-          "$ref": "#/definitions/category_filter"
-        },
-        "icmp_type_code_list": {
-          "items": {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "type": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
-          },
-          "type": "array",
-          "description": "List of ICMP types and codes allowed by this rule."
-        },
-        "network_function_chain_reference": {
-          "$ref": "#/definitions/network_function_chain_reference"
-        },
-        "expiration_time": {
-          "type": "string",
-          "description": "Timestamp of expiration time.",
+          "description": "Name of the entity.",
           "maxLength": 64
         }
       },
-      "description": "Network rule"
+      "description": "Reference to an entity."
     },
-    "target_group": {
-      "title": "Target group",
-      "type": "object",
-      "properties": {
-        "filter": {
-          "description": "The set of categories that matching VMs need to have.",
-          "$ref": "#/definitions/category_filter"
-        },
-        "default_internal_policy": {
-          "x-ntnx-enum": [
-            "ALLOW_ALL",
-            "DENY_ALL"
-          ],
-          "type": "string",
-          "description": "Default policy for communication within target group."
-        },
-        "peer_specification_type": {
-          "x-ntnx-enum": [
-            "FILTER"
-          ],
-          "type": "string",
-          "description": "Way to identify the object for which rule is applied."
-        }
-      },
-      "description": "Target group"
+    "category_query_usage_type": {
+      "x-ntnx-enum": [
+        "USED_IN",
+        "APPLIED_TO"
+      ],
+      "type": "string",
+      "description": "USED_IN - to get policies in which specified categories are used.\nAPPLIED_TO - to get entities attached to specified categories.\n",
+      "title": "Query Usage Type"
     },
     "category_filter": {
       "title": "A category filter",
@@ -906,66 +895,6 @@
         }
       },
       "description": "A category filter."
-    },
-    "ip_subnet": {
-      "title": "IP subnet.",
-      "type": "object",
-      "properties": {
-        "ip": {
-          "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
-          "type": "string",
-          "description": "IPV4 address."
-        },
-        "prefix_length": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "description": "IP subnet provided as an address and prefix length."
-    },
-    "port_range": {
-      "title": "TCP/UDP ports.",
-      "type": "object",
-      "properties": {
-        "end_port": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "start_port": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "description": "Range of TCP/UDP ports."
-    },
-    "network_function_chain_reference": {
-      "title": "Reference to a network_function_chain",
-      "required": [
-        "kind",
-        "uuid"
-      ],
-      "type": "object",
-      "properties": {
-        "kind": {
-          "default": "network_function_chain",
-          "readOnly": false,
-          "type": "string",
-          "description": "The kind name",
-          "x-ntnx-enum": [
-            "network_function_chain"
-          ]
-        },
-        "name": {
-          "readOnly": false,
-          "type": "string"
-        },
-        "uuid": {
-          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-          "type": "string",
-          "format": "UUID"
-        }
-      },
-      "description": "The reference to a network_function_chain"
     }
   },
   "security": [
