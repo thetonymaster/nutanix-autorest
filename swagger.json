@@ -6,7 +6,7 @@
   },
   "host": "35.196.200.179:9440",
   "schemes": [
-      "https"
+      "http"
   ],
   "paths": {
       "/subnets": {
