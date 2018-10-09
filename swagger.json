@@ -1,4040 +1,992 @@
 {
-    "info": {
-        "version": "3.1.0",
-        "description": "Move programming from the user to the machine.",
-        "title": "Nutanix Intentful API"
-    },
-    "host": "35.196.200.179:9440",
-    "schemes": [
-        "http"
-    ],
-    "paths" : {
-        "/clusters/entity_replication_target_details": {
-            "post": {
-                "responses": {
-                    "default": {
-                        "description": "Internal Error"
-                    },
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/placement_detail"
-                        }
-                    }
-                },
-                "description": "Get entity placement details",
-                "parameters": [
-                    {
-                        "required": true,
-                        "in": "body",
-                        "description": "Entity spec",
-                        "name": "spec",
-                        "schema": {
-                            "$ref": "#/definitions/placement_spec"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-ntnx-kind": "cluster",
-                "x-doc-hide": true,
-                "summary": "Get the placement information for an entity. This will be used to\nidentify the replication target for an entity snapshot or placement of\nthe entity.\n"
-            }
-        },
-        "/clusters/list": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/cluster_list_intent_response"
-                        }
-                    },
-                    "default": {
-                        "description": "Internal Error",
-                        "schema": {
-                            "$ref": "#/definitions/cluster_status"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "required": true,
-                        "in": "body",
-                        "name": "get_entities_request",
-                        "schema": {
-                            "$ref": "#/definitions/cluster_list_metadata"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-ntnx-operations": [
-                    "view"
-                ],
-                "description": "This operation gets a list of clusters, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n",
-                "x-ntnx-kind": "cluster",
-                "summary": "Get a list of clusters"
-            }
-        },
-        "/clusters/multicluster_config": {
-            "post": {
-                "responses": {
-                    "default": {
-                        "description": "Internal Error",
-                        "schema": {
-                            "$ref": "#/definitions/multicluster_config_status"
-                        }
-                    },
-                    "202": {
-                        "description": "Request Accepted",
-                        "schema": {
-                            "$ref": "#/definitions/multicluster_config_intent_response"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "required": true,
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/multicluster_config_intent_input"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "description": "Apply multicluster configuration from Prism Central.",
-                "x-ntnx-kind": "multicluster_config",
-                "x-doc-hide": true,
-                "summary": "Apply multicluster configuration from Prism Central."
-            }
-        },
-        "/clusters/multicluster_config/{cluster_uuid}/migrate_ssp_config": {
-            "post": {
-                "responses": {
-                    "default": {
-                        "description": "Internal Error"
-                    },
-                    "202": {
-                        "description": "Request Accepted",
-                        "schema": {
-                            "$ref": "#/definitions/ssp_migration_status"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "in": "path",
-                        "description": "The UUID of the entity.",
-                        "format": "UUID",
-                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                        "required": true,
-                        "type": "string",
-                        "name": "cluster_uuid"
-                    },
-                    {
-                        "required": false,
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/ssp_config_input"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "description": "Migrate SSP config from a Prism Element.",
-                "x-ntnx-kind": "multicluster_config",
-                "x-doc-hide": true,
-                "summary": "Migrate SSP config from a Prism Element."
-            }
-        },
-        "/clusters/multicluster_config/{uuid}": {
-            "put": {
-                "responses": {
-                    "default": {
-                        "description": "Internal Error",
-                        "schema": {
-                            "$ref": "#/definitions/multicluster_config_status"
-                        }
-                    },
-                    "202": {
-                        "description": "Request Accepted",
-                        "schema": {
-                            "$ref": "#/definitions/multicluster_config_intent_response"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "required": true,
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/multicluster_config_intent_input"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "description": "Update a scheduled and unprocessed multicluster configuration request.\n",
-                "x-ntnx-kind": "multicluster_config",
-                "x-doc-hide": true,
-                "summary": "Update a scheduled and unprocessed multicluster configuration request.\n"
-            },
-            "delete": {
-                "responses": {
-                    "default": {
-                        "description": "Internal Error",
-                        "schema": {
-                            "$ref": "#/definitions/multicluster_config_status"
-                        }
-                    },
-                    "202": {
-                        "description": "Request Accepted",
-                        "schema": {
-                            "$ref": "#/definitions/multicluster_config_intent_response"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "description": "Delete a scheduled and unprocessed multicluster configuration request.\n",
-                "x-ntnx-kind": "multicluster_config",
-                "x-doc-hide": true,
-                "summary": "Delete a scheduled and unprocessed multicluster configuration request.\n"
-            }
-        },
-        "/clusters/multicluster_config/{uuid}/cancel": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "description": "Cancel a multicluster configuration request by cancelling all queued\ncluster configuration tasks.\n",
-                "x-ntnx-kind": "multicluster_config",
-                "x-doc-hide": true,
-                "summary": "Cancel a multicluster configuration request from Prism Central."
-            }
-        },
-        "/clusters/multicluster_config/{uuid}/pause": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "description": "Pause a multicluster configuration request by pausing all\nqueued cluster configuration tasks.\n",
-                "x-ntnx-kind": "multicluster_config",
-                "x-doc-hide": true,
-                "summary": "Pause a multicluster configuration request from Prism Central."
-            }
-        },
-        "/clusters/multicluster_config/{uuid}/resume": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "description": "Resume a paused multicluster configuration request.",
-                "x-ntnx-kind": "multicluster_config",
-                "x-doc-hide": true,
-                "summary": "Resume a paused multicluster configuration request."
-            }
-        },
-        "/clusters/{uuid}": {
-            "put": {
-                "responses": {
-                    "default": {
-                        "description": "Internal Error",
-                        "schema": {
-                            "$ref": "#/definitions/cluster_status"
-                        }
-                    },
-                    "202": {
-                        "description": "Request Accepted",
-                        "schema": {
-                            "$ref": "#/definitions/cluster_intent_response"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "required": true,
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/cluster_intent_input"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-ntnx-operations": [
-                    "update"
-                ],
-                "description": "This operation submits a request to update a cluster based on the input parameters.\n",
-                "x-ntnx-kind": "cluster",
-                "summary": "Update a cluster"
-            },
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/cluster_intent_response"
-                        }
-                    },
-                    "default": {
-                        "description": "Internal Error",
-                        "schema": {
-                            "$ref": "#/definitions/cluster_status"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-ntnx-operations": [
-                    "view"
-                ],
-                "description": "This operation gets a cluster.",
-                "x-ntnx-kind": "cluster",
-                "summary": "Get a cluster"
-            }
-        },
-        "/clusters/{uuid}/certificates/ca_certs": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "required": true,
-                        "in": "body",
-                        "name": "spec",
-                        "schema": {
-                            "$ref": "#/definitions/ca_cert"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Add a new CA certificate",
-                "x-ntnx-ref-keys": [
-                    "certificate_reference"
-                ],
-                "x-ntnx-kind": "certificate",
-                "description": "Add a new CA certificate"
-            }
-        },
-        "/clusters/{uuid}/certificates/ca_certs/{ca_name}": {
-            "delete": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "required": true,
-                        "type": "string",
-                        "name": "ca_name",
-                        "in": "path",
-                        "maxLength": 64
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Delete the CA certificate",
-                "x-ntnx-ref-keys": [
-                    "certificate_reference"
-                ],
-                "x-ntnx-kind": "certificate",
-                "description": "Delete the CA certificate specified by certificate authority name\n"
-            }
-        },
-        "/clusters/{uuid}/certificates/client_auth": {
-            "put": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "required": true,
-                        "in": "body",
-                        "name": "spec",
-                        "schema": {
-                            "$ref": "#/definitions/ca_chain_spec"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Replace the CA chain for client authentication",
-                "x-ntnx-ref-keys": [
-                    "client_auth_reference"
-                ],
-                "x-ntnx-kind": "client_auth",
-                "description": "Replace the CA chain for client authentication"
-            },
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "required": true,
-                        "in": "body",
-                        "name": "spec",
-                        "schema": {
-                            "$ref": "#/definitions/ca_chain_spec"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Import CA chain for client authentication",
-                "x-ntnx-ref-keys": [
-                    "client_auth_reference"
-                ],
-                "x-ntnx-kind": "client_auth",
-                "description": "Import CA chain for client authentication"
-            },
-            "delete": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Remove the CA chain for client authentication",
-                "x-ntnx-ref-keys": [
-                    "client_auth_reference"
-                ],
-                "x-ntnx-kind": "client_auth",
-                "description": "Remove the CA chain for client authentication"
-            }
-        },
-        "/clusters/{uuid}/certificates/csrs": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "required": true,
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/csrs_spec"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Download CSRs from cluster",
-                "x-ntnx-ref-keys": [
-                    "certificate_reference"
-                ],
-                "x-ntnx-kind": "certificate",
-                "description": "Download Certificate Signing Requests from cluster"
-            }
-        },
-        "/clusters/{uuid}/certificates/csrs/{node_ip}": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "required": true,
-                        "type": "string",
-                        "name": "node_ip",
-                        "in": "path"
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Download CSR from a discovered node",
-                "x-ntnx-ref-keys": [
-                    "certificate_reference"
-                ],
-                "x-ntnx-kind": "certificate",
-                "description": "Download Certificate Signing Request from a discovered node"
-            }
-        },
-        "/clusters/{uuid}/certificates/pemkey": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Generate a 2048 bits cipher length RSA key",
-                "x-ntnx-ref-keys": [
-                    "certificate_reference"
-                ],
-                "x-ntnx-kind": "certificate",
-                "description": "Generate a 2048 bits cipher length RSA key"
-            }
-        },
-        "/clusters/{uuid}/certificates/pemkey/import": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "required": true,
-                        "in": "body",
-                        "name": "spec",
-                        "schema": {
-                            "$ref": "#/definitions/pemkey_spec"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Import a new key",
-                "x-ntnx-ref-keys": [
-                    "certificate_reference"
-                ],
-                "x-ntnx-kind": "certificate",
-                "description": "Import a new key"
-            }
-        },
-        "/clusters/{uuid}/certificates/svm_certs/{kms_uuid}": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "in": "path",
-                        "name": "kms_uuid",
-                        "format": "UUID",
-                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "required": true,
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/certificate_spec_upload_input"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Add one or more certificates to a service VM",
-                "x-ntnx-ref-keys": [
-                    "certificate_reference"
-                ],
-                "x-ntnx-kind": "certificate",
-                "description": "Add one or more certificates to a service VM"
-            }
-        },
-        "/clusters/{uuid}/certificates/svm_certs/{node_uuid}/{kms_uuid}": {
-            "put": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "in": "path",
-                        "name": "node_uuid",
-                        "format": "UUID",
-                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "path",
-                        "name": "kms_uuid",
-                        "format": "UUID",
-                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "required": true,
-                        "in": "body",
-                        "name": "cert",
-                        "schema": {
-                            "$ref": "#/definitions/certificate"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Replace the certificate on a service VM",
-                "x-ntnx-ref-keys": [
-                    "certificate_reference"
-                ],
-                "x-ntnx-kind": "certificate",
-                "description": "Replace the certificate on a service VM"
-            },
-            "delete": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "default": {
-                        "description": "Internal Error"
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "in": "path",
-                        "name": "node_uuid",
-                        "format": "UUID",
-                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "path",
-                        "name": "kms_uuid",
-                        "format": "UUID",
-                        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Delete the certificate on a service VM",
-                "x-ntnx-ref-keys": [
-                    "certificate_reference"
-                ],
-                "x-ntnx-kind": "certificate",
-                "description": "Delete the certificate on a service VM"
-            }
-        },
-        "/clusters/{uuid}/cloud_credentials/{cloud_type}": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_intent_response"
-                        }
-                    },
-                    "default": {
-                        "description": "Internal Error",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_status"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "pattern": "(\\bAWS\\b|\\bAZURE\\b)",
-                        "required": true,
-                        "type": "string",
-                        "name": "cloud_type",
-                        "in": "path"
-                    },
-                    {
-                        "required": true,
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_intent_input"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Add a cloud credential for accessing cloud sites",
-                "x-ntnx-ref-keys": [
-                    "cloud_credentials_reference"
-                ],
-                "x-ntnx-kind": "cloud_credentials",
-                "description": "Add a cloud credential for accessing cloud sites"
-            },
-            "delete": {
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_intent_response"
-                        }
-                    },
-                    "default": {
-                        "description": "Internal Error",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_status"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "pattern": "(\\bAWS\\b|\\bAZURE\\b)",
-                        "required": true,
-                        "type": "string",
-                        "name": "cloud_type",
-                        "in": "path"
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Delete all cloud credentials",
-                "x-ntnx-ref-keys": [
-                    "cloud_credentials_reference"
-                ],
-                "x-ntnx-kind": "cloud_credentials",
-                "description": "Delete all cloud credentials"
-            }
-        },
-        "/clusters/{uuid}/cloud_credentials/{cloud_type}/list": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_list_intent_response"
-                        }
-                    },
-                    "default": {
-                        "description": "Internal Error",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_status"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "pattern": "(\\bAWS\\b|\\bAZURE\\b)",
-                        "required": true,
-                        "type": "string",
-                        "name": "cloud_type",
-                        "in": "path"
-                    },
-                    {
-                        "required": true,
-                        "in": "body",
-                        "name": "get_entities_request",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_list_metadata"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Get a list of cloud credentials",
-                "x-ntnx-ref-keys": [
-                    "cloud_credentials_reference"
-                ],
-                "x-ntnx-kind": "cloud_credentials",
-                "description": "This operation gets a list of cloud credentials, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n"
-            }
-        },
-        "/clusters/{uuid}/cloud_credentials/{cloud_type}/{cloud_credentials_id}": {
-            "put": {
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_intent_response"
-                        }
-                    },
-                    "default": {
-                        "description": "Internal Error",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_status"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "pattern": "(\\bAWS\\b|\\bAZURE\\b)",
-                        "required": true,
-                        "type": "string",
-                        "name": "cloud_type",
-                        "in": "path"
-                    },
-                    {
-                        "required": true,
-                        "type": "integer",
-                        "name": "cloud_credentials_id",
-                        "in": "path",
-                        "format": "int64"
-                    },
-                    {
-                        "required": true,
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_intent_input"
-                        }
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Update a cloud credentials",
-                "x-ntnx-ref-keys": [
-                    "cloud_credentials_reference"
-                ],
-                "x-ntnx-kind": "cloud_credentials",
-                "description": "This operation submits a request to update a cloud credentials based on the input parameters.\n"
-            },
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_intent_response"
-                        }
-                    },
-                    "default": {
-                        "description": "Internal Error",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_status"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "pattern": "(\\bAWS\\b|\\bAZURE\\b)",
-                        "required": true,
-                        "type": "string",
-                        "name": "cloud_type",
-                        "in": "path"
-                    },
-                    {
-                        "required": true,
-                        "type": "integer",
-                        "name": "cloud_credentials_id",
-                        "in": "path",
-                        "format": "int64"
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Get a cloud credentials",
-                "x-ntnx-ref-keys": [
-                    "cloud_credentials_reference"
-                ],
-                "x-ntnx-kind": "cloud_credentials",
-                "description": "This operation gets a cloud credentials."
-            },
-            "delete": {
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_intent_response"
-                        }
-                    },
-                    "default": {
-                        "description": "Internal Error",
-                        "schema": {
-                            "$ref": "#/definitions/cloud_credentials_status"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/uuid"
-                    },
-                    {
-                        "pattern": "(\\bAWS\\b|\\bAZURE\\b)",
-                        "required": true,
-                        "type": "string",
-                        "name": "cloud_type",
-                        "in": "path"
-                    },
-                    {
-                        "required": true,
-                        "type": "integer",
-                        "name": "cloud_credentials_id",
-                        "in": "path",
-                        "format": "int64"
-                    }
-                ],
-                "tags": [
-                    "clusters"
-                ],
-                "x-doc-hide": true,
-                "summary": "Delete a cloud credentials",
-                "x-ntnx-ref-keys": [
-                    "cloud_credentials_reference"
-                ],
-                "x-ntnx-kind": "cloud_credentials",
-                "description": "This operation submits a request to delete a cloud credentials."
-            }
-        }
-    },
-    "parameters": {
-        "uuid": {
-            "in": "path",
-            "description": "The UUID of the entity.",
-            "format": "UUID",
-            "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-            "required": true,
-            "type": "string",
-            "name": "uuid"
-        }
-    },
-    "produces": [
-        "application/json"
-    ],
-    "basePath": "/api/nutanix/v3",
-    "securityDefinitions": {
-        "basicAuth": {
-            "type": "basic"
-        }
-    },
-    "definitions": {
-        "placement_detail": {
-            "title": "Placement details",
-            "required": [
-              "cluster_reference",
-              "cluster_ip"
-            ],
-            "type": "object",
-            "properties": {
-              "cluster_ip": {
-                "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
-                "type": "string",
-                "description": "IP of the cluster."
-              },
-              "cluster_reference": {
-                "description": "Reference to the cluster",
-                "$ref": "#/definitions/cluster_reference"
-              }
-            },
-            "description": "Details of the cluster where the entity need to be placed."
-          },
-          "placement_spec": {
-            "title": "Entity placement spec",
-            "required": [
-              "entity_spec_list"
-            ],
-            "type": "object",
-            "properties": {
-              "entity_spec_list": {
-                "items": {
-                  "$ref": "#/definitions/entity_spec"
-                },
-                "type": "array",
-                "description": "List of entity specs"
-              },
-              "tenant_uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "description": "UUID of the tenant",
-                "format": "UUID"
-              },
-              "probable_cluster_reference": {
-                "description": "Probable cluster reference recommendation from the client side.\nThis will contain the probable PE cluster UUID, where we want to\nreplicate/failback the entity. Scheduler service will use this as one\nof the decision making parameter.\n",
-                "$ref": "#/definitions/cluster_reference"
-              }
-            },
-            "description": "Entity placement spec"
-          },
-          "cluster_list_intent_response": {
-            "title": "Entity Intent List Response",
-            "required": [
-              "api_version",
-              "metadata"
-            ],
-            "type": "object",
-            "properties": {
-              "entities": {
-                "items": {
-                  "$ref": "#/definitions/cluster_intent_resource"
-                },
-                "type": "array"
-              },
-              "api_version": {
-                "type": "string"
-              },
-              "metadata": {
-                "$ref": "#/definitions/cluster_list_metadata_output"
-              }
-            },
-            "description": "Response object for intentful operation of clusters"
-          },
-          "cluster_status": {
-            "title": "Response Kind",
-            "type": "object",
-            "properties": {
-              "kind": {
-                "default": "cluster",
-                "readOnly": false,
-                "type": "string",
-                "description": "The kind name",
-                "x-ntnx-enum": [
-                  "cluster"
-                ]
-              },
-              "code": {
-                "readOnly": false,
-                "type": "integer",
-                "description": "The HTTP error code."
-              },
-              "message_list": {
-                "items": {
-                  "$ref": "#/definitions/message_resource"
-                },
-                "readOnly": false,
-                "type": "array"
-              },
-              "state": {
-                "readOnly": false,
-                "type": "string"
-              },
-              "api_version": {
-                "readOnly": false,
-                "type": "string"
-              }
-            },
-            "description": "The status of a REST API call. Only used when there is a failure to\nreport.\n"
-          },
-          "cluster_list_metadata": {
-            "title": "Metadata for cluster list",
-            "type": "object",
-            "properties": {
-              "filter": {
-                "type": "string",
-                "description": "The filter in FIQL syntax used for the results."
-              },
-              "kind": {
-                "default": "cluster",
-                "x-ntnx-enum": [
-                  "cluster"
-                ],
-                "type": "string",
-                "description": "The kind name"
-              },
-              "sort_order": {
-                "$ref": "#/definitions/sort_order"
-              },
-              "offset": {
-                "minimum": 0,
-                "type": "integer",
-                "description": "Offset from the start of the entity list",
-                "format": "int32"
-              },
-              "length": {
-                "minimum": 1,
-                "type": "integer",
-                "description": "The number of records to retrieve relative to the offset",
-                "format": "int32"
-              },
-              "sort_attribute": {
-                "type": "string",
-                "description": "The attribute to perform sort on"
-              }
-            },
-            "description": "All api calls that return a list will have this metadata block as input\n"
-          },
-          "multicluster_config_intent_response": {
-            "title": "Multicluster config intent response",
-            "required": [
-              "api_version",
-              "metadata"
-            ],
-            "type": "object",
-            "properties": {
-              "status": {
-                "$ref": "#/definitions/multicluster_config_def_status"
-              },
-              "spec": {
-                "$ref": "#/definitions/multicluster_config_spec"
-              },
-              "api_version": {
-                "type": "string"
-              },
-              "metadata": {
-                "$ref": "#/definitions/multicluster_config_metadata"
-              }
-            },
-            "description": "An intentful representation of a multicluster config response."
-          },
-          "multicluster_config_status": {
-            "title": "Response Kind",
-            "type": "object",
-            "properties": {
-              "kind": {
-                "default": "multicluster_config",
-                "readOnly": false,
-                "type": "string",
-                "description": "The kind name",
-                "x-ntnx-enum": [
-                  "multicluster_config"
-                ]
-              },
-              "code": {
-                "readOnly": false,
-                "type": "integer",
-                "description": "The HTTP error code."
-              },
-              "message_list": {
-                "items": {
-                  "$ref": "#/definitions/message_resource"
-                },
-                "readOnly": false,
-                "type": "array"
-              },
-              "state": {
-                "readOnly": false,
-                "type": "string"
-              },
-              "api_version": {
-                "readOnly": false,
-                "type": "string"
-              }
-            },
-            "description": "The status of a REST API call. Only used when there is a failure to\nreport.\n"
-          },
-          "multicluster_config_intent_input": {
-            "title": "Multicluster config intent input",
-            "required": [
-              "api_version",
-              "metadata",
-              "spec"
-            ],
-            "type": "object",
-            "properties": {
-              "spec": {
-                "$ref": "#/definitions/multicluster_config_spec"
-              },
-              "api_version": {
-                "type": "string"
-              },
-              "metadata": {
-                "$ref": "#/definitions/multicluster_config_metadata"
-              }
-            },
-            "description": "An intentful representation of a multicluster config spec."
-          },
-          "ssp_migration_status": {
-            "title": "SSP configuration migration state.",
-            "type": "object",
-            "properties": {
-              "task_uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "description": "Resultant task uuid for the submitted request.",
-                "format": "UUID"
-              }
-            },
-            "description": "SSP configuration migration state."
-          },
-          "ssp_config_input": {
-            "title": "Extra information for ssp configuration migration.",
-            "type": "object",
-            "properties": {
-              "directory_service_service_account": {
-                "$ref": "#/definitions/credentials"
-              },
-              "should_skip_migration": {
-                "type": "boolean",
-                "description": "Migration can be skipped or not. If this flag is set to True, migration will be skipped and the Prism Element will be directly marked as migration completed. Default is False.\n"
-              }
-            },
-            "description": "Extra information for ssp configuration migration."
-          },
-          "cluster_intent_response": {
-            "title": "cluster Intent Response",
-            "required": [
-              "api_version",
-              "metadata"
-            ],
-            "type": "object",
-            "properties": {
-              "status": {
-                "$ref": "#/definitions/cluster_def_status"
-              },
-              "spec": {
-                "$ref": "#/definitions/cluster"
-              },
-              "api_version": {
-                "type": "string"
-              },
-              "metadata": {
-                "$ref": "#/definitions/cluster_metadata"
-              }
-            },
-            "description": "Response object for intentful operations on a cluster"
-          },
-          "cluster_intent_input": {
-            "title": "cluster Intent Entity",
-            "required": [
-              "metadata",
-              "spec"
-            ],
-            "type": "object",
-            "properties": {
-              "spec": {
-                "$ref": "#/definitions/cluster"
-              },
-              "api_version": {
-                "default": "3.1.0",
-                "type": "string"
-              },
-              "metadata": {
-                "$ref": "#/definitions/cluster_metadata"
-              }
-            },
-            "description": "An intentful representation of a cluster"
-          },
-          "ca_cert": {
-            "title": "CA certificate info",
-            "required": [
-              "ca_name",
-              "certificate"
-            ],
-            "type": "object",
-            "properties": {
-              "ca_name": {
-                "type": "string",
-                "description": "Name of the certificate authority."
-              },
-              "certificate": {
-                "type": "string",
-                "description": "Certificate content.",
-                "format": "byte"
-              }
-            },
-            "description": "CA certificate info."
-          },
-          "ca_chain_spec": {
-            "title": "CA chain spec",
-            "required": [
-              "name",
-              "ca_chain"
-            ],
-            "type": "object",
-            "properties": {
-              "ca_chain": {
-                "type": "string",
-                "description": "Content of CA chain",
-                "format": "byte"
-              },
-              "name": {
-                "type": "string",
-                "description": "The name of the CA Chain file",
-                "maxLength": 64
-              }
-            },
-            "description": "CA chain spec"
-          },
-          "csrs_spec": {
-            "title": "Spec for CSRs download",
-            "type": "object",
-            "properties": {
-              "node_uuid_list": {
-                "items": {
-                  "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                  "type": "string",
-                  "format": "UUID"
-                },
-                "type": "array"
-              }
-            },
-            "description": "Spec for CSRs download. If node uuid list is empty, all cluster nodes will\nbe assumed.\n"
-          },
-          "pemkey_spec": {
-            "title": "SSL key",
-            "required": [
-              "type",
-              "key",
-              "cert"
-            ],
-            "type": "object",
-            "properties": {
-              "ca_chain": {
-                "type": "string",
-                "format": "byte"
-              },
-              "type": {
-                "$ref": "#/definitions/ssl_key_type"
-              },
-              "cert": {
-                "type": "string",
-                "format": "byte"
-              },
-              "key": {
-                "type": "string",
-                "format": "byte"
-              },
-              "name": {
-                "type": "string",
-                "maxLength": 64
-              }
-            },
-            "description": "SSL key"
-          },
-          "certificate_spec_upload_input": {
-            "title": "Input spec for certificate upload",
-            "required": [
-              "spec_list"
-            ],
-            "type": "object",
-            "properties": {
-              "spec_list": {
-                "items": {
-                  "$ref": "#/definitions/certificate_spec"
-                },
-                "type": "array",
-                "description": "List of certificate specs"
-              }
-            },
-            "description": "Input spec for certificate upload."
-          },
-          "certificate": {
-            "title": "Certificate content",
-            "required": [
-              "content"
-            ],
-            "type": "object",
-            "properties": {
-              "content": {
-                "type": "string",
-                "description": "Certificate content",
-                "format": "byte"
-              }
-            },
-            "description": "Certificate content"
-          },
-          "cloud_credentials_intent_response": {
-            "title": "cloud_credentials Intent Response",
-            "required": [
-              "api_version",
-              "metadata"
-            ],
-            "type": "object",
-            "properties": {
-              "status": {
-                "$ref": "#/definitions/cloud_credentials_def_status"
-              },
-              "spec": {
-                "$ref": "#/definitions/cloud_credentials"
-              },
-              "api_version": {
-                "type": "string"
-              },
-              "metadata": {
-                "$ref": "#/definitions/cloud_credentials_metadata"
-              }
-            },
-            "description": "Response object for intentful operations on a cloud_credentials"
-          },
-          "cloud_credentials_status": {
-            "title": "Response Kind",
-            "type": "object",
-            "properties": {
-              "kind": {
-                "default": "cloud_credentials",
-                "readOnly": false,
-                "type": "string",
-                "description": "The kind name",
-                "x-ntnx-enum": [
-                  "cloud_credentials"
-                ]
-              },
-              "code": {
-                "readOnly": false,
-                "type": "integer",
-                "description": "The HTTP error code."
-              },
-              "message_list": {
-                "items": {
-                  "$ref": "#/definitions/message_resource"
-                },
-                "readOnly": false,
-                "type": "array"
-              },
-              "state": {
-                "readOnly": false,
-                "type": "string"
-              },
-              "api_version": {
-                "readOnly": false,
-                "type": "string"
-              }
-            },
-            "description": "The status of a REST API call. Only used when there is a failure to\nreport.\n"
-          },
-          "cloud_credentials_intent_input": {
-            "title": "cloud_credentials Intent Entity",
-            "required": [
-              "metadata",
-              "spec"
-            ],
-            "type": "object",
-            "properties": {
-              "spec": {
-                "$ref": "#/definitions/cloud_credentials"
-              },
-              "api_version": {
-                "default": "3.1.0",
-                "type": "string"
-              },
-              "metadata": {
-                "$ref": "#/definitions/cloud_credentials_metadata"
-              }
-            },
-            "description": "An intentful representation of a cloud_credentials"
-          },
-          "cloud_credentials_list_intent_response": {
-            "title": "Entity Intent List Response",
-            "required": [
-              "api_version",
-              "metadata"
-            ],
-            "type": "object",
-            "properties": {
-              "entities": {
-                "items": {
-                  "$ref": "#/definitions/cloud_credentials_intent_resource"
-                },
-                "type": "array"
-              },
-              "api_version": {
-                "type": "string"
-              },
-              "metadata": {
-                "$ref": "#/definitions/cloud_credentials_list_metadata_output"
-              }
-            },
-            "description": "Response object for intentful operation of cloud_credentialss"
-          },
-          "cloud_credentials_list_metadata": {
-            "title": "Metadata for cloud_credentials list",
-            "type": "object",
-            "properties": {
-              "filter": {
-                "type": "string",
-                "description": "The filter in FIQL syntax used for the results."
-              },
-              "kind": {
-                "default": "cloud_credentials",
-                "x-ntnx-enum": [
-                  "cloud_credentials"
-                ],
-                "type": "string",
-                "description": "The kind name"
-              },
-              "sort_order": {
-                "$ref": "#/definitions/sort_order"
-              },
-              "offset": {
-                "minimum": 0,
-                "type": "integer",
-                "description": "Offset from the start of the entity list",
-                "format": "int32"
-              },
-              "length": {
-                "minimum": 1,
-                "type": "integer",
-                "description": "The number of records to retrieve relative to the offset",
-                "format": "int32"
-              },
-              "sort_attribute": {
-                "type": "string",
-                "description": "The attribute to perform sort on"
-              }
-            },
-            "description": "All api calls that return a list will have this metadata block as input\n"
-          },
-          "cluster_reference": {
-            "title": "Reference to a cluster",
-            "required": [
-              "kind",
-              "uuid"
-            ],
-            "type": "object",
-            "properties": {
-              "kind": {
-                "default": "cluster",
-                "readOnly": false,
-                "type": "string",
-                "description": "The kind name",
-                "x-ntnx-enum": [
-                  "cluster"
-                ]
-              },
-              "name": {
-                "readOnly": false,
-                "type": "string"
-              },
-              "uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "format": "UUID"
-              }
-            },
-            "description": "The reference to a cluster"
-          },
-          "entity_spec": {
-            "title": "Entity specs",
-            "type": "object",
-            "properties": {
-              "vm_spec": {
-                "description": "VM config specification",
-                "$ref": "#/definitions/vm"
-              },
-              "vm_reference": {
-                "description": "Reference to a VM",
-                "$ref": "#/definitions/vm_reference"
-              },
-              "category_list": {
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "category_value": {
-                      "type": "string",
-                      "description": "Category value."
-                    },
-                    "category_name": {
-                      "type": "string",
-                      "description": "Name of the category."
-                    }
+  "info": {
+      "version": "3.1.0",
+      "description": "Move programming from the user to the machine.",
+      "title": "Nutanix Intentful API"
+  },
+  "host": "35.196.200.179:9440",
+  "schemes": [
+      "https"
+  ],
+  "paths": {
+      "/subnets": {
+          "post": {
+              "responses": {
+                  "default": {
+                      "description": "Internal Error",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_status"
+                      }
+                  },
+                  "202": {
+                      "description": "Request Accepted",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_intent_response"
+                      }
                   }
-                },
-                "type": "array",
-                "description": "Categories associated with the entity."
-              }
-            },
-            "description": "Specification of the entities which need to be placed"
-          },
-          "cluster_intent_resource": {
-            "title": "cluster Intent Response",
-            "required": [
-              "metadata"
-            ],
-            "type": "object",
-            "properties": {
-              "status": {
-                "$ref": "#/definitions/cluster_def_status"
               },
-              "spec": {
-                "$ref": "#/definitions/cluster"
-              },
-              "api_version": {
-                "type": "string"
-              },
-              "metadata": {
-                "$ref": "#/definitions/cluster_metadata"
-              }
-            },
-            "description": "Response object for intentful operations on a cluster"
-          },
-          "cluster_list_metadata_output": {
-            "title": "Metadata for cluster list output",
-            "type": "object",
-            "properties": {
-              "filter": {
-                "type": "string",
-                "description": "The filter used for the results"
-              },
-              "kind": {
-                "default": "cluster",
-                "x-ntnx-enum": [
-                  "cluster"
-                ],
-                "type": "string",
-                "description": "The kind name"
-              },
-              "sort_order": {
-                "$ref": "#/definitions/sort_order"
-              },
-              "offset": {
-                "type": "integer",
-                "description": "Offset from the start of the entity list"
-              },
-              "total_matches": {
-                "type": "integer",
-                "description": "Total matches found"
-              },
-              "length": {
-                "type": "integer",
-                "description": "The number of records retrieved relative to the offset"
-              },
-              "sort_attribute": {
-                "type": "string",
-                "description": "The attribute to perform sort on"
-              }
-            },
-            "description": "All api calls that return a list will have this metadata block\n"
-          },
-          "message_resource": {
-            "title": "Message.",
-            "required": [
-              "message",
-              "reason"
-            ],
-            "type": "object",
-            "properties": {
-              "message": {
-                "type": "string",
-                "description": "If state is ERROR, a message describing the error."
-              },
-              "reason": {
-                "x-ntnx-enum": [
-                  "ACCESS_DENIED",
-                  "ACCESS_FORBIDDEN",
-                  "ACTION_NOT_SUPPORTED",
-                  "AUTHENTICATION_REQUIRED",
-                  "BEARER_TOKEN_EXPIRED",
-                  "BEARER_TOKEN_BAD_SIGNATURE",
-                  "CANNOT_MODIFY_PRE_CONFIGURED_REPORT",
-                  "CATEGORY_NAME_VALUE_MISMATCH",
-                  "CONFIGURATION_INCOMPLETE",
-                  "CONCURRENT_REQUESTS_NOT_ALLOWED",
-                  "DEFAULT_PROJECT_UNAVAILABLE",
-                  "DESERIALIZATION_FAILED",
-                  "DIRECTORY_SERVICE_CONNECTION_FAILED",
-                  "ENTITY_ALREADY_EXISTS",
-                  "ENTITY_DELETION_FAILED",
-                  "ENTITY_IS_READONLY",
-                  "ENTITY_NAME_UUID_MISMATCH",
-                  "ENTITY_NOT_CONFIGURED",
-                  "ENTITY_NOT_FOUND",
-                  "ENTITY_SAVE_ERROR",
-                  "ENTITY_UPDATE_FAILED",
-                  "IDEMPOTENCE_UUID_CREATION_FAILED",
-                  "IDP_NOT_REACHABLE",
-                  "INTERNAL_ERROR",
-                  "INVALID_ARGUMENT",
-                  "INVALID_AZ_NAME",
-                  "INVALID_CONTENT_TYPE",
-                  "INVALID_DATA_FORMAT",
-                  "INVALID_PORTAL_CONFIGURATION",
-                  "INVALID_REQUEST",
-                  "INVALID_UUID",
-                  "INVALID_OWNER_REFERENCE",
-                  "INTERNAL_AZ_PROXY_SETUP_ERROR",
-                  "INTERNAL_ERROR_REMOTE_REQUEST",
-                  "INTERNAL_ROLE_ACCESS_DENIED",
-                  "INCORRECT_EVENTS_FILTER",
-                  "MISSING_ATTRIBUTE",
-                  "MISSING_CURRENT_USER_METADATA",
-                  "NAME_NOT_IN_DOMAIN",
-                  "NO_RESPONSE_RECEIVED_FROM_PORTAL",
-                  "PE_NOT_PAIRED_WITH_PC",
-                  "PC_NOT_PAIRED_WITH_XI_PORTAL",
-                  "REFERENCE_ERROR",
-                  "RESERVED_ROLE_ACCESS_DENIED",
-                  "REQUEST_NOT_SUPPORTED",
-                  "REMOTE_CLUSTER_IP_FETCH_FAILED",
-                  "REMOTE_CLUSTER_NOT_CONNECTED",
-                  "REMOTE_CONNECTION_EXISTS",
-                  "REMOTE_CONNECTION_NOT_FOUND",
-                  "REPORT_CONFIG_NOT_FOUND",
-                  "REPORTING_RESOURCE_NOT_FOUND",
-                  "REPORTING_INTERNAL_ERROR",
-                  "SERVICE_UNAVAILABLE",
-                  "SEARCH_RESULT_PROCESSING_ERROR",
-                  "TOO_MANY_REQUESTS",
-                  "UNCONFIGURED_API_KEY",
-                  "UNCONFIGURED_PORTAL_CONNECTION",
-                  "UNSPECIFIED_EVENTS_FILTER",
-                  "UNSUPPORTED_AZ_PROXY_API",
-                  "UNSUPPORTED_MEDIA_TYPE_ERROR",
-                  "UNSUPPORTED_API_VERSION",
-                  "UPLOAD_TO_S3_FAILED",
-                  "VALIDATION_ERROR",
-                  "INVALID_SSL_CERTIFICATE",
-                  "ERROR_ATTACHING_FILE_TO_CASE",
-                  "SPEC_UPDATE_ERROR",
-                  "SPEC_INCOMPATIBLE_ERROR"
-                ],
-                "type": "string",
-                "description": "If state is ERROR, a machine-readable snake-cased string."
-              },
-              "details": {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "readOnly": false,
-                "type": "object",
-                "description": "Custom key-value details relevant to the status."
-              }
-            },
-            "description": "message."
-          },
-          "sort_order": {
-            "x-ntnx-enum": [
-              "ASCENDING",
-              "DESCENDING"
-            ],
-            "type": "string",
-            "description": "The sort order in which results are returned",
-            "title": "Sort order"
-          },
-          "multicluster_config_def_status": {
-            "title": "Status for multicluster configuration request",
-            "type": "object",
-            "properties": {
-              "state": {
-                "type": "string",
-                "description": "The state of the multicluster configuration request."
-              },
-              "message_list": {
-                "items": {
-                  "$ref": "#/definitions/message_resource"
-                },
-                "type": "array"
-              }
-            },
-            "description": "Status for multicluster configuration request."
-          },
-          "multicluster_config_spec": {
-            "title": "Specification for multicluster configuration request",
-            "required": [
-              "resources"
-            ],
-            "type": "object",
-            "properties": {
-              "resources": {
-                "required": [
-                  "execution_plan",
-                  "spec_list"
-                ],
-                "type": "object",
-                "description": "Multicluster config resources.",
-                "properties": {
-                  "upgrade_schedule": {
-                    "$ref": "#/definitions/execution_schedule"
-                  },
-                  "execution_plan": {
-                    "$ref": "#/definitions/execution_plan"
-                  },
-                  "spec_list": {
-                    "items": {
-                      "$ref": "#/definitions/cluster_intent_input"
-                    },
-                    "type": "array"
+              "description": "This operation submits a request to create a subnet based on the input parameters.\nA subnet is a block of IP addresses.\n",
+              "parameters": [
+                  {
+                      "required": true,
+                      "in": "body",
+                      "name": "body",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_intent_input"
+                      }
                   }
-                }
-              }
-            },
-            "description": "Specification for multicluster configuration request."
-          },
-          "multicluster_config_metadata": {
-            "title": "multicluster_config metadata",
-            "required": [
-              "kind"
-            ],
-            "type": "object",
-            "properties": {
-              "last_update_time": {
-                "readOnly": false,
-                "type": "string",
-                "description": "UTC date and time in RFC-3339 format when multicluster_config was last updated\n",
-                "format": "date-time"
-              },
-              "kind": {
-                "default": "multicluster_config",
-                "readOnly": false,
-                "type": "string",
-                "description": "The kind name",
-                "x-ntnx-enum": [
-                  "multicluster_config"
-                ]
-              },
-              "uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "description": "multicluster_config uuid",
-                "format": "UUID"
-              },
-              "project_reference": {
-                "description": "The project the multicluster_config is in.",
-                "$ref": "#/definitions/project_reference"
-              },
-              "spec_version": {
-                "type": "integer",
-                "description": "Version number of the latest spec."
-              },
-              "creation_time": {
-                "readOnly": false,
-                "type": "string",
-                "description": "UTC date and time in RFC-3339 format when multicluster_config was created\n",
-                "format": "date-time"
-              },
-              "spec_hash": {
-                "type": "string",
-                "description": "Hash of the spec. This will be returned from server.\n"
-              },
-              "owner_reference": {
-                "$ref": "#/definitions/user_reference"
-              },
-              "categories": {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "type": "object",
-                "description": "Categories for the multicluster_config"
-              },
-              "name": {
-                "readOnly": false,
-                "type": "string",
-                "description": "multicluster_config name",
-                "maxLength": 64
-              }
-            },
-            "description": "The multicluster_config kind metadata"
-          },
-          "credentials": {
-            "title": "Credentials to login server",
-            "required": [
-              "username"
-            ],
-            "type": "object",
-            "properties": {
-              "username": {
-                "type": "string"
-              },
-              "password": {
-                "type": "string"
-              }
-            },
-            "description": "Credentials to login server"
-          },
-          "cluster_def_status": {
-            "title": "Cluster Status",
-            "required": [
-              "resources"
-            ],
-            "type": "object",
-            "properties": {
-              "state": {
-                "readOnly": false,
-                "type": "string",
-                "description": "The state of the cluster entity."
-              },
-              "message_list": {
-                "items": {
-                  "$ref": "#/definitions/message_resource"
-                },
-                "type": "array"
-              },
-              "name": {
-                "type": "string",
-                "description": "Cluster Name."
-              },
-              "resources": {
-                "required": [
-                  "config",
-                  "network"
-                ],
-                "type": "object",
-                "description": "Cluster resources.",
-                "properties": {
-                  "nodes": {
-                    "$ref": "#/definitions/cluster_nodes"
+              ],
+              "tags": [
+                  "subnets"
+              ],
+              "x-ntnx-operations": [
+                  "create"
+              ],
+              "x-ntnx-kind": "subnet",
+              "summary": "Create a subnet"
+          }
+      },
+      "/subnets/list": {
+          "post": {
+              "responses": {
+                  "200": {
+                      "description": "Success",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_list_intent_response"
+                      }
                   },
-                  "config": {
-                    "$ref": "#/definitions/cluster_config"
-                  },
-                  "network": {
-                    "$ref": "#/definitions/cluster_network"
-                  },
-                  "analysis": {
-                    "$ref": "#/definitions/cluster_analysis"
-                  },
-                  "runtime_status_list": {
-                    "items": {
-                      "x-ntnx-enum": [
-                        "UPGRADE_QUEUED",
-                        "UPGRADE_CANCELLED",
-                        "UPGRADE_IN_PROGRESS",
-                        "UPGRADE_SCHEDULED",
-                        "HAVE_SELF_ENCRYPTING_DRIVE",
-                        "SSP_CONFIG_OWNER"
-                      ],
-                      "type": "string"
-                    },
-                    "type": "array",
-                    "description": "Cluster current attributes and onging operations."
+                  "default": {
+                      "description": "Internal Error",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_status"
+                      }
                   }
-                }
-              }
-            },
-            "description": "Cluster status definition.  A Nutanix cluster is comprised of three or\nmore Nutanix nodes. Each node in the cluster contains memory, CPU, RAM,\nand storage (SSD/HDD). Each node in the cluster runs standard hypervisor\nsuch as VMware vSphere, Microsoft Hyper-V, or AHV. A Controller VM (CVM)\nruns on each node in the cluster. The CVM enables each node to share\nlocal storage from all nodes in the cluster.\n"
-          },
-          "cluster": {
-            "title": "Cluster Definition",
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "Cluster Name."
               },
-              "resources": {
-                "type": "object",
-                "description": "Cluster resources.",
-                "properties": {
-                  "config": {
-                    "$ref": "#/definitions/cluster_config_spec"
-                  },
-                  "network": {
-                    "$ref": "#/definitions/cluster_network"
-                  },
-                  "runtime_status_list": {
-                    "items": {
-                      "x-ntnx-enum": [
-                        "UPGRADE_QUEUED",
-                        "UPGRADE_CANCELLED",
-                        "UPGRADE_SCHEDULED",
-                        "SSP_CONFIG_MIGRATED"
-                      ],
-                      "type": "string"
-                    },
-                    "type": "array",
-                    "description": "Cluster onging operations."
+              "description": "This operation gets a list of subnets, allowing for sorting and pagination. Note: Entities that have not been created successfully are not listed.\n",
+              "parameters": [
+                  {
+                      "required": true,
+                      "in": "body",
+                      "name": "get_entities_request",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_list_metadata"
+                      }
                   }
-                }
-              }
+              ],
+              "tags": [
+                  "subnets"
+              ],
+              "x-ntnx-operations": [
+                  "view"
+              ],
+              "x-ntnx-kind": "subnet",
+              "summary": "Get a list of subnets"
+          }
+      },
+      "/subnets/{uuid}": {
+          "put": {
+              "responses": {
+                  "default": {
+                      "description": "Internal Error",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_status"
+                      }
+                  },
+                  "202": {
+                      "description": "Request Accepted",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_intent_response"
+                      }
+                  },
+                  "404": {
+                      "description": "Invalid UUID provided",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_status"
+                      }
+                  }
+              },
+              "description": "This operation submits a request to update a subnet based on the input parameters.\n",
+              "parameters": [
+                  {
+                      "$ref": "#/parameters/uuid"
+                  },
+                  {
+                      "required": true,
+                      "in": "body",
+                      "name": "body",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_intent_input"
+                      }
+                  }
+              ],
+              "tags": [
+                  "subnets"
+              ],
+              "x-ntnx-operations": [
+                  "update"
+              ],
+              "x-ntnx-kind": "subnet",
+              "summary": "Update a subnet"
+          },
+          "get": {
+              "responses": {
+                  "200": {
+                      "description": "Success",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_intent_response"
+                      }
+                  },
+                  "default": {
+                      "description": "Internal Error",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_status"
+                      }
+                  },
+                  "404": {
+                      "description": "Invalid UUID provided",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_status"
+                      }
+                  }
+              },
+              "description": "This operation gets a subnet.",
+              "parameters": [
+                  {
+                      "$ref": "#/parameters/uuid"
+                  }
+              ],
+              "tags": [
+                  "subnets"
+              ],
+              "x-ntnx-operations": [
+                  "view"
+              ],
+              "x-ntnx-kind": "subnet",
+              "summary": "Get a subnet"
+          },
+          "delete": {
+              "responses": {
+                  "default": {
+                      "description": "Internal Error",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_status"
+                      }
+                  },
+                  "202": {
+                      "description": "Request Accepted",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_intent_response"
+                      }
+                  },
+                  "404": {
+                      "description": "Invalid UUID provided",
+                      "schema": {
+                          "$ref": "#/definitions/subnet_status"
+                      }
+                  }
+              },
+              "description": "This operation submits a request to delete a subnet.",
+              "parameters": [
+                  {
+                      "$ref": "#/parameters/uuid"
+                  }
+              ],
+              "tags": [
+                  "subnets"
+              ],
+              "x-ntnx-operations": [
+                  "delete"
+              ],
+              "x-ntnx-kind": "subnet",
+              "summary": "Delete a subnet"
+          }
+      }
+  },
+  "parameters": {
+      "uuid": {
+          "in": "path",
+          "description": "The UUID of the entity.",
+          "format": "UUID",
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+          "required": true,
+          "type": "string",
+          "name": "uuid"
+      }
+  },
+  "produces": [
+      "application/json"
+  ],
+  "basePath": "/api/nutanix/v3",
+  "securityDefinitions": {
+      "basicAuth": {
+          "type": "basic"
+      }
+  },
+  "definitions" : {
+      "subnet_intent_response": {
+          "title": "subnet Intent Response",
+          "required": [
+            "api_version",
+            "metadata"
+          ],
+          "type": "object",
+          "properties": {
+            "status": {
+              "$ref": "#/definitions/subnet_def_status"
             },
-            "description": "Cluster Definition."
-          },
-          "cluster_metadata": {
-            "title": "cluster metadata",
-            "required": [
-              "kind"
-            ],
-            "type": "object",
-            "properties": {
-              "last_update_time": {
-                "readOnly": false,
-                "type": "string",
-                "description": "UTC date and time in RFC-3339 format when cluster was last updated\n",
-                "format": "date-time"
-              },
-              "kind": {
-                "default": "cluster",
-                "readOnly": false,
-                "type": "string",
-                "description": "The kind name",
-                "x-ntnx-enum": [
-                  "cluster"
-                ]
-              },
-              "uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "description": "cluster uuid",
-                "format": "UUID"
-              },
-              "project_reference": {
-                "description": "The project the cluster is in.",
-                "$ref": "#/definitions/project_reference"
-              },
-              "spec_version": {
-                "type": "integer",
-                "description": "Version number of the latest spec."
-              },
-              "creation_time": {
-                "readOnly": false,
-                "type": "string",
-                "description": "UTC date and time in RFC-3339 format when cluster was created\n",
-                "format": "date-time"
-              },
-              "spec_hash": {
-                "type": "string",
-                "description": "Hash of the spec. This will be returned from server.\n"
-              },
-              "owner_reference": {
-                "$ref": "#/definitions/user_reference"
-              },
-              "categories": {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "type": "object",
-                "description": "Categories for the cluster"
-              },
-              "name": {
-                "readOnly": false,
-                "type": "string",
-                "description": "cluster name",
-                "maxLength": 64
-              }
+            "spec": {
+              "$ref": "#/definitions/subnet"
             },
-            "description": "The cluster kind metadata"
-          },
-          "ssl_key_type": {
-            "x-ntnx-enum": [
-              "RSA_2048",
-              "ECDSA_256",
-              "ECDSA_384",
-              "JKS",
-              "PKCS12",
-              "RSA_PUBLIC",
-              "KRB_KEYTAB",
-              "NONE"
-            ],
-            "type": "string",
-            "description": "SSL key type. Key types with RSA_2048, ECDSA_256 and ECDSA_384 are\nsupported for key generation and importing.\n",
-            "title": "SSL key type"
-          },
-          "certificate_spec": {
-            "title": "Certificate info",
-            "required": [
-              "certificate"
-            ],
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "Certificate file name",
-                "maxLength": 64
-              },
-              "certificate": {
-                "type": "string",
-                "description": "Certificate content",
-                "format": "byte"
-              }
+            "api_version": {
+              "type": "string"
             },
-            "description": "Certificate info"
+            "metadata": {
+              "$ref": "#/definitions/subnet_metadata"
+            }
           },
-          "cloud_credentials_def_status": {
-            "title": "Cloud credentials Configuration",
-            "required": [
-              "id",
-              "name",
-              "resources"
-            ],
-            "type": "object",
-            "properties": {
-              "state": {
-                "readOnly": false,
-                "type": "string",
-                "description": "The state of the entity."
-              },
-              "message_list": {
-                "items": {
-                  "$ref": "#/definitions/message_resource"
-                },
-                "readOnly": false,
-                "type": "array"
-              },
-              "id": {
-                "type": "integer",
-                "description": "ID to uniquely identify cloud credentials",
-                "format": "int64"
-              },
-              "resources": {
-                "$ref": "#/definitions/cloud_credentials_resources"
-              },
-              "name": {
-                "type": "string",
-                "description": "Credentials name."
-              }
-            },
-            "description": "Cloud credentials configuration"
-          },
-          "cloud_credentials": {
-            "title": "Cloud Credentials Spec",
-            "required": [
-              "name",
-              "resources"
-            ],
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "User friendly name for the credentials.",
-                "maxLength": 64
-              },
-              "resources": {
-                "$ref": "#/definitions/cloud_credentials_resources"
-              }
-            },
-            "description": "Cloud credentials spec"
-          },
-          "cloud_credentials_metadata": {
-            "title": "cloud_credentials metadata",
-            "required": [
-              "kind"
-            ],
-            "type": "object",
-            "properties": {
-              "last_update_time": {
-                "readOnly": false,
-                "type": "string",
-                "description": "UTC date and time in RFC-3339 format when cloud_credentials was last updated\n",
-                "format": "date-time"
-              },
-              "kind": {
-                "default": "cloud_credentials",
-                "readOnly": false,
-                "type": "string",
-                "description": "The kind name",
-                "x-ntnx-enum": [
-                  "cloud_credentials"
-                ]
-              },
-              "uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "description": "cloud_credentials uuid",
-                "format": "UUID"
-              },
-              "project_reference": {
-                "description": "The project the cloud_credentials is in.",
-                "$ref": "#/definitions/project_reference"
-              },
-              "spec_version": {
-                "type": "integer",
-                "description": "Version number of the latest spec."
-              },
-              "creation_time": {
-                "readOnly": false,
-                "type": "string",
-                "description": "UTC date and time in RFC-3339 format when cloud_credentials was created\n",
-                "format": "date-time"
-              },
-              "spec_hash": {
-                "type": "string",
-                "description": "Hash of the spec. This will be returned from server.\n"
-              },
-              "owner_reference": {
-                "$ref": "#/definitions/user_reference"
-              },
-              "categories": {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "type": "object",
-                "description": "Categories for the cloud_credentials"
-              },
-              "name": {
-                "readOnly": false,
-                "type": "string",
-                "description": "cloud_credentials name",
-                "maxLength": 64
-              }
-            },
-            "description": "The cloud_credentials kind metadata"
-          },
-          "cloud_credentials_intent_resource": {
-            "title": "cloud_credentials Intent Response",
-            "required": [
-              "metadata"
-            ],
-            "type": "object",
-            "properties": {
-              "status": {
-                "$ref": "#/definitions/cloud_credentials_def_status"
-              },
-              "spec": {
-                "$ref": "#/definitions/cloud_credentials"
-              },
-              "api_version": {
-                "type": "string"
-              },
-              "metadata": {
-                "$ref": "#/definitions/cloud_credentials_metadata"
-              }
-            },
-            "description": "Response object for intentful operations on a cloud_credentials"
-          },
-          "cloud_credentials_list_metadata_output": {
-            "title": "Metadata for cloud_credentials list output",
-            "type": "object",
-            "properties": {
-              "filter": {
-                "type": "string",
-                "description": "The filter used for the results"
-              },
-              "kind": {
-                "default": "cloud_credentials",
-                "x-ntnx-enum": [
-                  "cloud_credentials"
-                ],
-                "type": "string",
-                "description": "The kind name"
-              },
-              "sort_order": {
-                "$ref": "#/definitions/sort_order"
-              },
-              "offset": {
-                "type": "integer",
-                "description": "Offset from the start of the entity list"
-              },
-              "total_matches": {
-                "type": "integer",
-                "description": "Total matches found"
-              },
-              "length": {
-                "type": "integer",
-                "description": "The number of records retrieved relative to the offset"
-              },
-              "sort_attribute": {
-                "type": "string",
-                "description": "The attribute to perform sort on"
-              }
-            },
-            "description": "All api calls that return a list will have this metadata block\n"
-          },
-          "vm": {
-            "title": "vm Intent Spec with placement specified",
-            "required": [
-              "name",
-              "resources"
-            ],
-            "type": "object",
-            "properties": {
-              "description": {
-                "type": "string",
-                "description": "A description for vm.",
-                "maxLength": 1000
-              },
-              "resources": {
-                "$ref": "#/definitions/vm_resources"
-              },
-              "cluster_reference": {
-                "$ref": "#/definitions/cluster_reference"
-              },
-              "name": {
-                "type": "string",
-                "description": "vm Name.",
-                "maxLength": 64
-              },
-              "availability_zone_reference": {
-                "$ref": "#/definitions/availability_zone_reference"
-              }
-            },
-            "description": "An intentful representation of a vm spec"
-          },
-          "vm_reference": {
-            "title": "Reference to a vm",
-            "required": [
-              "kind",
-              "uuid"
-            ],
-            "type": "object",
-            "properties": {
-              "kind": {
-                "default": "vm",
-                "readOnly": false,
-                "type": "string",
-                "description": "The kind name",
-                "x-ntnx-enum": [
-                  "vm"
-                ]
-              },
-              "name": {
-                "readOnly": false,
-                "type": "string"
-              },
-              "uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "format": "UUID"
-              }
-            },
-            "description": "The reference to a vm"
-          },
-          "execution_schedule": {
-            "title": "Execution schedule for requests",
-            "required": [
-              "start_time"
-            ],
-            "type": "object",
-            "properties": {
-              "start_time": {
-                "type": "string",
-                "description": "Start time to execute a request.",
-                "format": "date-time"
-              },
-              "time_zone": {
-                "type": "string",
-                "description": "Name of specified time zone."
-              },
-              "timeout_secs": {
-                "type": "integer",
-                "description": "Time out in seconds for a request execution.",
-                "format": "int64"
-              }
-            },
-            "description": "Execution schedule for requests."
-          },
-          "execution_plan": {
-            "default": "PARALLEL",
-            "x-ntnx-enum": [
-              "SEQUENTIAL",
-              "PARALLEL"
-            ],
-            "type": "string",
-            "description": "Execution plan for multiple requests.",
-            "title": "Execution plan for multiple requests"
-          },
-          "project_reference": {
-            "title": "Reference to a project",
-            "required": [
-              "kind",
-              "uuid"
-            ],
-            "type": "object",
-            "properties": {
-              "kind": {
-                "default": "project",
-                "readOnly": false,
-                "type": "string",
-                "description": "The kind name",
-                "x-ntnx-enum": [
-                  "project"
-                ]
-              },
-              "name": {
-                "readOnly": false,
-                "type": "string"
-              },
-              "uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "format": "UUID"
-              }
-            },
-            "description": "The reference to a project"
-          },
-          "user_reference": {
-            "title": "Reference to a user",
-            "required": [
-              "kind",
-              "uuid"
-            ],
-            "type": "object",
-            "properties": {
-              "kind": {
-                "default": "user",
-                "readOnly": false,
-                "type": "string",
-                "description": "The kind name",
-                "x-ntnx-enum": [
-                  "user"
-                ]
-              },
-              "name": {
-                "readOnly": false,
-                "type": "string"
-              },
-              "uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "format": "UUID"
-              }
-            },
-            "description": "The reference to a user"
-          },
-          "cluster_nodes": {
-            "title": "Cluster Nodes",
-            "type": "object",
-            "properties": {
-              "hypervisor_server_list": {
-                "items": {
-                  "$ref": "#/definitions/hypervisor_server"
-                },
-                "readOnly": false,
-                "type": "array"
-              }
-            },
-            "description": "Node info for this cluster."
-          },
-          "cluster_config": {
-            "title": "Cluster Configuration",
-            "type": "object",
-            "properties": {
-              "gpu_driver_version": {
-                "type": "string",
-                "description": "GPU driver version."
-              },
-              "client_auth": {
-                "$ref": "#/definitions/client_auth"
-              },
-              "software_map": {
-                "additionalProperties": {
-                  "$ref": "#/definitions/cluster_software"
-                },
-                "type": "object",
-                "description": "Map of software on the cluster with software type as the\nkey.\n"
-              },
-              "encryption_status": {
-                "$ref": "#/definitions/encryption_status"
-              },
-              "ssl_key": {
-                "readOnly": false,
-                "$ref": "#/definitions/ssl_key"
-              },
-              "service_list": {
-                "readOnly": false,
-                "$ref": "#/definitions/cluster_service_list"
-              },
-              "certification_signing_info": {
-                "$ref": "#/definitions/certification_signing_info"
-              },
-              "redundancy_factor": {
-                "type": "integer",
-                "description": "Cluster supported redundancy factor.",
-                "format": "int32"
-              },
-              "external_configurations": {
-                "description": "External Connector Configurations.",
-                "$ref": "#/definitions/external_configurations"
-              },
-              "ca_certificate_list": {
-                "items": {
-                  "$ref": "#/definitions/ca_cert"
-                },
-                "readOnly": false,
-                "type": "array",
-                "description": "List of cluster trusted CA certificates."
-              },
-              "enabled_feature_list": {
-                "items": {
-                  "x-ntnx-enum": [
-                    "LOCK_DOWN_ENABLED",
-                    "PASSWORD_REMOTE_LOGIN_ENABLED",
-                    "SHADOW_CLONES_ENABLED",
-                    "COMMON_CRITERIA_MODE_ENABLED",
-                    "SSP_CONFIGURED",
-                    "ACS_ENABLED",
-                    "NETWORK_FLOW_STATS_COLLECTOR_ENABLED"
-                  ],
-                  "type": "string"
-                },
-                "type": "array",
-                "description": "Array of enabled features."
-              },
-              "is_available": {
-                "readOnly": false,
-                "type": "boolean",
-                "description": "Indicates if cluster is available to contact."
-              },
-              "timezone": {
-                "type": "string",
-                "description": "Zone name used in value of TZ environment variable."
-              },
-              "cluster_arch": {
-                "readOnly": false,
-                "type": "string",
-                "x-ntnx-enum": [
-                  "X86_64",
-                  "PPC64LE"
-                ],
-                "description": "Cluster architecture."
-              },
-              "management_server_list": {
-                "items": {
-                  "$ref": "#/definitions/cluster_management_server"
-                },
-                "readOnly": false,
-                "type": "array",
-                "description": "List of cluster management servers."
-              },
-              "authorized_public_key_list": {
-                "items": {
-                  "$ref": "#/definitions/public_key"
-                },
-                "type": "array",
-                "description": "List of valid ssh keys for the cluster."
-              },
-              "supported_information_verbosity": {
-                "default": "BASIC_PLUS_CORE_DUMP",
-                "x-ntnx-enum": [
-                  "NOTHING",
-                  "BASIC",
-                  "BASIC_PLUS_CORE_DUMP",
-                  "ALL"
-                ],
-                "type": "string",
-                "description": "Verbosity level settings for populating support information.\n- 'Nothing': Send nothing\n- 'Basic': Send basic information - skip core dump and hypervisor\n           stats information\n- 'BasicPlusCoreDump': Send basic and core dump information\n- 'All': Send all information\n"
-              },
-              "build": {
-                "readOnly": false,
-                "$ref": "#/definitions/build_info"
-              },
-              "operation_mode": {
-                "$ref": "#/definitions/cluster_operation_mode"
-              }
-            },
-            "description": "Cluster Configuration."
-          },
-          "cluster_network": {
-            "title": "Cluster Network Configuration",
-            "type": "object",
-            "properties": {
-              "http_proxy_whitelist": {
-                "items": {
-                  "$ref": "#/definitions/http_proxy_whitelist"
-                },
-                "type": "array",
-                "description": "HTTP proxy whitelist."
-              },
-              "masquerading_port": {
-                "type": "integer",
-                "description": "Port used together with masquerading_ip to connect to the cluster.\n",
-                "format": "int32"
-              },
-              "masquerading_ip": {
-                "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
-                "type": "string",
-                "description": "The cluster NAT'd or proxy IP which maps to the cluster local IP.\n"
-              },
-              "external_ip": {
-                "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
-                "type": "string",
-                "description": "The local IP of cluster visible externally."
-              },
-              "http_proxy_list": {
-                "items": {
-                  "$ref": "#/definitions/cluster_network_entity"
-                },
-                "type": "array",
-                "description": "List of proxies to connect to the service centers."
-              },
-              "smtp_server": {
-                "$ref": "#/definitions/smtp_server"
-              },
-              "ntp_server_ip_list": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array",
-                "description": "The list of IP addresses or FQDNs of the NTP servers."
-              },
-              "external_subnet": {
-                "default": "172.16.0.0/255.240.0.0",
-                "type": "string",
-                "description": "External subnet for cross server communication. The format is\nIP/netmask.\n"
-              },
-              "external_data_services_ip": {
-                "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
-                "type": "string",
-                "description": "The cluster IP address that provides external entities access to\nvarious cluster data services.\n"
-              },
-              "domain_server": {
-                "$ref": "#/definitions/cluster_domain_server"
-              },
-              "name_server_ip_list": {
-                "items": {
-                  "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
-                  "type": "string"
-                },
-                "type": "array",
-                "description": "The list of IP addresses of the name servers."
-              },
-              "nfs_subnet_whitelist": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array",
-                "description": "Comma separated list of subnets (of the form 'a.b.c.d/l.m.n.o') that\nare allowed to send NFS requests to this container. If not specified,\nthe global NFS whitelist will be looked up for access permission.\nThe internal subnet is always automatically considered part of the\nwhitelist, even if the field below does not explicitly specify it.\nSimilarly, all the hypervisor IPs are considered part of the\nwhitelist. Finally, to permit debugging, all of the SVMs local IPs\nare considered to be implicitly part of the whitelist.\n"
-              },
-              "internal_subnet": {
-                "default": "192.168.5.0/255.255.255.0",
-                "type": "string",
-                "description": "The internal subnet is local to every server - its not visible\noutside.iSCSI requests generated internally within the appliance\n(by user VMs or VMFS) are sent to the internal subnet. The format is\nIP/netmask.\n"
-              }
-            },
-            "description": "Cluster network."
-          },
-          "cluster_analysis": {
-            "title": "Cluster Analysis Statistics",
-            "type": "object",
-            "properties": {
-              "vm_efficiency_map": {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "readOnly": false,
-                "type": "object",
-                "description": "Map of cluster efficiency which includes numbers of inefficient\nvms. The value is populated by analytics on PC.\n"
-              }
-            },
-            "description": "Cluster analysis related values."
-          },
-          "cluster_config_spec": {
-            "title": "Cluster Configuration",
-            "type": "object",
-            "properties": {
-              "gpu_driver_version": {
-                "type": "string",
-                "description": "GPU driver version."
-              },
-              "client_auth": {
-                "$ref": "#/definitions/client_auth"
-              },
-              "authorized_public_key_list": {
-                "items": {
-                  "$ref": "#/definitions/public_key"
-                },
-                "type": "array",
-                "description": "List of valid ssh keys for the cluster."
-              },
-              "software_map": {
-                "additionalProperties": {
-                  "$ref": "#/definitions/cluster_software"
-                },
-                "type": "object",
-                "description": "Map of software on the cluster with software type as the\nkey.\n"
-              },
-              "encryption_status": {
-                "$ref": "#/definitions/encryption_status"
-              },
-              "supported_information_verbosity": {
-                "default": "BASIC_PLUS_CORE_DUMP",
-                "x-ntnx-enum": [
-                  "NOTHING",
-                  "BASIC",
-                  "BASIC_PLUS_CORE_DUMP",
-                  "ALL"
-                ],
-                "type": "string",
-                "description": "Verbosity level settings for populating support information.\n- 'Nothing': Send nothing\n- 'Basic': Send basic information - skip core dump and hypervisor\n           stats information\n- 'BasicPlusCoreDump': Send basic and core dump information\n- 'All': Send all information\n"
-              },
-              "certification_signing_info": {
-                "$ref": "#/definitions/certification_signing_info"
-              },
-              "redundancy_factor": {
-                "type": "integer",
-                "description": "Cluster supported redundancy factor. Default is 2.",
-                "format": "int32"
-              },
-              "external_configurations": {
-                "description": "External Connector Configurations.",
-                "$ref": "#/definitions/external_configurations_spec"
-              },
-              "enabled_feature_list": {
-                "items": {
-                  "x-ntnx-enum": [
-                    "LOCK_DOWN_ENABLED",
-                    "PASSWORD_REMOTE_LOGIN_ENABLED",
-                    "SHADOW_CLONES_ENABLED",
-                    "COMMON_CRITERIA_MODE_ENABLED",
-                    "SSP_CONFIGURED",
-                    "ACS_ENABLED",
-                    "NETWORK_FLOW_STATS_COLLECTOR_ENABLED"
-                  ],
-                  "type": "string"
-                },
-                "type": "array",
-                "description": "Array of enabled features."
-              },
-              "timezone": {
-                "type": "string",
-                "description": "Zone name used in value of TZ environment variable."
-              },
-              "operation_mode": {
-                "$ref": "#/definitions/cluster_operation_mode"
-              }
-            },
-            "description": "Cluster Configuration."
-          },
-          "cloud_credentials_resources": {
-            "title": "Cloud Credentials resources",
-            "required": [
-              "cloud_type"
-            ],
-            "type": "object",
-            "properties": {
-              "is_default": {
-                "type": "boolean",
-                "description": "Indicates if it is the default credentials"
-              },
-              "key_id": {
-                "type": "string",
-                "description": "Access key for AWS, or subscription id for Azure\n"
-              },
-              "cloud_type": {
-                "$ref": "#/definitions/cloud_type"
-              },
-              "secure_id": {
-                "type": "string",
-                "description": "Secret key for AWS, or full file path of the Azure client certificate\nfile(<file_name>.pem)\n"
-              }
-            },
-            "description": "Cloud credentials resources"
-          },
-          "vm_resources": {
-            "title": "VM Resources",
-            "type": "object",
-            "properties": {
-              "power_state": {
-                "x-ntnx-enum": [
-                  "ON",
-                  "OFF"
-                ],
-                "type": "string",
-                "description": "The current or desired power state of the VM."
-              },
-              "num_vcpus_per_socket": {
-                "minimum": 1,
-                "type": "integer",
-                "description": "Number of vCPUs per socket.",
-                "format": "int32"
-              },
-              "num_sockets": {
-                "minimum": 1,
-                "type": "integer",
-                "description": "Number of vCPU sockets.",
-                "format": "int32"
-              },
-              "gpu_list": {
-                "items": {
-                  "$ref": "#/definitions/vm_gpu"
-                },
-                "type": "array",
-                "description": "GPUs attached to the VM."
-              },
-              "memory_size_mib": {
-                "minimum": 1,
-                "type": "integer",
-                "description": "Memory size in MiB.",
-                "format": "int32"
-              },
-              "boot_config": {
-                "description": "Indicates which device the VM should boot from.",
-                "$ref": "#/definitions/vm_boot_config"
-              },
-              "hardware_clock_timezone": {
-                "type": "string",
-                "description": "VM's hardware clock timezone in IANA TZDB format (America/Los_Angeles).\n",
-                "maxLength": 64
-              },
-              "guest_customization": {
-                "$ref": "#/definitions/guest_customization"
-              },
-              "power_state_mechanism": {
-                "$ref": "#/definitions/vm_power_state_mechanism"
-              },
-              "vga_console_enabled": {
-                "type": "boolean",
-                "description": "Indicates whether VGA console should be enabled or not."
-              },
-              "disk_list": {
-                "items": {
-                  "$ref": "#/definitions/vm_disk"
-                },
-                "type": "array",
-                "description": "Disks attached to the VM."
-              },
-              "vnuma_config": {
-                "description": "Information regarding vNUMA configuration.",
-                "$ref": "#/definitions/vm_vnuma_config"
-              },
-              "nic_list": {
-                "items": {
-                  "$ref": "#/definitions/vm_nic"
-                },
-                "type": "array",
-                "description": "NICs attached to the VM."
-              },
-              "guest_os_id": {
-                "type": "string",
-                "description": "Guest OS Identifier. For ESX, refer to VMware documentation link (https://www.vmware.com/support/developer/converter-sdk/conv43_apireference/vim.vm.GuestOsDescriptor.GuestOsIdentifier.html) for the list of guest OS identifiers.\n",
-                "maxLength": 64
-              },
-              "guest_tools": {
-                "description": "Information regarding guest tools.",
-                "$ref": "#/definitions/guest_tools_spec"
-              },
-              "parent_reference": {
-                "description": "Reference to an entity that the VM should be cloned from.\n",
-                "$ref": "#/definitions/reference"
-              }
-            },
-            "description": "VM Resources Definition."
-          },
-          "availability_zone_reference": {
-            "title": "Reference to a availability_zone",
-            "required": [
-              "kind",
-              "uuid"
-            ],
-            "type": "object",
-            "properties": {
-              "kind": {
-                "default": "availability_zone",
-                "readOnly": false,
-                "type": "string",
-                "description": "The kind name",
-                "x-ntnx-enum": [
-                  "availability_zone"
-                ]
-              },
-              "name": {
-                "readOnly": false,
-                "type": "string"
-              },
-              "uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "format": "UUID"
-              }
-            },
-            "description": "The reference to a availability_zone"
-          },
-          "hypervisor_server": {
-            "title": "Hypervisor Server",
-            "required": [
-              "ip"
-            ],
-            "type": "object",
-            "properties": {
-              "ip": {
-                "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
-                "type": "string"
-              },
-              "version": {
-                "type": "string"
-              },
-              "type": {
-                "x-ntnx-enum": [
-                  "VMWARE",
-                  "XEN",
-                  "AHV",
-                  "HYPERV"
-                ],
-                "type": "string"
-              }
-            },
-            "description": "Hypervisor server information."
-          },
-          "client_auth": {
-            "title": "Client authentication config",
-            "required": [
-              "status"
-            ],
-            "type": "object",
-            "properties": {
-              "status": {
-                "default": "DISABLED",
-                "x-ntnx-enum": [
-                  "ENABLED",
-                  "DISABLED"
-                ],
-                "type": "string",
-                "description": "Status of client authentication."
-              },
-              "ca_chain": {
-                "readOnly": false,
-                "type": "string",
-                "description": "Content of CA chain certificate.",
-                "format": "byte"
-              },
-              "name": {
-                "readOnly": false,
-                "type": "string",
-                "description": "Name of CA chain file.",
-                "maxLength": 64
-              }
-            },
-            "description": "Client authentication config."
-          },
-          "cluster_software": {
-            "title": "Cluster software",
-            "required": [
-              "software_type",
-              "version"
-            ],
-            "properties": {
-              "status": {
-                "default": "INSTALLED",
-                "x-ntnx-enum": [
-                  "INSTALLED",
-                  "UPGRADING",
-                  "DOWNLOADED"
-                ],
-                "type": "string",
-                "description": "Current software status."
-              },
-              "version": {
-                "type": "string"
-              },
-              "software_type": {
-                "$ref": "#/definitions/software_type"
-              }
-            },
-            "description": "Cluster software."
-          },
-          "encryption_status": {
-            "default": "NOT_SUPPORTED",
-            "x-ntnx-enum": [
-              "NOT_SUPPORTED",
-              "DISABLED",
-              "ENABLED"
-            ],
-            "type": "string",
-            "description": "Cluster encryption status.",
-            "title": "Cluster encryption status"
-          },
-          "ssl_key": {
-            "title": "SSL certificate",
-            "required": [
-              "key_type"
-            ],
-            "type": "object",
-            "properties": {
-              "key_type": {
-                "$ref": "#/definitions/ssl_key_type"
-              },
-              "key_name": {
-                "type": "string"
-              },
-              "signing_info": {
-                "$ref": "#/definitions/certification_signing_info"
-              },
-              "expire_datetime": {
-                "type": "string",
-                "description": "UTC date and time in RFC-3339 format when the key expires",
-                "format": "date-time"
-              }
-            },
-            "description": "SSL certificate."
-          },
-          "cluster_service_list": {
-            "items": {
-              "default": "AOS",
+          "description": "Response object for intentful operations on a subnet"
+        },
+        "subnet_status": {
+          "title": "Response Kind",
+          "type": "object",
+          "properties": {
+            "kind": {
+              "default": "subnet",
+              "readOnly": false,
+              "type": "string",
+              "description": "The kind name",
               "x-ntnx-enum": [
-                "AOS",
-                "PRISM_CENTRAL",
-                "CLOUD_DATA_GATEWAY",
-                "AFS",
-                "WITNESS",
-                "XI_PORTAL",
-                "ONE_NODE",
-                "TWO_NODE"
+                "subnet"
+              ]
+            },
+            "code": {
+              "readOnly": false,
+              "type": "integer",
+              "description": "The HTTP error code."
+            },
+            "message_list": {
+              "items": {
+                "$ref": "#/definitions/message_resource"
+              },
+              "readOnly": false,
+              "type": "array"
+            },
+            "state": {
+              "readOnly": false,
+              "type": "string"
+            },
+            "api_version": {
+              "readOnly": false,
+              "type": "string"
+            }
+          },
+          "description": "The status of a REST API call. Only used when there is a failure to\nreport.\n"
+        },
+        "subnet_intent_input": {
+          "title": "subnet Intent Entity",
+          "required": [
+            "metadata",
+            "spec"
+          ],
+          "type": "object",
+          "properties": {
+            "spec": {
+              "$ref": "#/definitions/subnet"
+            },
+            "api_version": {
+              "default": "3.1.0",
+              "type": "string"
+            },
+            "metadata": {
+              "$ref": "#/definitions/subnet_metadata"
+            }
+          },
+          "description": "An intentful representation of a subnet"
+        },
+        "subnet_list_intent_response": {
+          "title": "Entity Intent List Response",
+          "required": [
+            "api_version",
+            "metadata"
+          ],
+          "type": "object",
+          "properties": {
+            "entities": {
+              "items": {
+                "$ref": "#/definitions/subnet_intent_resource"
+              },
+              "type": "array"
+            },
+            "api_version": {
+              "type": "string"
+            },
+            "metadata": {
+              "$ref": "#/definitions/subnet_list_metadata_output"
+            }
+          },
+          "description": "Response object for intentful operation of subnets"
+        },
+        "subnet_list_metadata": {
+          "title": "Metadata for subnet list",
+          "type": "object",
+          "properties": {
+            "filter": {
+              "type": "string",
+              "description": "The filter in FIQL syntax used for the results."
+            },
+            "kind": {
+              "default": "subnet",
+              "x-ntnx-enum": [
+                "subnet"
+              ],
+              "type": "string",
+              "description": "The kind name"
+            },
+            "sort_order": {
+              "$ref": "#/definitions/sort_order"
+            },
+            "offset": {
+              "minimum": 0,
+              "type": "integer",
+              "description": "Offset from the start of the entity list",
+              "format": "int32"
+            },
+            "length": {
+              "minimum": 1,
+              "type": "integer",
+              "description": "The number of records to retrieve relative to the offset",
+              "format": "int32"
+            },
+            "sort_attribute": {
+              "type": "string",
+              "description": "The attribute to perform sort on"
+            }
+          },
+          "description": "All api calls that return a list will have this metadata block as input\n"
+        },
+        "subnet_def_status": {
+          "title": "subnet Intent Status with placement specified",
+          "required": [
+            "name",
+            "resources"
+          ],
+          "type": "object",
+          "properties": {
+            "state": {
+              "type": "string",
+              "description": "The state of the subnet."
+            },
+            "name": {
+              "type": "string",
+              "description": "subnet Name."
+            },
+            "availability_zone_reference": {
+              "$ref": "#/definitions/availability_zone_reference"
+            },
+            "message_list": {
+              "items": {
+                "$ref": "#/definitions/message_resource"
+              },
+              "type": "array",
+              "description": "Any error messages for the subnet, if in an error state."
+            },
+            "cluster_reference": {
+              "$ref": "#/definitions/cluster_reference"
+            },
+            "resources": {
+              "$ref": "#/definitions/subnet_resources_def_status"
+            },
+            "description": {
+              "type": "string",
+              "description": "A description for subnet."
+            }
+          },
+          "description": "An intentful representation of a subnet status"
+        },
+        "subnet": {
+          "title": "subnet Intent Spec with placement specified",
+          "required": [
+            "name",
+            "resources"
+          ],
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "A description for subnet.",
+              "maxLength": 1000
+            },
+            "resources": {
+              "$ref": "#/definitions/subnet_resources"
+            },
+            "cluster_reference": {
+              "$ref": "#/definitions/cluster_reference"
+            },
+            "name": {
+              "type": "string",
+              "description": "subnet Name.",
+              "maxLength": 64
+            },
+            "availability_zone_reference": {
+              "$ref": "#/definitions/availability_zone_reference"
+            }
+          },
+          "description": "An intentful representation of a subnet spec"
+        },
+        "subnet_metadata": {
+          "title": "subnet metadata",
+          "required": [
+            "kind"
+          ],
+          "type": "object",
+          "properties": {
+            "last_update_time": {
+              "readOnly": false,
+              "type": "string",
+              "description": "UTC date and time in RFC-3339 format when subnet was last updated\n",
+              "format": "date-time"
+            },
+            "kind": {
+              "default": "subnet",
+              "readOnly": false,
+              "type": "string",
+              "description": "The kind name",
+              "x-ntnx-enum": [
+                "subnet"
+              ]
+            },
+            "uuid": {
+              "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+              "type": "string",
+              "description": "subnet uuid",
+              "format": "UUID"
+            },
+            "project_reference": {
+              "description": "The project the subnet is in.",
+              "$ref": "#/definitions/project_reference"
+            },
+            "spec_version": {
+              "type": "integer",
+              "description": "Version number of the latest spec."
+            },
+            "creation_time": {
+              "readOnly": false,
+              "type": "string",
+              "description": "UTC date and time in RFC-3339 format when subnet was created\n",
+              "format": "date-time"
+            },
+            "spec_hash": {
+              "type": "string",
+              "description": "Hash of the spec. This will be returned from server.\n"
+            },
+            "owner_reference": {
+              "$ref": "#/definitions/user_reference"
+            },
+            "categories": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object",
+              "description": "Categories for the subnet"
+            },
+            "name": {
+              "readOnly": false,
+              "type": "string",
+              "description": "subnet name",
+              "maxLength": 64
+            }
+          },
+          "description": "The subnet kind metadata"
+        },
+        "message_resource": {
+          "title": "Message.",
+          "required": [
+            "message",
+            "reason"
+          ],
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "description": "If state is ERROR, a message describing the error."
+            },
+            "reason": {
+              "x-ntnx-enum": [
+                "ACCESS_DENIED",
+                "ACCESS_FORBIDDEN",
+                "ACTION_NOT_SUPPORTED",
+                "AUTHENTICATION_REQUIRED",
+                "BEARER_TOKEN_EXPIRED",
+                "BEARER_TOKEN_BAD_SIGNATURE",
+                "CANNOT_MODIFY_PRE_CONFIGURED_REPORT",
+                "CATEGORY_NAME_VALUE_MISMATCH",
+                "CONFIGURATION_INCOMPLETE",
+                "CONCURRENT_REQUESTS_NOT_ALLOWED",
+                "DEFAULT_PROJECT_UNAVAILABLE",
+                "DESERIALIZATION_FAILED",
+                "DIRECTORY_SERVICE_CONNECTION_FAILED",
+                "ENTITY_ALREADY_EXISTS",
+                "ENTITY_DELETION_FAILED",
+                "ENTITY_IS_READONLY",
+                "ENTITY_NAME_UUID_MISMATCH",
+                "ENTITY_NOT_CONFIGURED",
+                "ENTITY_NOT_FOUND",
+                "ENTITY_SAVE_ERROR",
+                "ENTITY_UPDATE_FAILED",
+                "IDEMPOTENCE_UUID_CREATION_FAILED",
+                "IDP_NOT_REACHABLE",
+                "INTERNAL_ERROR",
+                "INVALID_ARGUMENT",
+                "INVALID_AZ_NAME",
+                "INVALID_CONTENT_TYPE",
+                "INVALID_DATA_FORMAT",
+                "INVALID_PORTAL_CONFIGURATION",
+                "INVALID_REQUEST",
+                "INVALID_UUID",
+                "INVALID_OWNER_REFERENCE",
+                "INTERNAL_AZ_PROXY_SETUP_ERROR",
+                "INTERNAL_ERROR_REMOTE_REQUEST",
+                "INTERNAL_ROLE_ACCESS_DENIED",
+                "INCORRECT_EVENTS_FILTER",
+                "MISSING_ATTRIBUTE",
+                "MISSING_CURRENT_USER_METADATA",
+                "NAME_NOT_IN_DOMAIN",
+                "NO_RESPONSE_RECEIVED_FROM_PORTAL",
+                "PE_NOT_PAIRED_WITH_PC",
+                "PC_NOT_PAIRED_WITH_XI_PORTAL",
+                "REFERENCE_ERROR",
+                "RESERVED_ROLE_ACCESS_DENIED",
+                "REQUEST_NOT_SUPPORTED",
+                "REMOTE_CLUSTER_IP_FETCH_FAILED",
+                "REMOTE_CLUSTER_NOT_CONNECTED",
+                "REMOTE_CONNECTION_EXISTS",
+                "REMOTE_CONNECTION_NOT_FOUND",
+                "REPORT_CONFIG_NOT_FOUND",
+                "REPORTING_RESOURCE_NOT_FOUND",
+                "REPORTING_INTERNAL_ERROR",
+                "SERVICE_UNAVAILABLE",
+                "SEARCH_RESULT_PROCESSING_ERROR",
+                "TOO_MANY_REQUESTS",
+                "UNCONFIGURED_API_KEY",
+                "UNCONFIGURED_PORTAL_CONNECTION",
+                "UNSPECIFIED_EVENTS_FILTER",
+                "UNSUPPORTED_AZ_PROXY_API",
+                "UNSUPPORTED_MEDIA_TYPE_ERROR",
+                "UNSUPPORTED_API_VERSION",
+                "UPLOAD_TO_S3_FAILED",
+                "VALIDATION_ERROR",
+                "INVALID_SSL_CERTIFICATE",
+                "ERROR_ATTACHING_FILE_TO_CASE",
+                "SPEC_UPDATE_ERROR",
+                "SPEC_INCOMPATIBLE_ERROR"
+              ],
+              "type": "string",
+              "description": "If state is ERROR, a machine-readable snake-cased string."
+            },
+            "details": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "readOnly": false,
+              "type": "object",
+              "description": "Custom key-value details relevant to the status."
+            }
+          },
+          "description": "message."
+        },
+        "subnet_intent_resource": {
+          "title": "subnet Intent Response",
+          "required": [
+            "metadata"
+          ],
+          "type": "object",
+          "properties": {
+            "status": {
+              "$ref": "#/definitions/subnet_def_status"
+            },
+            "spec": {
+              "$ref": "#/definitions/subnet"
+            },
+            "api_version": {
+              "type": "string"
+            },
+            "metadata": {
+              "$ref": "#/definitions/subnet_metadata"
+            }
+          },
+          "description": "Response object for intentful operations on a subnet"
+        },
+        "subnet_list_metadata_output": {
+          "title": "Metadata for subnet list output",
+          "type": "object",
+          "properties": {
+            "filter": {
+              "type": "string",
+              "description": "The filter used for the results"
+            },
+            "kind": {
+              "default": "subnet",
+              "x-ntnx-enum": [
+                "subnet"
+              ],
+              "type": "string",
+              "description": "The kind name"
+            },
+            "sort_order": {
+              "$ref": "#/definitions/sort_order"
+            },
+            "offset": {
+              "type": "integer",
+              "description": "Offset from the start of the entity list"
+            },
+            "total_matches": {
+              "type": "integer",
+              "description": "Total matches found"
+            },
+            "length": {
+              "type": "integer",
+              "description": "The number of records retrieved relative to the offset"
+            },
+            "sort_attribute": {
+              "type": "string",
+              "description": "The attribute to perform sort on"
+            }
+          },
+          "description": "All api calls that return a list will have this metadata block\n"
+        },
+        "sort_order": {
+          "x-ntnx-enum": [
+            "ASCENDING",
+            "DESCENDING"
+          ],
+          "type": "string",
+          "description": "The sort order in which results are returned",
+          "title": "Sort order"
+        },
+        "availability_zone_reference": {
+          "title": "Reference to a availability_zone",
+          "required": [
+            "kind",
+            "uuid"
+          ],
+          "type": "object",
+          "properties": {
+            "kind": {
+              "default": "availability_zone",
+              "readOnly": false,
+              "type": "string",
+              "description": "The kind name",
+              "x-ntnx-enum": [
+                "availability_zone"
+              ]
+            },
+            "name": {
+              "readOnly": false,
+              "type": "string"
+            },
+            "uuid": {
+              "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+              "type": "string",
+              "format": "UUID"
+            }
+          },
+          "description": "The reference to a availability_zone"
+        },
+        "cluster_reference": {
+          "title": "Reference to a cluster",
+          "required": [
+            "kind",
+            "uuid"
+          ],
+          "type": "object",
+          "properties": {
+            "kind": {
+              "default": "cluster",
+              "readOnly": false,
+              "type": "string",
+              "description": "The kind name",
+              "x-ntnx-enum": [
+                "cluster"
+              ]
+            },
+            "name": {
+              "readOnly": false,
+              "type": "string"
+            },
+            "uuid": {
+              "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+              "type": "string",
+              "format": "UUID"
+            }
+          },
+          "description": "The reference to a cluster"
+        },
+        "subnet_resources_def_status": {
+          "title": "Subnet creation/modification status",
+          "type": "object",
+          "properties": {
+            "vswitch_name": {
+              "type": "string"
+            },
+            "subnet_type": {
+              "x-ntnx-enum": [
+                "VLAN"
               ],
               "type": "string"
             },
-            "type": "array",
-            "description": "Array of enabled cluster services. For example, a cluster can function\nas both AOS and cloud data gateway.\n- 'AOS': Regular Prism Element\n- 'PRISM_CENTRAL': Prism Central\n- 'CLOUD_DATA_GATEWAY': Cloud backup and DR gateway\n- 'AFS': Cluster for file server\n- 'WITNESS' : Witness cluster\n- 'XI_PORTAL': Xi cluster\n- 'ONE_NODE_CLUSTER': Single node backup cluster\n- 'TWO_NODE_CLUSTER': Two node cluster\n",
-            "title": "List of Cluster Services"
-          },
-          "certification_signing_info": {
-            "title": "Customer information in Certificate Signing Request",
-            "type": "object",
-            "properties": {
-              "city": {
-                "type": "string",
-                "description": "The Town or City where customer's business is located."
-              },
-              "state": {
-                "type": "string",
-                "description": "The Province, Region, County or State where customer business is\nis located.\n"
-              },
-              "country_code": {
-                "type": "string",
-                "description": "Two-letter ISO code for Country where customer's organization is\nlocated.\n"
-              },
-              "common_name": {
-                "type": "string",
-                "description": "Common name of the organization or host server"
-              },
-              "organization": {
-                "type": "string",
-                "description": "Name of the customer business."
-              },
-              "email_address": {
-                "type": "string",
-                "description": "Email address of the certificate administrator."
-              },
-              "common_name_suffix": {
-                "type": "string",
-                "description": "Common name is by default <node_uuid>.nutanix.com, but if a customer\nwants something instead of nutanix.com they can specify it here.\n"
-              }
+            "ip_config": {
+              "$ref": "#/definitions/ip_config"
             },
-            "description": "Customer information used in Certificate Signing Request for\ncreating digital certificates.\n"
-          },
-          "external_configurations": {
-            "title": "External Connector Configurations.",
-            "type": "object",
-            "properties": {
-              "citrix_connector_config": {
-                "$ref": "#/definitions/citrix_connector_config_details"
-              }
+            "vlan_id": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
             },
-            "description": "External configurations for the connectors."
+            "network_function_chain_reference": {
+              "$ref": "#/definitions/network_function_chain_reference"
+            }
           },
-          "cluster_management_server": {
-            "title": "Cluster Management Server",
-            "required": [
-              "ip",
-              "type"
-            ],
-            "type": "object",
-            "properties": {
-              "drs_enabled": {
-                "type": "boolean",
-                "description": "Denotes if DRS is enabled or not."
-              },
-              "ip": {
-                "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
-                "type": "string"
-              },
-              "type": {
-                "x-ntnx-enum": [
-                  "VCENTER"
-                ],
-                "type": "string"
-              },
-              "status_list": {
-                "items": {
-                  "x-ntnx-enum": [
-                    "REGISTERED",
-                    "IN_USE"
-                  ],
-                  "type": "string"
-                },
-                "type": "array",
-                "description": "Array of management server status: - 'REGISTERED': Indicates whether the server is registered with\n                Nutanix or not.\n- 'IN_USE': Indicates whether any host is managed by this server or\n            not.\n"
-              }
+          "description": "Subnet creation/modification status."
+        },
+        "subnet_resources": {
+          "title": "Subnet creation/modification spec",
+          "required": [
+            "subnet_type"
+          ],
+          "type": "object",
+          "properties": {
+            "vswitch_name": {
+              "type": "string",
+              "maxLength": 64
             },
-            "description": "Cluster Management server information."
-          },
-          "public_key": {
-            "title": "Public Key",
-            "required": [
-              "name",
-              "key"
-            ],
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "maxLength": 64
-              },
-              "key": {
-                "type": "string"
-              }
-            },
-            "description": "Public Key"
-          },
-          "build_info": {
-            "title": "Cluster build details",
-            "required": [
-              "build_type",
-              "version",
-              "commit_id",
-              "short_commit_id"
-            ],
-            "type": "object",
-            "properties": {
-              "commit_id": {
-                "type": "string",
-                "description": "Last Git commit id which the build is based on."
-              },
-              "version": {
-                "type": "string",
-                "description": "Numeric version. e.g. \"5.5\""
-              },
-              "short_commit_id": {
-                "type": "string",
-                "description": "First 6 characters of the last Git commit id."
-              },
-              "full_version": {
-                "type": "string",
-                "description": "Full version name."
-              },
-              "commit_date": {
-                "type": "string",
-                "description": "Date/time of the last commit.",
-                "format": "date-time"
-              },
-              "build_type": {
-                "type": "string",
-                "description": "Build type, one of {dbg, opt, release}."
-              }
-            },
-            "description": "Cluster build details."
-          },
-          "cluster_operation_mode": {
-            "x-ntnx-enum": [
-              "NORMAL",
-              "READ_ONLY",
-              "STAND_ALONE",
-              "SWITCH_TO_TWO_NODE",
-              "OVERRIDE"
-            ],
-            "type": "string",
-            "description": "Cluster operation mode. - 'NORMAL': Cluster is operating normally. - 'READ_ONLY': Cluster is operating in read only mode. - 'STAND_ALONE': Only one node is operational in the cluster. This is\n                 valid only for single node or two node clusters.\n- 'SWITCH_TO_TWO_NODE': Cluster is moving from single node to two node\n                        cluster.\n- 'OVERRIDE': Valid only for single node cluster. If the user wants to\n              run vms on a single node cluster in read only mode, he\n              can set the cluster peration mode to override. Writes\n              will be allowed in override mode.\n",
-            "title": "Cluster operation mode"
-          },
-          "http_proxy_whitelist": {
-            "title": "HTTP Proxy Whitelist",
-            "required": [
-              "target",
-              "target_type"
-            ],
-            "type": "object",
-            "properties": {
-              "target": {
-                "type": "string"
-              },
-              "target_type": {
-                "x-ntnx-enum": [
-                  "IPV4_ADDRESS",
-                  "IPV4_NETWORK_MASK",
-                  "DOMAIN_NAME_SUFFIX",
-                  "HOST_NAME"
-                ],
-                "type": "string"
-              }
-            },
-            "description": "HTTP Proxy Whitelist."
-          },
-          "cluster_network_entity": {
-            "title": "Cluster Network Entity",
-            "required": [
-              "address"
-            ],
-            "type": "object",
-            "properties": {
-              "credentials": {
-                "$ref": "#/definitions/credentials"
-              },
-              "address": {
-                "$ref": "#/definitions/address"
-              },
-              "proxy_type_list": {
-                "items": {
-                  "default": "HTTP",
-                  "x-ntnx-enum": [
-                    "HTTP",
-                    "HTTPS",
-                    "SOCKS"
-                  ],
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            },
-            "description": "Cluster network entity."
-          },
-          "smtp_server": {
-            "title": "SMTP server",
-            "required": [
-              "email_address",
-              "server"
-            ],
-            "type": "object",
-            "properties": {
-              "email_address": {
-                "type": "string"
-              },
-              "type": {
-                "default": "PLAIN",
-                "x-ntnx-enum": [
-                  "PLAIN",
-                  "STARTTLS",
-                  "SSL"
-                ],
-                "type": "string"
-              },
-              "server": {
-                "$ref": "#/definitions/cluster_network_entity"
-              }
-            },
-            "description": "SMTP Server."
-          },
-          "cluster_domain_server": {
-            "title": "Domain Server",
-            "required": [
-              "name"
-            ],
-            "type": "object",
-            "properties": {
-              "nameserver": {
-                "type": "string",
-                "description": "The IP of the nameserver that can resolve the domain name. Must set\nwhen joining the domain.\n"
-              },
-              "name": {
-                "type": "string",
-                "description": "Joined domain name. In 'put' request, empty name will unjoin the\ncluster from current domain.\n"
-              },
-              "domain_credentials": {
-                "$ref": "#/definitions/credentials"
-              }
-            },
-            "description": "Cluster domain server. Only applied to the cluster with all Hyper-V hosts.\n"
-          },
-          "external_configurations_spec": {
-            "title": "External Connector Configurations.",
-            "type": "object",
-            "properties": {
-              "citrix_connector_config": {
-                "$ref": "#/definitions/citrix_connector_config_details_spec"
-              }
-            },
-            "description": "External configurations for the connectors."
-          },
-          "cloud_type": {
-            "x-ntnx-enum": [
-              "AWS",
-              "AZURE"
-            ],
-            "type": "string",
-            "description": "Cloud site type",
-            "title": "Cloud Site Type"
-          },
-          "vm_gpu": {
-            "title": "VirtualMachine GPU",
-            "type": "object",
-            "properties": {
-              "vendor": {
-                "x-ntnx-enum": [
-                  "NVIDIA",
-                  "INTEL",
-                  "AMD"
-                ],
-                "type": "string",
-                "description": "The vendor of the GPU."
-              },
-              "mode": {
-                "x-ntnx-enum": [
-                  "PASSTHROUGH_GRAPHICS",
-                  "PASSTHROUGH_COMPUTE",
-                  "VIRTUAL"
-                ],
-                "type": "string",
-                "description": "The mode of this GPU."
-              },
-              "device_id": {
-                "type": "integer",
-                "description": "The device ID of the GPU.",
-                "format": "int32"
-              }
-            },
-            "description": "Graphics resource information for the Virtual Machine."
-          },
-          "vm_boot_config": {
-            "title": "VM Boot configuration",
-            "type": "object",
-            "properties": {
-              "boot_device_order_list": {
-                "items": {
-                  "x-ntnx-enum": [
-                    "CDROM",
-                    "DISK",
-                    "NETWORK"
-                  ],
-                  "type": "string"
-                },
-                "type": "array",
-                "description": "Indicates the order of device types in which VM should try to boot from. If boot device order is not provided the system will decide appropriate boot device order.\n"
-              },
-              "boot_device": {
-                "description": "Indicates which device a VM should boot from. Boot device takes precdence over boot device order. If both are given then specified boot device will be primary boot device and remaining devices will be assigned boot order according to boot device order field.\n",
-                "$ref": "#/definitions/vm_boot_device"
-              }
-            },
-            "description": "Indicates which device a VM should boot from.\n"
-          },
-          "guest_customization": {
-            "x-ntnx-one-of": [
-              {
-                "required": [
-                  "sysprep"
-                ]
-              },
-              {
-                "required": [
-                  "cloud_init"
-                ]
-              }
-            ],
-            "title": "Guest Customization Configuration for creation/modification request",
-            "additionalProperties": {
+            "subnet_type": {
+              "x-ntnx-enum": [
+                "VLAN"
+              ],
               "type": "string"
             },
-            "type": "object",
-            "properties": {
-              "cloud_init": {
-                "x-ntnx-one-of": [
-                  {
-                    "required": [
-                      "user_data"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "custom_key_values"
-                    ]
-                  }
-                ],
-                "type": "object",
-                "properties": {
-                  "meta_data": {
-                    "type": "string",
-                    "description": "The contents of the meta_data configuration for cloud-init. This can be formatted as YAML or JSON. The value must be base64 encoded.\n",
-                    "maxLength": 32000
-                  },
-                  "user_data": {
-                    "type": "string",
-                    "description": "The contents of the user_data configuration for cloud-init. This can be formatted as YAML, JSON, or could be a shell script. The value must be base64 encoded.\n",
-                    "maxLength": 32000
-                  },
-                  "custom_key_values": {
-                    "$ref": "#/definitions/custom_generic_key_value_pair"
-                  }
-                },
-                "description": "If this field is set, the guest will be customized using cloud-init. Either user_data or custom_key_values should be provided. If custom_key_ves are provided then the user data will be generated using these key-value pairs.\n"
-              },
-              "is_overridable": {
-                "default": false,
-                "type": "boolean",
-                "description": "Flag to allow override of customization by deployer."
-              },
-              "sysprep": {
-                "x-ntnx-one-of": [
-                  {
-                    "required": [
-                      "unattend_xml"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "custom_key_values"
-                    ]
-                  }
-                ],
-                "type": "object",
-                "properties": {
-                  "install_type": {
-                    "default": "PREPARED",
-                    "x-ntnx-enum": [
-                      "FRESH",
-                      "PREPARED"
-                    ],
-                    "type": "string",
-                    "description": "Whether the guest will be freshly installed using this unattend configuration, or whether this unattend configuration will be applied to a pre-prepared image. Default is \"PREPARED\".\n"
-                  },
-                  "unattend_xml": {
-                    "type": "string",
-                    "description": "This field contains a Sysprep unattend xml definition, as a string. The value must be base64 encoded.\n",
-                    "maxLength": 32000
-                  },
-                  "custom_key_values": {
-                    "$ref": "#/definitions/custom_generic_key_value_pair"
-                  }
-                },
-                "description": "If this field is set, the guest will be customized using Sysprep. Either unattend_xml or custom_key_values should be provided. If custom_key_values are provided then the unattended answer file will be generated using these key-value pairs.\n"
-              }
+            "ip_config": {
+              "$ref": "#/definitions/ip_config"
             },
-            "description": "VM guests may be customized at boot time using one of several different methods. Currently, cloud-init w/ ConfigDriveV2 (for Linux VMs) and Sysprep (for Windows VMs) are supported. Only ONE OF sysprep or cloud_init should be provided. Note that guest customization can currently only be set during VM creation. Attempting to change it after creation will result in an error. Additional properties can be specified. For example - in the context of VM template creation if \"override_script\" is set to \"True\" then the deployer can upload their own custom script.\n"
-          },
-          "vm_power_state_mechanism": {
-            "title": "VM Power State Mechanism",
-            "type": "object",
-            "properties": {
-              "guest_transition_config": {
-                "$ref": "#/definitions/vm_guest_power_state_transition_config"
-              },
-              "mechanism": {
-                "x-ntnx-enum": [
-                  "ACPI",
-                  "GUEST",
-                  "HARD"
-                ],
-                "type": "string",
-                "description": "Power state mechanism (ACPI/GUEST/HARD)."
-              }
+            "vlan_id": {
+              "type": "integer",
+              "format": "int32"
             },
-            "description": "Indicates the mechanism guiding the VM power state transition. Currently used for the transition to \"OFF\" state.\n"
+            "network_function_chain_reference": {
+              "$ref": "#/definitions/network_function_chain_reference"
+            }
           },
-          "vm_disk": {
-            "title": "VirtualMachine Disk (VM Disk)",
-            "type": "object",
-            "properties": {
-              "volume_group_reference": {
-                "$ref": "#/definitions/reference"
-              },
-              "device_properties": {
-                "type": "object",
-                "properties": {
-                  "disk_address": {
-                    "$ref": "#/definitions/disk_address"
-                  },
-                  "device_type": {
-                    "default": "DISK",
-                    "x-ntnx-enum": [
-                      "DISK",
-                      "CDROM",
-                      "VOLUME_GROUP"
-                    ],
-                    "type": "string"
-                  }
-                }
-              },
-              "uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "description": "The device ID which is used to uniquely identify this particular disk.\n",
-                "format": "UUID"
-              },
-              "data_source_reference": {
-                "$ref": "#/definitions/reference"
-              },
-              "disk_size_mib": {
-                "minimum": 1,
-                "type": "integer",
-                "description": "Size of the disk in MiB. Must match the size specified in 'disk_size_bytes' - rounded up to the nearest MiB -  when that field is present.\n",
-                "format": "int32"
-              },
-              "disk_size_bytes": {
-                "minimum": 1,
-                "type": "integer",
-                "description": "Size of the disk in Bytes.",
-                "format": "int64"
-              }
+          "description": "Subnet creation/modification spec."
+        },
+        "project_reference": {
+          "title": "Reference to a project",
+          "required": [
+            "kind",
+            "uuid"
+          ],
+          "type": "object",
+          "properties": {
+            "kind": {
+              "default": "project",
+              "readOnly": false,
+              "type": "string",
+              "description": "The kind name",
+              "x-ntnx-enum": [
+                "project"
+              ]
             },
-            "description": "VirtualMachine Disk (VM Disk)."
-          },
-          "vm_vnuma_config": {
-            "title": "VM vNUMA configuration",
-            "type": "object",
-            "properties": {
-              "num_vnuma_nodes": {
-                "type": "integer",
-                "description": "Number of vNUMA nodes. 0 means vNUMA is disabled.",
-                "format": "int64"
-              }
-            },
-            "description": "Indicates how VM vNUMA should be configured\n"
-          },
-          "vm_nic": {
-            "title": "Virtual Machine NIC",
-            "type": "object",
-            "properties": {
-              "nic_type": {
-                "x-ntnx-enum": [
-                  "NORMAL_NIC",
-                  "DIRECT_NIC",
-                  "NETWORK_FUNCTION_NIC"
-                ],
-                "type": "string",
-                "description": "The type of this NIC. Defaults to NORMAL_NIC."
-              },
-              "uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "description": "The NIC's UUID, which is used to uniquely identify this particular NIC. This UUID may be used to refer to the NIC outside the context of the particular VM it is attached to.\n",
-                "format": "UUID"
-              },
-              "ip_endpoint_list": {
-                "items": {
-                  "$ref": "#/definitions/ip_address"
-                },
-                "type": "array",
-                "description": "IP endpoints for the adapter. Currently, IPv4 addresses are\nsupported.\n"
-              },
-              "network_function_chain_reference": {
-                "$ref": "#/definitions/network_function_chain_reference"
-              },
-              "network_function_nic_type": {
-                "x-ntnx-enum": [
-                  "INGRESS",
-                  "EGRESS",
-                  "TAP"
-                ],
-                "type": "string",
-                "description": "The type of this Network function NIC. Defaults to INGRESS.\n"
-              },
-              "mac_address": {
-                "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$",
-                "type": "string",
-                "description": "The MAC address for the adapter."
-              },
-              "subnet_reference": {
-                "$ref": "#/definitions/subnet_reference"
-              },
-              "model": {
-                "x-ntnx-enum": [
-                  "VIRTIO",
-                  "E1000"
-                ],
-                "type": "string",
-                "description": "The model of this NIC."
-              }
-            },
-            "description": "Virtual Machine NIC."
-          },
-          "guest_tools_spec": {
-            "title": "Guest Tools information",
-            "type": "object",
-            "properties": {
-              "nutanix_guest_tools": {
-                "description": "Nutanix Guest Tools information",
-                "$ref": "#/definitions/nutanix_guest_tools_spec"
-              }
-            },
-            "description": "Information regarding guest tools."
-          },
-          "reference": {
-            "title": "Reference",
-            "required": [
-              "kind",
-              "uuid"
-            ],
-            "type": "object",
-            "properties": {
-              "kind": {
-                "type": "string"
-              },
-              "uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "format": "UUID"
-              },
-              "name": {
-                "readOnly": false,
-                "type": "string"
-              }
-            },
-            "description": "Reference to a kind"
-          },
-          "software_type": {
-            "x-ntnx-enum": [
-              "NOS",
-              "NCC",
-              "PRISM_CENTRAL"
-            ],
-            "type": "string",
-            "description": "Software type",
-            "title": "Software type"
-          },
-          "citrix_connector_config_details": {
-            "title": "Citrix Connector details.",
-            "type": "object",
-            "properties": {
-              "citrix_vm_reference_list": {
-                "items": {
-                  "$ref": "#/definitions/vm_reference"
-                },
-                "type": "array",
-                "description": "Reference to the list of vm ids registered with citrix cloud."
-              },
-              "client_secret": {
-                "type": "string",
-                "description": "The client secret for the Citrix Cloud."
-              },
-              "customer_id": {
-                "type": "string",
-                "description": "The customer id registered with Citrix Cloud."
-              },
-              "client_id": {
-                "type": "string",
-                "description": "The client id for the Citrix Cloud."
-              },
-              "resource_location": {
-                "$ref": "#/definitions/citrix_resource_location"
-              }
-            },
-            "description": "Citrix Connector details."
-          },
-          "address": {
-            "description": "Host address.",
-            "title": "Host address.",
-            "type": "object",
-            "properties": {
-              "ip": {
-                "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
-                "type": "string",
-                "description": "IPV4 address."
-              },
-              "ipv6": {
-                "pattern": "(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))",
-                "type": "string",
-                "description": "IPV6 address."
-              },
-              "port": {
-                "type": "integer",
-                "description": "Port Number",
-                "format": "int32"
-              },
-              "fqdn": {
-                "type": "string",
-                "description": "Fully qualified domain name."
-              }
-            },
-            "x-ntnx-one-of": [
-              {
-                "required": [
-                  "ip"
-                ]
-              },
-              {
-                "required": [
-                  "ipv6"
-                ]
-              },
-              {
-                "required": [
-                  "fqdn"
-                ]
-              }
-            ]
-          },
-          "citrix_connector_config_details_spec": {
-            "title": "Citrix Connector details.",
-            "type": "object",
-            "properties": {
-              "citrix_vm_reference_list": {
-                "items": {
-                  "$ref": "#/definitions/vm_reference"
-                },
-                "type": "array",
-                "description": "Reference to the list of vm ids registered with citrix cloud."
-              },
-              "client_secret": {
-                "type": "string",
-                "description": "The client secret for the Citrix Cloud."
-              },
-              "customer_id": {
-                "type": "string",
-                "description": "The customer id registered with Citrix Cloud.",
-                "maxLength": 200
-              },
-              "client_id": {
-                "type": "string",
-                "description": "The client id for the Citrix Cloud.",
-                "maxLength": 200
-              },
-              "resource_location": {
-                "$ref": "#/definitions/citrix_resource_location_spec"
-              }
-            },
-            "description": "Citrix Connector details."
-          },
-          "vm_boot_device": {
-            "description": "Indicates which device a VM should boot from. One of disk_address or mac_address should be provided.\n",
-            "title": "VM Boot device",
-            "type": "object",
-            "properties": {
-              "disk_address": {
-                "description": "Address of disk to boot from.",
-                "$ref": "#/definitions/disk_address"
-              },
-              "mac_address": {
-                "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$",
-                "type": "string",
-                "description": "MAC address of nic to boot from."
-              }
-            },
-            "x-ntnx-one-of": [
-              {
-                "required": [
-                  "disk_address"
-                ]
-              },
-              {
-                "required": [
-                  "mac_address"
-                ]
-              }
-            ]
-          },
-          "custom_generic_key_value_pair": {
-            "additionalProperties": {
+            "name": {
+              "readOnly": false,
               "type": "string"
             },
-            "type": "object",
-            "description": "Generic key value pair used for custom attributes",
-            "title": "Generic key value pair"
+            "uuid": {
+              "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+              "type": "string",
+              "format": "UUID"
+            }
           },
-          "vm_guest_power_state_transition_config": {
-            "title": "Power State Transition Config",
-            "type": "object",
-            "properties": {
-              "should_fail_on_script_failure": {
-                "type": "boolean",
-                "description": "Indicates whether to abort ngt shutdown/reboot if script fails."
-              },
-              "enable_script_exec": {
-                "type": "boolean",
-                "description": "Indicates whether to execute set script before ngt shutdown/reboot."
-              }
+          "description": "The reference to a project"
+        },
+        "user_reference": {
+          "title": "Reference to a user",
+          "required": [
+            "kind",
+            "uuid"
+          ],
+          "type": "object",
+          "properties": {
+            "kind": {
+              "default": "user",
+              "readOnly": false,
+              "type": "string",
+              "description": "The kind name",
+              "x-ntnx-enum": [
+                "user"
+              ]
             },
-            "description": "Extra configs related to power state transition."
-          },
-          "disk_address": {
-            "title": "Disk Address",
-            "required": [
-              "adapter_type",
-              "device_index"
-            ],
-            "type": "object",
-            "properties": {
-              "device_index": {
-                "type": "integer"
-              },
-              "adapter_type": {
-                "x-ntnx-enum": [
-                  "SCSI",
-                  "IDE",
-                  "PCI",
-                  "SATA",
-                  "SPAPR"
-                ],
-                "type": "string"
-              }
+            "name": {
+              "readOnly": false,
+              "type": "string"
             },
-            "description": "Disk Address."
+            "uuid": {
+              "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+              "type": "string",
+              "format": "UUID"
+            }
           },
-          "ip_address": {
-            "title": "IP Address",
-            "type": "object",
-            "properties": {
-              "ip": {
+          "description": "The reference to a user"
+        },
+        "ip_config": {
+          "title": "IP config",
+          "type": "object",
+          "properties": {
+            "pool_list": {
+              "items": {
+                "$ref": "#/definitions/ip_pool"
+              },
+              "type": "array"
+            },
+            "default_gateway_ip": {
+              "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+              "type": "string",
+              "description": "Default gateway IP address."
+            },
+            "prefix_length": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "subnet_ip": {
+              "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+              "type": "string",
+              "description": "Subnet IP address."
+            },
+            "dhcp_options": {
+              "$ref": "#/definitions/dhcp_options"
+            },
+            "dhcp_server_address": {
+              "$ref": "#/definitions/address"
+            }
+          },
+          "description": "IP config."
+        },
+        "network_function_chain_reference": {
+          "title": "Reference to a network_function_chain",
+          "required": [
+            "kind",
+            "uuid"
+          ],
+          "type": "object",
+          "properties": {
+            "kind": {
+              "default": "network_function_chain",
+              "readOnly": false,
+              "type": "string",
+              "description": "The kind name",
+              "x-ntnx-enum": [
+                "network_function_chain"
+              ]
+            },
+            "name": {
+              "readOnly": false,
+              "type": "string"
+            },
+            "uuid": {
+              "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+              "type": "string",
+              "format": "UUID"
+            }
+          },
+          "description": "The reference to a network_function_chain"
+        },
+        "ip_pool": {
+          "title": "IP pool",
+          "type": "object",
+          "properties": {
+            "range": {
+              "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)[ ](?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+              "type": "string",
+              "description": "Range of IPs (example: 10.0.0.9 10.0.0.19).\n"
+            }
+          },
+          "description": "IP pool."
+        },
+        "dhcp_options": {
+          "title": "DHCP options",
+          "type": "object",
+          "properties": {
+            "domain_name_server_list": {
+              "items": {
                 "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
-                "type": "string",
-                "description": "Address string."
-              },
-              "type": {
-                "x-ntnx-enum": [
-                  "ASSIGNED",
-                  "LEARNED"
-                ],
-                "type": "string",
-                "description": "Address type. It can only be \"ASSIGNED\" in the spec. If no type is\nspecified in the spec, the default type is set to \"ASSIGNED\".\n"
-              }
-            },
-            "description": "An IP address."
-          },
-          "network_function_chain_reference": {
-            "title": "Reference to a network_function_chain",
-            "required": [
-              "kind",
-              "uuid"
-            ],
-            "type": "object",
-            "properties": {
-              "kind": {
-                "default": "network_function_chain",
-                "readOnly": false,
-                "type": "string",
-                "description": "The kind name",
-                "x-ntnx-enum": [
-                  "network_function_chain"
-                ]
-              },
-              "name": {
-                "readOnly": false,
                 "type": "string"
               },
-              "uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "format": "UUID"
-              }
+              "type": "array"
             },
-            "description": "The reference to a network_function_chain"
-          },
-          "subnet_reference": {
-            "title": "Reference to a subnet",
-            "required": [
-              "kind",
-              "uuid"
-            ],
-            "type": "object",
-            "properties": {
-              "kind": {
-                "default": "subnet",
-                "readOnly": false,
-                "type": "string",
-                "description": "The kind name",
-                "x-ntnx-enum": [
-                  "subnet"
-                ]
-              },
-              "name": {
-                "readOnly": false,
+            "boot_file_name": {
+              "type": "string"
+            },
+            "domain_search_list": {
+              "items": {
                 "type": "string"
               },
-              "uuid": {
-                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                "type": "string",
-                "format": "UUID"
-              }
+              "type": "array"
             },
-            "description": "The reference to a subnet"
+            "domain_name": {
+              "type": "string"
+            },
+            "tftp_server_name": {
+              "type": "string"
+            }
           },
-          "nutanix_guest_tools_spec": {
-            "title": "Nutanix Guest Tools information",
-            "type": "object",
-            "properties": {
-              "iso_mount_state": {
-                "x-ntnx-enum": [
-                  "MOUNTED",
-                  "UNMOUNTED"
-                ],
-                "type": "string",
-                "description": "Desired mount state of Nutanix Guest Tools ISO.\n"
-              },
-              "state": {
-                "x-ntnx-enum": [
-                  "ENABLED",
-                  "DISABLED"
-                ],
-                "type": "string",
-                "description": "Nutanix Guest Tools is enabled or not."
-              },
-              "enabled_capability_list": {
-                "items": {
-                  "x-ntnx-enum": [
-                    "SELF_SERVICE_RESTORE",
-                    "VSS_SNAPSHOT"
-                  ],
-                  "type": "string"
-                },
-                "type": "array",
-                "description": "Application names that are enabled."
-              }
+          "description": "Spec for defining DHCP options."
+        },
+        "address": {
+          "description": "Host address.",
+          "title": "Host address.",
+          "type": "object",
+          "properties": {
+            "ip": {
+              "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+              "type": "string",
+              "description": "IPV4 address."
             },
-            "description": "Information regarding Nutanix Guest Tools."
+            "ipv6": {
+              "pattern": "(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))",
+              "type": "string",
+              "description": "IPV6 address."
+            },
+            "port": {
+              "type": "integer",
+              "description": "Port Number",
+              "format": "int32"
+            },
+            "fqdn": {
+              "type": "string",
+              "description": "Fully qualified domain name."
+            }
           },
-          "citrix_resource_location": {
-            "title": "Citrix Resource Location.",
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "description": "The resource location id."
-              },
-              "name": {
-                "type": "string",
-                "description": "The resource location name."
-              }
+          "x-ntnx-one-of": [
+            {
+              "required": [
+                "ip"
+              ]
             },
-            "description": "Resource Location on Citrix Cloud."
-          },
-          "citrix_resource_location_spec": {
-            "title": "Citrix Resource Location.",
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "description": "The resource location id.",
-                "maxLength": 200
-              },
-              "name": {
-                "type": "string",
-                "description": "The resource location name.",
-                "maxLength": 200
-              }
+            {
+              "required": [
+                "ipv6"
+              ]
             },
-            "description": "Resource Location on Citrix Cloud."
-          }
-    },
-    "security": [
-        {
-            "basicAuth": []
+            {
+              "required": [
+                "fqdn"
+              ]
+            }
+          ]
         }
-    ],
-    "swagger": "2.0"
+  },
+  "security": [
+      {
+          "basicAuth": []
+      }
+  ],
+  "swagger": "2.0"
 }
